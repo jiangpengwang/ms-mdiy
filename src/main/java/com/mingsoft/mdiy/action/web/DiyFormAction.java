@@ -49,7 +49,7 @@ public class DiyFormAction extends BaseAction{
 			String temp =this.decryptByAES(request, idBase64);
 			//在进行自定义表单提交数据时是否需要提交验证码，默认是需要验证码
 			//如果isCode为空获取，isCode=true，则进行验证码的验证
-			if (!this.checkRandCode(request)) {
+			if (this.checkRandCode(request)) {
 				this.outJson(response, null,false);
 				return;
 			}
