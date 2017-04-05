@@ -13,7 +13,7 @@
 					<td><input type="checkbox" name="cmId" value="${item.cmId}"/></td>
 					<td><a href="javascript:editContentModel('${item.cmId}')" data-toggle="tooltip"  data-original-title="编辑模型">${item.cmTipsName}</a></td>
 					<td>
-						<a href="${managerPath}/mdiy/contentModel/contentModelField/${item.cmId}/list.do" data-toggle="tooltip"  data-original-title="查看模型字段">
+						<a href="${managerPath}/mdiy/contentModel/contentModelField/${item.cmId}/list.do" target = "_self" data-toggle="tooltip"  data-original-title="查看模型字段">
 							${item.cmTableName?split("_")[1]}
 						</a>
 					</td>
