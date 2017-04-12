@@ -23,7 +23,7 @@
 					                    <a class="btn btn-xs tooltips deleteImg" data-toggle="tooltip" data-id="${search.searchId?c?default(0)}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash"></i>
 					                    </a>
-					                    <a href="${managerPath}/mdiy/search/${search.searchId}/searchCode.do">
+					                    <a href="${managerPath}/mdiy/search/${search.searchId}/searchCode.do" target="_self">
 					                    查看搜索代码
 					                    </a>			                    
 									</td>
