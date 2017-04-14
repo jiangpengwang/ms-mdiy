@@ -48,9 +48,6 @@
 	<properties>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
-		<ms.proxy.version>1.0.0</ms.proxy.version>
-		<ms.parser.version>1.0.0</ms.parser.version>
 		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
 	</properties>
 	<dependencies>
