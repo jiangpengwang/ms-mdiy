@@ -17,6 +17,7 @@ import com.mingsoft.mdiy.biz.IModelTemplateBiz;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
+@Deprecated
 @Service("modelTemplateBiz")
 public class ModelTemplateBizImpl extends BaseBizImpl implements IModelTemplateBiz{
 	
