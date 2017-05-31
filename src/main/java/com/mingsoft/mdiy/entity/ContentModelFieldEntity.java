@@ -192,7 +192,7 @@ public class ContentModelFieldEntity extends BaseEntity {
 		} else if (this.getFieldType() == ContentModelFieldEnum.HTML.toInt()) {
 			return TableCloumnEnum.TEXT.toString();
 		} else {
-			return TableCloumnEnum.VARCHAR.toString() + "(225)";
+			return TableCloumnEnum.VARCHAR.toString() + "(1000)";
 		}
 
 	}
