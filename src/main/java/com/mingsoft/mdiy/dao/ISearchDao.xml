@@ -97,7 +97,10 @@
 	<select id="query" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.SearchEntity">
 		select
 		<include refid="column_list" />
-		from mdiy_search where SEARCH_WEBSITEID=#{searchWebsiteId} and SEARCH_TYPE = #{searchType} order by search_id desc 
+		from mdiy_search 
+		<if test="searchName != null and searchName != ''"> and SEARCH_NAME=#{searchName} </if>				
+		<if test="searchTemplets != null and searchTemplets != ''"> and SEARCH_TEMPLETS=#{searchTemplets} </if>				
+		<if test="searchType != null and searchType != ''"> and SEARCH_TYPE=#{searchType} </if>	
 	</select>
 	<!-- 查询搜索实体结束 -->
 

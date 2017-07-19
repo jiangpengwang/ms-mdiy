@@ -8,203 +8,234 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.basic.action.BaseAction;
-import com.mingsoft.basic.biz.IColumnBiz;
-import com.mingsoft.basic.constant.e.SessionConstEnum;
-import com.mingsoft.basic.entity.ColumnEntity;
-import com.mingsoft.basic.entity.ManagerSessionEntity;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import com.mingsoft.mdiy.biz.ISearchBiz;
+import com.mingsoft.mdiy.constant.e.SearchTypeEnum;
 import com.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import com.mingsoft.mdiy.entity.SearchEntity;
+import net.mingsoft.base.util.JSONArray;
+import net.mingsoft.base.util.JSONObject;
 import com.mingsoft.util.StringUtil;
-
+import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.base.filter.DateValueFilter;
+import com.mingsoft.base.filter.DoubleValueFilter;
+import com.mingsoft.basic.biz.IColumnBiz;
+import com.mingsoft.basic.entity.ColumnEntity;
+import com.mingsoft.basic.entity.ManagerSessionEntity;
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
-
+	
 /**
- * 
- * 
- * <p>
- * <b>铭飞CMS-铭飞内容管理系统</b>
- * </p>
- * 
- * <p>
- * Copyright: Copyright (c) 2014 - 2015
- * </p>
- * 
- * <p>
- * Company:景德镇铭飞科技有限公司
- * </p>
- * 
- * @author 姓名：张敏
- * 
- * @version 300-001-001
- * 
- *          <p>
- *          版权所有 铭飞科技
- *          </p>
- * 
- *          <p>
- *          Comments:搜索控制层，继承BasicAction
- *          </p>
- * 
- *          <p>
- *          Create Date:2014-7-14
- *          </p>
- *
- *          <p>
- *          Modification history:
- *          </p>
+ * 自定义搜索表管理控制层
+ * @author 伍晶晶
+ * @version 
+ * 版本号：100<br/>
+ * 创建日期：2017-7-19 9:43:06<br/>
+ * 历史修订：<br/>
  */
 @Controller
 @RequestMapping("/${managerPath}/mdiy/search")
-public class SearchAction extends BaseAction {
-
+public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
+	
 	/**
-	 * 字段业务层
-	 */
-	@Autowired
-	private IContentModelFieldBiz fieldBiz;
-
-	/**
-	 * 搜索业务层
-	 */
+	 * 注入自定义搜索表业务层
+	 */	
 	@Autowired
 	private ISearchBiz searchBiz;
 	
 	@Autowired
 	private IColumnBiz columnBiz;
-
+	
 	/**
-	 * 搜索列表路径
+	 * 字段业务层
 	 */
-	private final static String PAGE_URL = "/manager/mdiy/search/list.do";
-
+	@Autowired
+	private IContentModelFieldBiz fieldBiz;
+	
 	/**
-	 * 验证表单提交数据
-	 * 
-	 * @param search
-	 *            搜索
-	 * @param response
-	 * @return 返回提示信息
+	 * 返回主界面index
 	 */
-	private boolean validateForm(SearchEntity search, HttpServletResponse response) {
-		if (!StringUtil.checkLength(search.getSearchName(), 1, 30)) {
-			this.outJson(response, null, false, getResString("err.length", this.getResString("search.name"), "1", "30"));
-			return false;
-		}
-		if (!StringUtil.checkLength(search.getSearchTemplets(), 1, 30)) {
-			this.outJson(response, null, false,
-					getResString("err.length", this.getResString("search.template"), "1", "30"));
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * 保存搜索表单
-	 * 
-	 * @param search
-	 *            搜索实体
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            响应
-	 */
-	@RequestMapping("/save")
-	@ResponseBody
-	public void save(@ModelAttribute SearchEntity search, HttpServletRequest request, HttpServletResponse response) {
-		if (this.validateForm(search, response)) {
-			search.setSearchWebsiteId(BasicUtil.getAppId());
-			search.setSearchType(BasicUtil.getSession(SessionConstEnum.MODEL_NAME_SESSION).toString());
-			searchBiz.saveEntity(search);
-			this.outJson(response, null, true, String.valueOf(search.getSearchId()));
-		}
-	}
-
-	/**
-	 * 搜索列表
-	 * 
-	 * @param model
-	 * @param request
-	 *            请求
-	 */
-	@RequestMapping("/list")
-	public String list(@ModelAttribute SearchEntity search, ModelMap model, HttpServletRequest request) {
-		search.setSearchWebsiteId(BasicUtil.getAppId());
-		search.setSearchType(BasicUtil.getSession(SessionConstEnum.MODEL_NAME_SESSION).toString());
-		List<BaseEntity> searchList = searchBiz.query(search);
-		model.addAttribute("searchList", searchList);
-		return view("/mdiy/search/search_list");
-	}
-
-	/**
-	 * 删除搜索
-	 * 
-	 * @param roleId
-	 *            ID
-	 * @param response
-	 *            响应
-	 */
-	@RequestMapping("/{searchId}/delete")
-	@ResponseBody
-	public int delete(@PathVariable int searchId, HttpServletRequest request) {
-		int pageNo = 1;
-		if (searchId != 0) {
-			searchBiz.deleteEntity(searchId);
-			// 判断当前页码
-			this.getHistoryPageNoByCookie(request);
-		}
-		return pageNo;
-	}
-
-	/**
-	 * 更新搜索
-	 * 
-	 * @param request
-	 *            请求
-	 * @return 返回更新搜索页面
-	 */
-	@RequestMapping("/{searchId}/edit")
-	@ResponseBody
-	public void edit(@PathVariable int searchId, HttpServletRequest request, HttpServletResponse response) {
-		if (searchId == 0) {
-			this.outJson(response, false);
-		}
-		SearchEntity search = (SearchEntity) searchBiz.getEntity(searchId);
-		this.outJson(response, search);
-	}
-
-	/**
-	 * 保存搜索表单
-	 * 
-	 * @param search
-	 *            搜索实体
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            响应
-	 */
-	@RequestMapping("/update")
-	public void update(@ModelAttribute SearchEntity search, HttpServletRequest request, HttpServletResponse response) {
-		if (this.validateForm(search, response)) {
-			searchBiz.updateEntity(search);
-			this.outJson(response, null, true, null);
-		}
+	@RequestMapping("/index")
+	public String index(HttpServletResponse response,HttpServletRequest request,ModelMap model){
+		model.addAttribute("searchType",BasicUtil.resToMap("search_type"));
+		return view ("/mdiy/search/index");
 	}
 	
+	/**
+	 * 查询自定义搜索表列表
+	 * @param search 自定义搜索表实体
+	 * <i>search参数包含字段信息参考：</i><br/>
+	 * searchId 自增长ID<br/>
+	 * searchName 搜索名称<br/>
+	 * searchTemplets 搜索结果模版<br/>
+	 * searchWebsiteid 搜索管理的应用id<br/>
+	 * searchType 搜索类型<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>[<br/>
+	 * { <br/>
+	 * searchId: 自增长ID<br/>
+	 * searchName: 搜索名称<br/>
+	 * searchTemplets: 搜索结果模版<br/>
+	 * searchWebsiteid: 搜索管理的应用id<br/>
+	 * searchType: 搜索类型<br/>
+	 * }<br/>
+	 * ]</dd><br/>	 
+	 */
+	@RequestMapping("/list")
+	@ResponseBody
+	public void list(@ModelAttribute SearchEntity search,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
+		BasicUtil.startPage();
+		List searchList = searchBiz.query(search);
+		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(searchList,(int)BasicUtil.endPage(searchList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));
+	}
+	
+	/**
+	 * 返回编辑界面search_form
+	 */
+	@RequestMapping("/form")
+	public void form(@ModelAttribute SearchEntity search,HttpServletResponse response,HttpServletRequest request,ModelMap model){
+		if(search.getSearchId() <= 0){
+			this.outJson(response, false);
+			return;
+		}
+		BaseEntity searchEntity = searchBiz.getEntity(search.getSearchId());
+		this.outJson(response, searchEntity);
+	}
+	
+	/**
+	 * 获取自定义搜索表
+	 * @param search 自定义搜索表实体
+	 * <i>search参数包含字段信息参考：</i><br/>
+	 * searchId 自增长ID<br/>
+	 * searchName 搜索名称<br/>
+	 * searchTemplets 搜索结果模版<br/>
+	 * searchWebsiteid 搜索管理的应用id<br/>
+	 * searchType 搜索类型<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>{ <br/>
+	 * searchId: 自增长ID<br/>
+	 * searchName: 搜索名称<br/>
+	 * searchTemplets: 搜索结果模版<br/>
+	 * searchWebsiteid: 搜索管理的应用id<br/>
+	 * searchType: 搜索类型<br/>
+	 * }</dd><br/>
+	 */
+	@RequestMapping("/get")
+	@ResponseBody
+	public void get(@ModelAttribute SearchEntity search,HttpServletResponse response, HttpServletRequest request,ModelMap model){
+		if(search.getSearchId()<=0) {
+			this.outJson(response, null, false, getResString("err.error", this.getResString("search.id")));
+			return;
+		}
+		SearchEntity _search = (SearchEntity)searchBiz.getEntity(search.getSearchId());
+		this.outJson(response, _search);
+	}
+	
+	/**
+	 * 保存自定义搜索表实体
+	 * @param search 自定义搜索表实体
+	 * <i>search参数包含字段信息参考：</i><br/>
+	 * searchId 自增长ID<br/>
+	 * searchName 搜索名称<br/>
+	 * searchTemplets 搜索结果模版<br/>
+	 * searchWebsiteid 搜索管理的应用id<br/>
+	 * searchType 搜索类型<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>{ <br/>
+	 * searchId: 自增长ID<br/>
+	 * searchName: 搜索名称<br/>
+	 * searchTemplets: 搜索结果模版<br/>
+	 * searchWebsiteid: 搜索管理的应用id<br/>
+	 * searchType: 搜索类型<br/>
+	 * }</dd><br/>
+	 */
+	@PostMapping("/save")
+	@ResponseBody
+	public void save(@ModelAttribute SearchEntity search, HttpServletResponse response, HttpServletRequest request) {
+		//验证搜索类型的值是否合法			
+		if(StringUtil.isBlank(search.getSearchType())){
+			this.outJson(response, null,false,getResString("err.empty", this.getResString("search.type")));
+			return;			
+		}
+		if(!StringUtil.checkLength(search.getSearchType()+"", 1, 255)){
+			this.outJson(response, null, false, getResString("err.length", this.getResString("search.type"), "1", "255"));
+			return;			
+		}
+		search.setSearchWebsiteId(BasicUtil.getAppId());
+		searchBiz.saveEntity(search);
+		this.outJson(response, JSONObject.toJSONString(search));
+	}
+	
+	/**
+	 * @param search 自定义搜索表实体
+	 * <i>search参数包含字段信息参考：</i><br/>
+	 * searchId:多个searchId直接用逗号隔开,例如searchId=1,2,3,4
+	 * 批量删除自定义搜索表
+	 *            <dt><span class="strong">返回</span></dt><br/>
+	 *            <dd>{code:"错误编码",<br/>
+	 *            result:"true｜false",<br/>
+	 *            resultMsg:"错误信息"<br/>
+	 *            }</dd>
+	 */
+	@RequestMapping("/delete")
+	@ResponseBody
+	public void delete(@RequestBody List<SearchEntity> searchs,HttpServletResponse response, HttpServletRequest request) {
+		int[] ids = new int[searchs.size()];
+		for(int i = 0;i<searchs.size();i++){
+			ids[i] = searchs.get(i).getSearchId();
+		}
+		searchBiz.delete(ids);		
+		this.outJson(response, true);
+	}
+	
+	/** 
+	 * 更新自定义搜索表信息自定义搜索表
+	 * @param search 自定义搜索表实体
+	 * <i>search参数包含字段信息参考：</i><br/>
+	 * searchId 自增长ID<br/>
+	 * searchName 搜索名称<br/>
+	 * searchTemplets 搜索结果模版<br/>
+	 * searchWebsiteid 搜索管理的应用id<br/>
+	 * searchType 搜索类型<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>{ <br/>
+	 * searchId: 自增长ID<br/>
+	 * searchName: 搜索名称<br/>
+	 * searchTemplets: 搜索结果模版<br/>
+	 * searchWebsiteid: 搜索管理的应用id<br/>
+	 * searchType: 搜索类型<br/>
+	 * }</dd><br/>
+	 */
+	@PostMapping("/update")
+	@ResponseBody	 
+	public void update(@ModelAttribute SearchEntity search, HttpServletResponse response,
+			HttpServletRequest request) {
+		//验证搜索类型的值是否合法			
+		if(StringUtil.isBlank(search.getSearchType())){
+			this.outJson(response, null,false,getResString("err.empty", this.getResString("search.type")));
+			return;			
+		}
+		if(!StringUtil.checkLength(search.getSearchType()+"", 1, 255)){
+			this.outJson(response, null, false, getResString("err.length", this.getResString("search.type"), "1", "255"));
+			return;			
+		}
+		searchBiz.updateEntity(search);
+		this.outJson(response, JSONObject.toJSONString(search));
+	}
+		
 	/**
 	 * 查询栏目自定义的字段名
 	 * @param columnId 栏目ID
@@ -227,7 +258,6 @@ public class SearchAction extends BaseAction {
 		return model;
 	}
 	
-
 	/**
 	 * 生成搜索表单的html样式
 	 * 
@@ -307,4 +337,3 @@ public class SearchAction extends BaseAction {
 		return view("/mdiy/search/search_code");
 	}
 }
-
