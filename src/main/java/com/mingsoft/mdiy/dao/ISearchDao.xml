@@ -3,7 +3,7 @@
 <!-- 搜索管理持久化层XML配置继承ISearchDao -->
 <mapper namespace="com.mingsoft.mdiy.dao.ISearchDao">
 	<sql id="column_list">
-		SEARCH_ID,SEARCH_NAME,SEARCH_TEMPLETS,SEARCH_WEBSITEID
+		SEARCH_ID,SEARCH_NAME,SEARCH_TEMPLETS,SEARCH_WEBSITEID,SEARCH_TYPE
 	</sql>
 
 	<!-- 表搜索与实体属性对应，供返回实体信息时使用 -->
@@ -12,6 +12,7 @@
 		<result column="SEARCH_NAME" property="searchName" />
 		<result column="SEARCH_TEMPLETS" property="searchTemplets" />
 		<result column="SEARCH_WEBSITEID" property="searchWebsiteId" />
+		<result column="SEARCH_TYPE" property="searchType" />
 	</resultMap>
 
 	<!-- 查询所有搜索开始 -->
@@ -117,6 +118,7 @@
 		<set>
 			<if test="searchName != null">SEARCH_NAME=#{searchName},</if>
 			<if test="searchTemplets != null">SEARCH_TEMPLETS=#{searchTemplets},</if>
+			<if test="searchType != null">SEARCH_TYPE=#{searchType},</if>
 		</set>
 		where SEARCH_ID=#{searchId};
 	</update>

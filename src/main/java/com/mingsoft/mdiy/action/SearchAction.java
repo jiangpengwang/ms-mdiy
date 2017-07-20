@@ -175,7 +175,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 		}
 		search.setSearchWebsiteId(BasicUtil.getAppId());
 		searchBiz.saveEntity(search);
-		this.outJson(response, true);
+		this.outJson(response, JSONObject.toJSONString(search));
 	}
 	
 	/**
@@ -232,7 +232,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 			return;			
 		}
 		searchBiz.updateEntity(search);
-		this.outJson(response, true);
+		this.outJson(response, JSONObject.toJSONString(search));
 	}
 		
 	/**

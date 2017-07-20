@@ -42,7 +42,7 @@
 		</@ms.form>
      </@ms.modalBody>
      <@ms.modalButton>
-		<@ms.saveButton postForm="searchForm"/>  
+		<@ms.saveButton id= "saveOrUpdate"/>  
 	 </@ms.modalButton>
 </@ms.modal>
 		
@@ -77,8 +77,8 @@
 		        	width:'255',
 		        	align: 'center',
 		        	formatter:function(value,row,index) {
-		        		if(value =="cms"){
-		        			return "商城";
+		        		if(value == "mmall"){
+		        			return "商品";
 		        		}else{
 		        			return "文章";
 		        		}
@@ -99,16 +99,6 @@
 			}							
 		}
 	});
-	
-	//修改搜索器
-	$(".updateSearch").delegate("click",function(){
-		alert("a");
-		$("#searchForm").attr("action","${managerPath}/mdiy/search/update.do");
-		$("#searchForm input[name='searchId']").val($(this).attr("data-id"));
-		$("#searchForm input[name='searchName']").val($(this).text());
-		$("#searchForm select[name='searchTemplets']").val($(this).attr("searchTemplets"));
-		$("#searchModal").modal();
-	})
 	
 	//增加按钮
 	$("#setUp").click(function(){
@@ -135,6 +125,29 @@
 		}
 	})
 	
+	//保存或更新
+	$("#saveOrUpdate").click(function(){
+		$(this).text("正在保存...");
+		$(this).attr("disabled","true");
+		var searchEntity = $('#searchForm').serialize();
+		var url = $('#searchForm').attr("action");
+		$.ajax({
+			type: "post",
+			url:url,
+			data: searchEntity,
+			dataType:"json",
+			success:function(data){
+				if(data.searchId > 0){
+					<@ms.notify msg= "保存或更新成功" type= "success" />
+				}else {
+					<@ms.notify msg= "保存或更新失败" type= "fail" />
+				}
+				location.reload();
+			}
+		});
+	})
+	
+	//删除搜索记录
 	$("#deleteSearchBtn").click(function(){
 		var rows = $("#searchList").bootstrapTable("getSelections");
 		$(this).text("正在删除...");
@@ -155,6 +168,8 @@
 			}
 		})
 	});
+	
+	//表单赋值
 	function updateSearch(searchId){
 		$(this).request({url:"${managerPath}/mdiy/search/form.do?searchId="+searchId,func:function(search) {
 			if (search.searchId > 0) {
