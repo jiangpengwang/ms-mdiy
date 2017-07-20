@@ -69,7 +69,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletResponse response,HttpServletRequest request,ModelMap model){
-		model.addAttribute("searchType",BasicUtil.resToMap("search_type"));
+		model.addAttribute("searchType",BasicUtil.resToMap("com.mingsoft.mdiy.resources.search_type"));
 		return view ("/mdiy/search/index");
 	}
 	
