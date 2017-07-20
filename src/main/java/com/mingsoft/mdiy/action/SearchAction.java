@@ -23,7 +23,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import com.mingsoft.mdiy.biz.ISearchBiz;
-import com.mingsoft.mdiy.constant.e.SearchTypeEnum;
 import com.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import com.mingsoft.mdiy.entity.SearchEntity;
 import net.mingsoft.base.util.JSONArray;
