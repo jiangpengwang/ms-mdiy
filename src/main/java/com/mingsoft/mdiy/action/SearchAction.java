@@ -96,6 +96,10 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	@RequestMapping("/list")
 	@ResponseBody
 	public void list(@ModelAttribute SearchEntity search,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
+		if(search == null){
+			search = new SearchEntity();
+		}
+		search.setSearchWebsiteId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List searchList = searchBiz.query(search);
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(searchList,(int)BasicUtil.endPage(searchList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));

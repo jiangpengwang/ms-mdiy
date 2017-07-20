@@ -177,6 +177,7 @@
 				$("#searchForm input[name='searchId']").val(search.searchId);
 				$("#searchForm input[name='searchName']").val(search.searchName);
 				$("#searchForm select[name='searchTemplets']").val(search.searchTemplets);
+				$("#searchForm select[name='searchType']").val(search.searchType);
 				$("#searchModal").modal();
 			}					
 		}});
