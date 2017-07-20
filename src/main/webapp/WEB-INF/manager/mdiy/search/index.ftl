@@ -21,8 +21,8 @@
 		</table>
 	</@ms.panel>
 	
-	<@ms.modal  modalName="delSearch" title="授权数据删除" >
-		<@ms.modalBody>删除此授权
+	<@ms.modal  modalName="delSearch" title="搜索数据删除" >
+		<@ms.modalBody>删除选中记录
 			<@ms.modalButton>
 				<!--模态框按钮组-->
 				<@ms.button  value="确认删除？"  id="deleteSearchBtn"  />
@@ -32,7 +32,7 @@
 </@ms.html5>
 <@ms.modal modalName="searchModal" title="搜索设置">
 	 <@ms.modalBody>
-	 	<@ms.form isvalidation=true name="searchForm" action="${managerPath}/mdiy/search/save.do" redirect="${managerPath}/mdiy/search/list.do">
+	 	<@ms.form isvalidation=true name="searchForm" action="${managerPath}/mdiy/search/save.do" redirect="${managerPath}/mdiy/search/index.do">
 				<@ms.hidden name="searchId" value="0"/>
 				<@ms.text label="搜索名称"  id="searchName" title="搜索名称"  placeholder="请输入搜索名称" name="searchName" 
 					 validation={"minlength":"1","maxlength":"10","required":"true","data-bv-notempty-message":"必填项目", "data-bv-stringlength-message":"长度在1到10个字符以内!"} />

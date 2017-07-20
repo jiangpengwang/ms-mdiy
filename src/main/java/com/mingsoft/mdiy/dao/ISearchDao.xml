@@ -70,12 +70,19 @@
 	</insert>
 	<!-- 增加搜索实体结束 -->
 
-	<!-- 删除搜索实体开始 -->
+	<!--删除-->	
 	<delete id="deleteEntity" parameterType="int">
+		delete from mdiy_search  where SEARCH_ID=#{searchId}
+	</delete>	
+	
+	<!--批量删除-->	
+	<delete id="delete" >
 		delete from mdiy_search
-		where SEARCH_ID = #{searchId}
+		<where>
+			 SEARCH_ID  in <foreach collection="ids" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
 	</delete>
-	<!-- 删除搜索实体结束 -->
 
 	<!-- 查询搜索实体开始 -->
 	<select id="getEntity" resultMap="resultMap" parameterType="int">
