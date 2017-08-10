@@ -61,18 +61,6 @@ public class ContentModelBizImpl extends BaseBizImpl implements IContentModelBiz
 		// TODO Auto-generated method stub
 		return contentModelDao;
 	}
-	
-	/**
-	 * 根据管理员Id查找内容模型的总数
-	 * @param cmManagerId 管理员id
-	 * @return 记录总数
-	 */
-	@Override
-	public int getContentModelByManagerId(int cmManagerId) {
-		// TODO Auto-generated method stub
-		return contentModelDao.getContentModelByManagerId(cmManagerId);
-	}
-	
 	/**
 	 * 分页查询指定管理员的表单内容模型
 	 * @param entity 实体
@@ -98,43 +86,5 @@ public class ContentModelBizImpl extends BaseBizImpl implements IContentModelBiz
 		// TODO Auto-generated method stub
 		return contentModelDao.queryByManagerId(cmManagerId);
 	}
-	
-	/**
-	 * 根据模型Id把模型及其相关数据清除
-	 * @param cmId 模型ID
-	 */
-	@Override
-	public void deleteAllByCmId(int cmId) {
-		// TODO Auto-generated method stub
-		//获取模型实体
-		ContentModelEntity contentModel = (ContentModelEntity) this.contentModelDao.getEntity(cmId);
-		//删除模型对应的表
-		this.contentModelDao.dropTable(contentModel.getCmTableName());
-		//删除模型下的所有的字段
-		this.fieldDao.deleteEntityByFieldCmid(cmId);
-		//删除模型实体
-		this.contentModelDao.deleteEntity(cmId);
-	}
-
-	@Override
-	public void deleteAllByCmId(int[] cmId) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		for (int i=0;i<cmId.length;i++) {
-			//获取模型实体
-			ContentModelEntity contentModel = (ContentModelEntity) this.contentModelDao.getEntity(cmId[i]);
-			//删除模型对应的表
-			try {
-			this.contentModelDao.dropTable(contentModel.getCmTableName());
-			} catch(Exception e){}
-			//删除模型下的所有的字段
-			//this.fieldDao.deleteEntityByFieldCmid(cmId[i]);
-			//删除模型实体
-			this.contentModelDao.deleteEntity(cmId[i]);				
-		}
-	
-	}
-	
-	
 	
 }

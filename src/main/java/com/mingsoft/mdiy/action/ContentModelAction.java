@@ -9,20 +9,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.base.filter.DateValueFilter;
+import com.mingsoft.base.filter.DoubleValueFilter;
 import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
-import com.mingsoft.basic.constant.Const;
-import com.mingsoft.basic.constant.e.CookieConstEnum;
 import com.mingsoft.basic.constant.e.SessionConstEnum;
 import com.mingsoft.mdiy.entity.ContentModelEntity;
-import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
+
+import net.mingsoft.basic.bean.EUListBean;
+import net.mingsoft.basic.util.BasicUtil;
 /**
  * 
  * 
@@ -83,69 +86,109 @@ public class ContentModelAction extends BaseAction{
 	private IContentModelFieldBiz fieldBiz;
 	
 	/**
-	 * 表单列表
-	 * @return 返回表单列表页面
+	 * 返回主界面index
+	 */
+	@RequestMapping("/index")
+	public String index(HttpServletResponse response,HttpServletRequest request){
+		return view ("/mdiy/content_model/index");
+	}
+	/**
+	 * 返回编辑界面contentModel_form
+	 */
+	@RequestMapping("/form")
+	public String form(@ModelAttribute ContentModelEntity contentModel,HttpServletResponse response,HttpServletRequest request,ModelMap model){
+		if(contentModel.getCmId() > 0){
+			BaseEntity contentModelEntity = contentModelBiz.getEntity(contentModel.getCmId());			
+			model.addAttribute("contentModelEntity",contentModelEntity);
+		}
+		
+		return view ("/mdiy/content_model/form");
+	}
+	/**
+	 * 查询自定义模型表列表
+	 * @param contentModel 自定义模型表实体
+	 * <i>contentModel参数包含字段信息参考：</i><br/>
+	 * cmId 自增长id<br/>
+	 * cmTipsname 表单提示文字<br/>
+	 * cmTablename 表单名称<br/>
+	 * cmManagerid 表单管理员ID<br/>
+	 * cmModelId 模块编号<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>[<br/>
+	 * { <br/>
+	 * cmId: 自增长id<br/>
+	 * cmTipsname: 表单提示文字<br/>
+	 * cmTablename: 表单名称<br/>
+	 * cmManagerid: 表单管理员ID<br/>
+	 * cmModelId: 模块编号<br/>
+	 * }<br/>
+	 * ]</dd><br/>	 
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, ModelMap model, HttpServletResponse response) {
-		// 获取当前管理员实体
+	@ResponseBody
+	public void list(@ModelAttribute ContentModelEntity contentModel,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
+		BasicUtil.startPage();
+		// 获取管理实体
 		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
-		//获取当前管理员Id
-		int managerId = managerSession.getManagerId();
-		PageUtil page = new PageUtil(1000);
-		List<BaseEntity> listContentModel = contentModelBiz.queryPageByManagerId(page, "CM_ID", false,managerId);
-		model.addAttribute("listContentModel", listContentModel);
-		model.addAttribute("page", page);
-		return view("/mdiy/content_model/content_model_list");
+		contentModel.setCmManagerId(managerSession.getManagerId());
+		List contentModelList = contentModelBiz.query(contentModel);
+		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(contentModelList,(int)BasicUtil.endPage(contentModelList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));
 	}
-	
 	/**
-	 * 删除表单类型
-	 * @param cmId 表单ID
-	 * @param request 请求
-	 * @param response 响应
+	 * 获取自定义模型表
+	 * @param contentModel 自定义模型表实体
+	 * <i>contentModel参数包含字段信息参考：</i><br/>
+	 * cmId 自增长id<br/>
+	 * cmTipsname 表单提示文字<br/>
+	 * cmTablename 表单名称<br/>
+	 * cmManagerid 表单管理员ID<br/>
+	 * cmModelId 模块编号<br/>
+	 * <dt><span class="strong">返回</span></dt><br/>
+	 * <dd>{ <br/>
+	 * cmId: 自增长id<br/>
+	 * cmTipsname: 表单提示文字<br/>
+	 * cmTablename: 表单名称<br/>
+	 * cmManagerid: 表单管理员ID<br/>
+	 * cmModelId: 模块编号<br/>
+	 * }</dd><br/>
+	 */
+	@RequestMapping("/get")
+	@ResponseBody
+	public void get(@ModelAttribute ContentModelEntity contentModel,HttpServletResponse response, HttpServletRequest request,ModelMap model){
+		if(contentModel.getCmId()<=0) {
+			this.outJson(response, null, false, getResString("err.error", this.getResString("cm.id")));
+			return;
+		}
+		ContentModelEntity _contentModel = (ContentModelEntity)contentModelBiz.getEntity(contentModel.getCmId());
+		this.outJson(response, JSONObject.toJSON(_contentModel));
+	}
+	/**
+	 * @param contentModel 自定义模型表实体
+	 * <i>contentModel参数包含字段信息参考：</i><br/>
+	 * cmId:多个cmId直接用逗号隔开,例如cmId=1,2,3,4
+	 * 批量删除自定义模型表
+	 *            <dt><span class="strong">返回</span></dt><br/>
+	 *            <dd>{code:"错误编码",<br/>
+	 *            result:"true｜false",<br/>
+	 *            resultMsg:"错误信息"<br/>
+	 *            }</dd>
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
-	public void delete(HttpServletRequest request,HttpServletResponse response) {
-		String cmIds = request.getParameter("cmId");
-		if (!StringUtil.isBlank(cmIds) && StringUtil.isIntegers(cmIds.split(","))) {
-			Integer[] ids = StringUtil.stringsToIntegers(cmIds.split(","));
-			for (int i=0;i<ids.length;i++) {
-				ContentModelEntity cme =  (ContentModelEntity)contentModelBiz.getEntity(ids[i]);
-				contentModelBiz.dropTable(cme.getCmTableName());
-				contentModelBiz.deleteEntity(ids[i]);
+	public void delete(@RequestBody List<ContentModelEntity> contentModels,HttpServletResponse response, HttpServletRequest request) {
+		for(int i = 0;i<contentModels.size();i++){
+			if(contentModels.size()>0){
+				if(contentModels.get(i) != null){
+					ContentModelEntity cme =  (ContentModelEntity)contentModelBiz.getEntity(contentModels.get(i).getCmId());
+					if(cme!=null){
+						contentModelBiz.dropTable(cme.getCmTableName());
+					}
+					contentModelBiz.deleteEntity(contentModels.get(i).getCmId());
+				}
 			}
-			this.outJson(response, true); 
 		}
+		this.outJson(response, true);
 	}
-	
-	/**
-	 * 增加表单 
-	 * @param request 请求
-	 * @return 增加表单页面
-	 */
-	@RequestMapping("/add")
-	public String add(ModelMap model) {
-		model.addAttribute("contentModel",new ContentModelEntity());
-		return view("/mdiy/content_model/content_model");
-	}
-	
-	/**
-	 * 编辑表单
-	 * @param cmId 表单ID
-	 * @return 编辑表单页面
-	 */
-	@RequestMapping("/{cmId}/edit")
-	@ResponseBody
-	public void edit(@PathVariable int cmId, HttpServletResponse response) {
-		//获取表单实体
-		ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz.getEntity(cmId);
-		this.outJson(response, JSONObject.toJSONString(contentModel));
-	}
-	
-	
-	
 	/**
 	 * 保存内容模型实体
 	 * @param contentModel
@@ -229,19 +272,5 @@ public class ContentModelAction extends BaseAction{
 			return false;
 		}
 		
-	}
-	
-	/**
-	 * 根据管理员id查找内容模型实体
-	 * @param request 请求
-	 * @return 内容模型列表
-	 */
-	@RequestMapping("/queryByManagerId")
-	public void queryByManagerId(HttpServletRequest request, HttpServletResponse response) {
-		//获取当前管理员信息
-		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
-		//获取列表
-		List<BaseEntity> listCm = contentModelBiz.queryByManagerId(managerSession.getManagerId());
-		this.outJson(response, listCm);
 	}
 }

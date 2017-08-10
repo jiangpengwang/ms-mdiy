@@ -52,13 +52,6 @@ public interface IContentModelBiz extends IBaseBiz{
 	public ContentModelEntity getContentModelByTableName(String cmTableName);
 	
 	/**
-	 * 根据管理员Id查找内容模型的总数
-	 * @param cmManagerId 管理员id
-	 * @return 记录总数
-	 */
-	public int getContentModelByManagerId(int cmManagerId);
-	
-	/**
 	 * 分页查询指定管理员的表单内容模型
 	 * @param entity 实体
 	 * @param page Map对象
@@ -75,15 +68,4 @@ public interface IContentModelBiz extends IBaseBiz{
 	 */
 	public List<BaseEntity> queryByManagerId(int cmManagerId);
 	
-	/**
-	 * 根据模型ID把模型和相关数据全部删除
-	 * @param cmId
-	 */
-	public void deleteAllByCmId(int cmId);
-	
-	/**
-	 * 根据模型ID把模型和相关数据全部删除
-	 * @param cmId集合
-	 */
-	public void deleteAllByCmId(int[] cmId);
 }

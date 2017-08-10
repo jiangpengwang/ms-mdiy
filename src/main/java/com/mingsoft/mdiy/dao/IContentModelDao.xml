@@ -133,4 +133,27 @@
 		where CM_MANAGERID = #{cmManagerId}
 	</select>
 	<!-- 查询所有内容模型实体信息开始 -->
+	
+	<!--条件查询-->	
+	<select id="query" resultMap="resultMap">
+		select * from mdiy_content_model  
+		<where>
+				<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPSNAME=#{cmTipsName} </if>				
+				<if test="cmTableName != null and cmTableName != ''"> and CM_TABLENAME=#{cmTableName} </if>				
+				<if test="cmManagerId &gt; 0"> and CM_MANAGERID=#{cmManagerId} </if>				
+				<if test="cmModelId &gt; 0"> and CM_MODEL_ID=#{cmModelId} </if>				
+		</where>		
+	</select>
+	
+	<!--根据实体获取-->
+	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
+		select * from mdiy_content_model 
+		<where>
+			<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPSNAME=#{cmTipsName} </if>				
+			<if test="cmTableName != null and cmTableName != ''"> and CM_TABLENAME=#{cmTableName} </if>				
+			<if test="cmManagerId &gt; 0"> and CM_MANAGERID=#{cmManagerId} </if>				
+			<if test="cmModelId &gt; 0"> and CM_MODEL_ID=#{cmModelId} </if>				
+		</where>
+		limit 0,1
+	</select>	
 </mapper>
