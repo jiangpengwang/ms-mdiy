@@ -51,5 +51,11 @@ public interface IContentModelBiz extends IBaseBiz{
 	 */
 	public ContentModelEntity getContentModelByTableName(String cmTableName);
 	
+	/**
+	 * 根据管理员id查找内容模型实体
+	 * @param cmManagerId
+	 * @return 表单内容模型
+	 */
+	public List<BaseEntity> queryByManagerId(int cmManagerId);
 	
 }

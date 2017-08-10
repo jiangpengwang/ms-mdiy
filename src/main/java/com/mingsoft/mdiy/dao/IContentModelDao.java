@@ -50,4 +50,12 @@ public interface IContentModelDao extends IBaseDao{
 	 */
 	public BaseEntity getContentModelByTableName(String cmTableName);
 	
+	
+	/**
+	 * 根据管理员id查找内容模型实体
+	 * @param cmManagerId 管理员id
+	 * @return 内容模型列表集合
+	 */
+	public List<BaseEntity> queryByManagerId(int cmManagerId);
+	
 }

@@ -62,4 +62,15 @@ public class ContentModelBizImpl extends BaseBizImpl implements IContentModelBiz
 		return contentModelDao;
 	}
 	
+	/**
+	 * 根据管理员id查找内容模型实体
+	 * @param cmManagerId
+	 * @return
+	 */
+	@Override
+	public List<BaseEntity> queryByManagerId(int cmManagerId) {
+		// TODO Auto-generated method stub
+		return contentModelDao.queryByManagerId(cmManagerId);
+	}
+	
 }
