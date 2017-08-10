@@ -230,4 +230,18 @@ public class ContentModelAction extends BaseAction{
 		}
 		
 	}
+	
+	/**
+	 * 根据管理员id查找内容模型实体
+	 * @param request 请求
+	 * @return 内容模型列表
+	 */
+	@RequestMapping("/queryByManagerId")
+	public void queryByManagerId(HttpServletRequest request, HttpServletResponse response) {
+		//获取当前管理员信息
+		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
+		//获取列表
+		List<BaseEntity> listCm = contentModelBiz.queryByManagerId(managerSession.getManagerId());
+		this.outJson(response, listCm);
+	}
 }
