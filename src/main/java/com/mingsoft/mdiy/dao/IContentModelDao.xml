@@ -54,21 +54,6 @@
 	</select>
 	<!-- 表单列表分页查询结束 -->
 	
-	<!-- 根据管理员id进行表单列表分页查询开始 -->
-	<select id="queryPageByManagerId" resultMap="resultMap" parameterType="int">
-		select * from mdiy_content_model where CM_MANAGERID =#{cmManagerId}
-		<if test="orderBy != null">
-			order by ${orderBy}
-		</if>
-		<if test="order == true">
-			asc
-		</if>
-		<if test="order == false">
-			desc
-		</if>
-		    limit ${pageNo*pageSize},#{pageSize}
-	</select>
-	<!-- 表单列表分页查询结束 -->
 	
 	<!-- 新增表单内容模型开始 -->
 	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
@@ -126,13 +111,6 @@
 	</select>
 	<!-- 查询所有内容模型实体信息结束-->
 	
-	<!-- 根据管理员Id内容模型实体信息开始 -->
-	<select id="queryByManagerId" resultMap="resultMap">
-		select <include refid="column_list"/>
-		from mdiy_content_model
-		where CM_MANAGERID = #{cmManagerId}
-	</select>
-	<!-- 查询所有内容模型实体信息开始 -->
 	
 	<!--条件查询-->	
 	<select id="query" resultMap="resultMap">

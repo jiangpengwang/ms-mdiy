@@ -61,30 +61,5 @@ public class ContentModelBizImpl extends BaseBizImpl implements IContentModelBiz
 		// TODO Auto-generated method stub
 		return contentModelDao;
 	}
-	/**
-	 * 分页查询指定管理员的表单内容模型
-	 * @param entity 实体
-	 * @param page Map对象
-	 * @param order 排序方式,true:asc;fales:desc
-	 * @param cmManagerId 管理员id
-	 * @return
-	 */
-	@Override
-	public List<BaseEntity> queryPageByManagerId(PageUtil page,
-			String orderBy, boolean order, int cmManagerId) {
-		// TODO Auto-generated method stub
-		return contentModelDao.queryPageByManagerId(page.getPageNo(), page.getPageSize(), orderBy, order, cmManagerId);
-	}
-	
-	/**
-	 * 根据管理员id查找内容模型实体
-	 * @param cmManagerId
-	 * @return
-	 */
-	@Override
-	public List<BaseEntity> queryByManagerId(int cmManagerId) {
-		// TODO Auto-generated method stub
-		return contentModelDao.queryByManagerId(cmManagerId);
-	}
 	
 }

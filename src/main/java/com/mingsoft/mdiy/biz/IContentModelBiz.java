@@ -51,21 +51,5 @@ public interface IContentModelBiz extends IBaseBiz{
 	 */
 	public ContentModelEntity getContentModelByTableName(String cmTableName);
 	
-	/**
-	 * 分页查询指定管理员的表单内容模型
-	 * @param entity 实体
-	 * @param page Map对象
-	 * @param order 排序方式,true:asc;fales:desc
-	 * @param cmManagerId 管理员id
-	 * @return 表单内容模型
-	 */
-	List<BaseEntity> queryPageByManagerId(PageUtil page,String orderBy,boolean order, int cmManagerId);
-	
-	/**
-	 * 根据管理员id查找内容模型实体
-	 * @param cmManagerId
-	 * @return 表单内容模型
-	 */
-	public List<BaseEntity> queryByManagerId(int cmManagerId);
 	
 }
