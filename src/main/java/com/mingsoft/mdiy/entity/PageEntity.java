@@ -1,96 +1,129 @@
 package com.mingsoft.mdiy.entity;
 
 import com.mingsoft.base.entity.BaseEntity;
-import java.sql.Timestamp;
+import java.util.Date;
 
-/**
- * 模块模版实体
- * @author 王天培QQ:78750478
+ /**
+ * 自定义页面表实体
+ * @author 蓝精灵
  * @version 
- * 版本号：100-000-000<br/>
- * 创建日期：2012-03-15<br/>
+ * 版本号：1<br/>
+ * 创建日期：2017-8-11 14:01:54<br/>
  * 历史修订：<br/>
  */
 public class PageEntity extends BaseEntity {
 
-    /**
-     * 自动编号
-     */
-    private int modelTemplateId;
+	private static final long serialVersionUID = 1502431314331L;
+	
+	/**
+	 * 自增长id
+	 */
+	private Integer pageId; 
+	/**
+	 * 模块id
+	 */
+	private Integer pageModelId; 
+	/**
+	 * 应用id
+	 */
+	private Integer pageAppId; 
+	/**
+	 * 自定义页面绑定模板的路径
+	 */
+	private String pagePath; 
+	/**
+	 * 自定义页面标题
+	 */
+	private String pageTitle; 
+	/**
+	 * 自定义页面访问路径
+	 */
+	private String pageKey; 
+	
+	
+		
+	/**
+	 * 设置自增长id
+	 */
+	public void setPageId(Integer pageId) {
+		this.pageId = pageId;
+	}
 
 	/**
-     * 应用编号
-     */
-    private int modelTemplateAppId;
-
-    /**
-     * 模块的编号
-     */
-    private int modelTemplateModelId;
-
-    /**
-     * 对应路径
-     */
-    private String modelTemplatePath;
-    
-    /**
-     * 标题
-     */
-    private String modelTemplateTitle;
-    
-    
-    public String getModelTemplateTitle() {
-		return modelTemplateTitle;
-	}
-
-	public void setModelTemplateTitle(String modelTemplateTitle) {
-		this.modelTemplateTitle = modelTemplateTitle;
-	}
-
-	/**
-     * 路径值
-     */
-    private String modelTemplateKey;
-    
-
-	public String getModelTemplateKey() {
-		return modelTemplateKey;
-	}
-
-	public void setModelTemplateKey(String modelTemplateKey) {
-		this.modelTemplateKey = modelTemplateKey;
-	}
-
-	public int getModelTemplateAppId() {
-		return modelTemplateAppId;
-	}
-
-	public void setModelTemplateAppId(int modelTemplateAppId) {
-		this.modelTemplateAppId = modelTemplateAppId;
-	}
-
-	public int getModelTemplateModelId() {
-		return modelTemplateModelId;
-	}
-
-	public void setModelTemplateModelId(int modelTemplateModelId) {
-		this.modelTemplateModelId = modelTemplateModelId;
-	}
-
-	public String getModelTemplatePath() {
-		return modelTemplatePath;
-	}
-
-	public void setModelTemplatePath(String modelTemplatePath) {
-		this.modelTemplatePath = modelTemplatePath;
+	 * 获取自增长id
+	 */
+	public Integer getPageId() {
+		return this.pageId;
 	}
 	
-    public int getModelTemplateId() {
-		return modelTemplateId;
+	/**
+	 * 设置模块id
+	 */
+	public void setPageModelId(Integer pageModelId) {
+		this.pageModelId = pageModelId;
 	}
 
-	public void setModelTemplateId(int modelTemplateId) {
-		this.modelTemplateId = modelTemplateId;
+	/**
+	 * 获取模块id
+	 */
+	public Integer getPageModelId() {
+		return this.pageModelId;
+	}
+	
+	/**
+	 * 设置应用id
+	 */
+	public void setPageAppId(Integer pageAppId) {
+		this.pageAppId = pageAppId;
 	}
 
+	/**
+	 * 获取应用id
+	 */
+	public Integer getPageAppId() {
+		return this.pageAppId;
+	}
+	
+	/**
+	 * 设置自定义页面绑定模板的路径
+	 */
+	public void setPagePath(String pagePath) {
+		this.pagePath = pagePath;
+	}
+
+	/**
+	 * 获取自定义页面绑定模板的路径
+	 */
+	public String getPagePath() {
+		return this.pagePath;
+	}
+	
+	/**
+	 * 设置自定义页面标题
+	 */
+	public void setPageTitle(String pageTitle) {
+		this.pageTitle = pageTitle;
+	}
+
+	/**
+	 * 获取自定义页面标题
+	 */
+	public String getPageTitle() {
+		return this.pageTitle;
+	}
+	
+	/**
+	 * 设置自定义页面访问路径
+	 */
+	public void setPageKey(String pageKey) {
+		this.pageKey = pageKey;
+	}
+
+	/**
+	 * 获取自定义页面访问路径
+	 */
+	public String getPageKey() {
+		return this.pageKey;
+	}
+	
 }

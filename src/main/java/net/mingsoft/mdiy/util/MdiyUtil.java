@@ -32,15 +32,15 @@ public class MdiyUtil {
 		com.mingsoft.mdiy.biz.IPageBiz pageBiz = (com.mingsoft.mdiy.biz.IPageBiz) SpringUtil
 				.getBean(SpringUtil.getRequest().getServletContext(), "pageBiz");
 		PageEntity page = new PageEntity();
-		page.setModelTemplateAppId(BasicUtil.getAppId());
-		page.setModelTemplateKey(key);
+		page.setPageAppId(BasicUtil.getAppId());
+		page.setPageKey(key);
 		page = (PageEntity)pageBiz.getEntity(page);
-		if(StringUtil.isBlank(page.getModelTemplatePath())) {
+		if(StringUtil.isBlank(page.getPagePath())) {
 			return "";
 		}
 		
 		AppEntity app = BasicUtil.getApp();
-		String templatePath = page.getModelTemplatePath();
+		String templatePath = page.getPagePath();
 		String path = BasicUtil.getRealPath(IParserRegexConstant.REGEX_SAVE_TEMPLATE) + File.separator + app.getAppId()
 				+ File.separator + app.getAppStyle() + File.separator;
 		String content = "";

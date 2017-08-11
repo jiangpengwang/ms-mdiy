@@ -8,28 +8,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mingsoft.base.constant.Const;
-import com.mingsoft.basic.action.BasicAction;
-import com.mingsoft.basic.biz.ICategoryBiz;
-import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.basic.entity.AppEntity;
-import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.basic.parser.IGeneralParser;
-import com.mingsoft.mdiy.biz.IContentModelBiz;
-import com.mingsoft.mdiy.biz.IModelTemplateBiz;
-import com.mingsoft.mdiy.biz.ISearchBiz;
-import com.mingsoft.mdiy.entity.ContentModelEntity;
-import com.mingsoft.mdiy.entity.ModelTemplateEntity;
-import com.mingsoft.mdiy.entity.SearchEntity;
-import com.mingsoft.mdiy.parser.ListParser;
+import com.mingsoft.mdiy.biz.IPageBiz;
+import com.mingsoft.mdiy.entity.PageEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.FileUtil;
-import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
 /**
@@ -60,12 +46,15 @@ public abstract class BaseAction extends com.mingsoft.basic.action.BaseAction {
 			return null;
 		}
 
-		IModelTemplateBiz modelTemplateBiz = (IModelTemplateBiz) getBean(req.getServletContext(), "modelTemplateBiz");
-		ModelTemplateEntity mte = modelTemplateBiz.getEntity(app.getAppId(), key);
-		if (mte == null) {
+		IPageBiz pageBiz = (IPageBiz) getBean(req.getServletContext(), "modelTemplateBiz");
+		PageEntity pageEntity =new PageEntity();
+		pageEntity.setPageAppId(app.getAppId());
+		pageEntity.setPageKey(key);
+		pageEntity  = (PageEntity) pageBiz.getEntity(pageEntity);
+		if (pageEntity == null) {
 			return null;
 		}
-		String templatePath = mte.getModelTemplatePath();
+		String templatePath = pageEntity.getPagePath();
 		String path = getRealPath(req, IParserRegexConstant.REGEX_SAVE_TEMPLATE) + File.separator + app.getAppId()
 				+ File.separator + app.getAppStyle() + File.separator;
 		String content = "";
