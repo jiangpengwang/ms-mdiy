@@ -1,42 +1,15 @@
 package com.mingsoft.mdiy.entity;
+
 import com.mingsoft.base.entity.BaseEntity;
-
-
+import java.util.Date;
 /**
- * 
- * 
- * <p>
- * <b>铭飞CMS-铭飞内容管理系统</b>
- * </p>
- * 
- * <p>
- * Copyright: Copyright (c) 2014 - 2015
- * </p>
- * 
- * <p>
- * Company:景德镇铭飞科技有限公司
- * </p>
- * 
- * @author 姓名：张敏
- * 
- * @version 300-001-001
- * 
- * <p>
- * 版权所有 铭飞科技
- * </p>
- *  
- * <p>
- * Comments:内容模型实体，指表单类型，继承BaseEntity
- * </p>
- *  
- * <p>
- * Create Date:2014-9-11
- * </p>
- *
- * <p>
- * Modification history:暂无
- * </p>
- */
+* 自定义模型表实体
+* @author lanjinling
+* @version 
+* 版本号：1<br/>
+* 创建日期：2017-8-11 9:36:41<br/>
+* 历史修订：<br/>
+*/
 public class ContentModelEntity extends BaseEntity{
  
 	/**
@@ -54,10 +27,6 @@ public class ContentModelEntity extends BaseEntity{
 	 */
 	private String cmTableName;
 	
-	/**
-	 * 表单所属的管理员id
-	 */
-	private int cmManagerId;
 	
 	/**
 	 * 自定义模型模块编号
@@ -113,21 +82,6 @@ public class ContentModelEntity extends BaseEntity{
 		this.cmTableName = cmTableName;
 	}
 	
-	/**
-	 * 获取该表单所属的管理员id
-	 * @return
-	 */
-	public int getCmManagerId() {
-		return cmManagerId;
-	}
-	
-	/**
-	 * 设置该表单所属的管理员id
-	 * @param cmManagerId
-	 */
-	public void setCmManagerId(int cmManagerId) {
-		this.cmManagerId = cmManagerId;
-	}
 
 	public int getCmModelId() {
 		return cmModelId;

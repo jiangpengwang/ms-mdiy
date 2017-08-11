@@ -1,7 +1,7 @@
 <@ms.html5>
 	<@ms.nav title="自定义模型表管理"></@ms.nav>
 	<@ms.searchForm name="searchForm" isvalidation=true>
-		<@ms.text label="表单提示文字" name="cmTipsName" value=""  width="240px;" placeholder="请输入表单提示文字" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"表单提示文字长度不能超过五十个字符长度!"}/>
+		<@ms.text label="模型名称" name="cmTipsName" value=""  width="240px;" placeholder="请输入模型名称" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"模型名称长度不能超过五十个字符长度!"}/>
 		<@ms.searchFormButton>
 			 <@ms.queryButton onclick="search()"/> 
 		</@ms.searchFormButton>			
@@ -29,8 +29,8 @@
 	<@ms.modal id="addEditModel" title="添加模块">
 		<@ms.modalBody>
 			<@ms.form isvalidation=true name="addEditForm"  action="" method="post"  >
-				<@ms.text name="cmTipsName" label="名称" labelStyle="width:25%" width="250" title="表名提示文字" placeholder="请输入模型名称" value="" validation={"maxlength":"50","required":"true", "data-bv-notempty-message":"表名提示文字不能为空","data-bv-stringlength-message":"表名提示文字在50个字符以内!"}/>
-				<@ms.text name="cmTableName"  label="表名" labelStyle="width:25%" width="250" title="表单名称" placeholder="表名只能为英文字符" value="" validation={"maxlength":"50","required":"true", "data-bv-notempty-message":"表单名称不能为空","data-bv-stringlength-message":"表单名称在50个字符以内!"}/>
+				<@ms.text name="cmTipsName" id="cmTipsName" label="名称" labelStyle="width:25%" width="250" title="表名提示文字" placeholder="请输入模型名称" value="" validation={"maxlength":"50","required":"true", "data-bv-notempty-message":"表名提示文字不能为空","data-bv-stringlength-message":"表名提示文字在50个字符以内!"}/>
+				<@ms.text name="cmTableName"  label="表名" labelStyle="width:25%" width="250" title="表单名称" placeholder="表名只能为英文字符" value="" validation={"maxlength":"50","data-bv-regexp":"true","required":"true", "data-bv-regexp-regexp":"^[a-zA-Z]+$","data-bv-notempty-message":"表单名称不能为空","data-bv-stringlength-message":"表单名称在50个字符以内!"}/>
 			</@ms.form>
 		</@ms.modalBody>
 		<@ms.modalButton>
@@ -83,7 +83,7 @@
 			contentType: "application/json",
 			success:function(data) {
 				if(data!=null){
-					$("input[name='cmTipsName']").val(data.cmTipsName);
+					$("#cmTipsName").val(data.cmTipsName);
 					$("input[name='cmTableName']").val(data.cmTableName); 
 					$(".addEditModel").modal();
 					postUrl="${managerPath}/mdiy/contentModel/update.do?cmId="+id,

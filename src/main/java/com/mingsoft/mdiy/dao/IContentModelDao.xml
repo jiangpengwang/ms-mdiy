@@ -5,54 +5,18 @@
 <mapper namespace="com.mingsoft.mdiy.dao.IContentModelDao">
 	<!-- 表字段名开始 -->
 	<sql id="column_list">
-		CM_ID,CM_TIPSNAME,CM_TABLENAME,CM_MANAGERID
+		CM_ID,CM_TIPS_NAME,CM_TABLE_NAME,CM_MANAGER_ID
 	</sql>
 	<!-- 表字段名结束 -->
 	
 	<!-- 字段绑定开始 -->
 	<resultMap type="com.mingsoft.mdiy.entity.ContentModelEntity" id="resultMap">
 		<id column="CM_ID" property="cmId"></id> <!--实体字段cmId 与表中的cmId绑定 -->
-		<result column="CM_TIPSNAME" property="cmTipsName"/><!--实体字段cmTipsName 与表中的表单提示文字绑定 -->
-		<result column="CM_TABLENAME" property="cmTableName"/><!--实体字段cmTableName 与表中的表单表名绑定 -->
-		<result column="CM_MANAGERID" property="cmManagerId"/>
+		<result column="CM_TIPS_NAME" property="cmTipsName"/><!--实体字段cmTipsName 与表中的表单提示文字绑定 -->
+		<result column="CM_TABLE_NAME" property="cmTableName"/><!--实体字段cmTableName 与表中的表单表名绑定 -->
 		<result column="CM_MODEL_ID" property="cmModelId"/>
 	</resultMap>
 	<!-- 字段绑定结束 -->
-	
-	<!-- 统计表单开始 -->
-	<select id="queryCount" resultType="int">
-		select count(*) from mdiy_content_model;
-	</select>
-	<!-- 根据管理员Id查找内容模型的总数 -->
-	<select id="getContentModelByManagerId" resultType="int">
-		select count(*) from mdiy_content_model 
-		where CM_MANAGERID = #{cmManagerId}
-	</select>
-	
-	
-	<select id="getContentModelByTableName" parameterType="String" resultMap="resultMap">
-		select <include refid="column_list"/>
-		from mdiy_content_model
-		where CM_TABLENAME = #{cmTableName}
-	</select>
-	
-	<!-- 统计表单结束 -->
-	
-	<!-- 表单列表分页查询开始 -->
-	<select id="queryByPage" resultMap="resultMap" parameterType="int">
-		select * from mdiy_content_model
-		<if test="orderBy != null">
-			order by ${orderBy}
-		</if>
-		<if test="order == true">
-			asc
-		</if>
-		<if test="order == false">
-			desc
-		</if>
-		    limit ${pageNo*pageSize},#{pageSize}
-	</select>
-	<!-- 表单列表分页查询结束 -->
 	
 	<!-- 新增表单内容模型开始 -->
 	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
@@ -60,9 +24,8 @@
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="cmId != null">CM_ID,</if><!-- 内容模型id -->
-			<if test="cmTipsName != null">CM_TIPSNAME,</if><!-- 表单提示文字 -->
-			<if test="cmTableName != null">CM_TABLENAME,</if>
-			<if test="cmManagerId != null">CM_MANAGERID,</if>
+			<if test="cmTipsName != null">CM_TIPS_NAME,</if><!-- 表单提示文字 -->
+			<if test="cmTableName != null">CM_TABLE_NAME,</if>
 			<if test="cmModelId != null">CM_MODEL_ID,</if>
 		</trim>
 		
@@ -71,7 +34,6 @@
 			<if test="cmId != null">#{cmId},</if>
 			<if test="cmTipsName != null">#{cmTipsName},</if>
 			<if test="cmTableName != null">#{cmTableName},</if>
-			<if test="cmManagerId != null">#{cmManagerId},</if>
 			<if test="cmModelId != null">#{cmModelId},</if>
 		</trim>
 	</insert>
@@ -81,7 +43,7 @@
 	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
 		update mdiy_content_model
 		<set>
-			<if test="cmTipsName != null">CM_TIPSNAME=#{cmTipsName},</if>
+			<if test="cmTipsName != null">CM_TIPS_NAME=#{cmTipsName},</if>
 		</set>
 		where CM_ID = #{cmId}
 	</update>
@@ -110,21 +72,12 @@
 	</select>
 	<!-- 查询所有内容模型实体信息结束-->
 	
-	<!-- 根据管理员Id内容模型实体信息开始 -->
-	<select id="queryByManagerId" resultMap="resultMap">
-		select <include refid="column_list"/>
-		from mdiy_content_model
-		where CM_MANAGERID = #{cmManagerId}
-	</select>
-	<!-- 查询所有内容模型实体信息开始 -->
-	
 	<!--条件查询-->	
 	<select id="query" resultMap="resultMap">
 		select * from mdiy_content_model  
 		<where>
-				<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPSNAME=#{cmTipsName} </if>				
-				<if test="cmTableName != null and cmTableName != ''"> and CM_TABLENAME=#{cmTableName} </if>				
-				<if test="cmManagerId &gt; 0"> and CM_MANAGERID=#{cmManagerId} </if>				
+				<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPS_NAME=#{cmTipsName} </if>				
+				<if test="cmTableName != null and cmTableName != ''"> and CM_TABLE_NAME=#{cmTableName} </if>				
 				<if test="cmModelId &gt; 0"> and CM_MODEL_ID=#{cmModelId} </if>				
 		</where>		
 	</select>
@@ -133,9 +86,8 @@
 	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
 		select * from mdiy_content_model 
 		<where>
-			<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPSNAME=#{cmTipsName} </if>				
-			<if test="cmTableName != null and cmTableName != ''"> and CM_TABLENAME=#{cmTableName} </if>				
-			<if test="cmManagerId &gt; 0"> and CM_MANAGERID=#{cmManagerId} </if>				
+			<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPS_NAME=#{cmTipsName} </if>				
+			<if test="cmTableName != null and cmTableName != ''"> and CM_TABLE_NAME=#{cmTableName} </if>				
 			<if test="cmModelId &gt; 0"> and CM_MODEL_ID=#{cmModelId} </if>				
 		</where>
 		limit 0,1

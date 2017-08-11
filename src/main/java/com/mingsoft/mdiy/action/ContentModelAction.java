@@ -27,39 +27,12 @@ import com.mingsoft.util.StringUtil;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 /**
- * 
- * 
- * <p>
- * <b>铭飞CMS-铭飞内容管理系统</b>
- * </p>
- * 
- * <p>
- * Copyright: Copyright (c) 2014 - 2015
- * </p>
- * 
- * <p>
- * Company:景德镇铭飞科技有限公司
- * </p>
- * 
- * @author 姓名：张敏
- * 
- * @version 300-001-001
- * 
- * <p>
- * 版权所有 铭飞科技
- * </p>
- *  
- * <p>
- * Comments:内容模型控制层，继承BasicAction
- * </p>
- *  
- * <p>
- * Create Date:2014-9-12
- * </p>
- *
- * <p>
- * Modification history:
- * </p>
+ * 自定义模型表管理控制层
+ * @author lanjinling
+ * @version 
+ * 版本号：1<br/>
+ * 创建日期：2017-8-11 9:36:41<br/>
+ * 历史修订：<br/>
  */
 @Controller
 @RequestMapping("/${managerPath}/mdiy/contentModel/")
@@ -128,9 +101,6 @@ public class ContentModelAction extends BaseAction{
 	@ResponseBody
 	public void list(@ModelAttribute ContentModelEntity contentModel,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
 		BasicUtil.startPage();
-		// 获取管理实体
-		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
-		contentModel.setCmManagerId(managerSession.getManagerId());
 		List contentModelList = contentModelBiz.query(contentModel);
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(contentModelList,(int)BasicUtil.endPage(contentModelList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));
 	}
@@ -211,19 +181,19 @@ public class ContentModelAction extends BaseAction{
 		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
 		//获取当前管理员Id
 		int managerId = managerSession.getManagerId();
-		if (contentModelBiz.getContentModelByTableName(TABLE_NAME_PREFIX+contentModel.getCmTableName()+TABLE_NAME_SPLIT+managerId)!=null) {
+		ContentModelEntity contentModelEntity = new ContentModelEntity();
+		contentModelEntity.setCmTableName(TABLE_NAME_PREFIX+contentModel.getCmTableName()+TABLE_NAME_SPLIT+managerId);
+		if (contentModelBiz.getEntity(contentModelEntity)!=null) {
 			this.outJson(response, null, false,getResString("err.exist",this.getResString("content.model")));
 			return;
 		}
-		
-		
-		contentModel.setCmManagerId(managerId);
 		// 新增表名为"cms_"+用户填写的表名+"_"+站点id
 		contentModel.setCmTableName(TABLE_NAME_PREFIX+contentModel.getCmTableName()+TABLE_NAME_SPLIT+managerId);
 		// 新增表
 		contentModelBiz.createTable(contentModel.getCmTableName(),null);
 		contentModelBiz.saveEntity(contentModel);
-		int cmId= contentModelBiz.getContentModelByTableName(contentModel.getCmTableName()).getCmId();
+		
+		int cmId= ((ContentModelEntity)contentModelBiz.getEntity(contentModelEntity)).getCmId();
 		
 		this.outJson(response, null, true,String.valueOf(cmId));
 	}
@@ -242,11 +212,6 @@ public class ContentModelAction extends BaseAction{
 			this.outJson(response, null, false,getResString("err.length",this.getResString("content.model.tips.name"),"1","30"));
 			return;
 		}
-		// 获取当前管理员实体
-		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
-		//获取当前管理员Id
-		int managerId = managerSession.getManagerId();
-		contentModel.setCmManagerId(managerId);
 		contentModelBiz.updateEntity(contentModel);
 		this.outJson(response, null, true,null);
 	}
@@ -266,7 +231,9 @@ public class ContentModelAction extends BaseAction{
 		int managerId = managerSession.getManagerId();
 		cmTableName =TABLE_NAME_PREFIX+cmTableName+TABLE_NAME_SPLIT+managerId;
 		// 判断表名是否重复
-		if(contentModelBiz.getContentModelByTableName(cmTableName)!=null){
+		ContentModelEntity contentModel = new ContentModelEntity();
+		contentModel.setCmTableName(cmTableName);
+		if(contentModelBiz.getEntity(contentModel)!=null){
 			return true;
 		}else{
 			return false;
