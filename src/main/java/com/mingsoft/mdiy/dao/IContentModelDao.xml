@@ -15,6 +15,7 @@
 		<result column="CM_TIPS_NAME" property="cmTipsName"/><!--实体字段cmTipsName 与表中的表单提示文字绑定 -->
 		<result column="CM_TABLE_NAME" property="cmTableName"/><!--实体字段cmTableName 与表中的表单表名绑定 -->
 		<result column="CM_MODEL_ID" property="cmModelId"/>
+		<result column="CM_APP_ID" property="appId"/>
 	</resultMap>
 	<!-- 字段绑定结束 -->
 	
@@ -27,6 +28,7 @@
 			<if test="cmTipsName != null">CM_TIPS_NAME,</if><!-- 表单提示文字 -->
 			<if test="cmTableName != null">CM_TABLE_NAME,</if>
 			<if test="cmModelId != null">CM_MODEL_ID,</if>
+			<if test="appId != null">CM_APP_ID,</if>
 		</trim>
 		
 		<!-- 注入控制层字段 -->
@@ -35,6 +37,7 @@
 			<if test="cmTipsName != null">#{cmTipsName},</if>
 			<if test="cmTableName != null">#{cmTableName},</if>
 			<if test="cmModelId != null">#{cmModelId},</if>
+			<if test="appId != null">#{appId},</if>
 		</trim>
 	</insert>
 	<!-- 新增表单内容模型结束 -->
@@ -65,17 +68,11 @@
 	</select>
 	<!-- 根据id查找内容模型实体信息 -->
 	
-	<!-- 查询所有内容模型实体信息开始 -->
-	<select id="queryAll" resultMap="resultMap">
-		select <include refid="column_list"/>
-		from mdiy_content_model
-	</select>
-	<!-- 查询所有内容模型实体信息结束-->
-	
 	<!--条件查询-->	
-	<select id="query" resultMap="resultMap">
+	<select id="query" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.ContentModelEntity">
 		select * from mdiy_content_model  
 		<where>
+				CM_APP_ID = #{appId}
 				<if test="cmTipsName != null and cmTipsName != ''"> and CM_TIPS_NAME=#{cmTipsName} </if>				
 				<if test="cmTableName != null and cmTableName != ''"> and CM_TABLE_NAME=#{cmTableName} </if>				
 				<if test="cmModelId &gt; 0"> and CM_MODEL_ID=#{cmModelId} </if>				

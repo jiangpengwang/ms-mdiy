@@ -1,6 +1,6 @@
 package com.mingsoft.mdiy.entity;
 
-import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.basic.entity.BaseEntity;
 import java.util.Date;
 /**
 * 自定义模型表实体
