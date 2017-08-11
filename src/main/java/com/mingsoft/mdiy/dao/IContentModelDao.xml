@@ -5,7 +5,7 @@
 <mapper namespace="com.mingsoft.mdiy.dao.IContentModelDao">
 	<!-- 表字段名开始 -->
 	<sql id="column_list">
-		CM_ID,CM_TIPS_NAME,CM_TABLE_NAME,CM_MANAGER_ID
+		CM_ID,CM_TIPS_NAME,CM_TABLE_NAME
 	</sql>
 	<!-- 表字段名结束 -->
 	
