@@ -4,16 +4,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.basic.action.BaseAction;
-import com.mingsoft.basic.constant.Const;
-import com.mingsoft.mdiy.biz.IModelTemplateBiz;
+import com.mingsoft.mdiy.biz.IPageBiz;
 import com.mingsoft.mdiy.entity.ModelTemplateEntity;
 
 /**
@@ -24,15 +25,15 @@ import com.mingsoft.mdiy.entity.ModelTemplateEntity;
  * 创建日期：2014-6-29<br/>
  * 历史修订：<br/>
  */
-@Controller
-@RequestMapping("/${managerPath}/mdiy/modeltemplate/")
-public class ModelTemplateAction extends BaseAction {
+@Controller("mdiyPageAction")
+@RequestMapping("/${managerPath}/mdiy/page/")
+public class PageAction extends BaseAction {
 	
 	/**
 	 * appBiz业务层的注入
 	 */
 	@Autowired
-	private IModelTemplateBiz modelTemplateBiz;
+	private IPageBiz pageBiz;
 
 	/**
 	 * 加载自定义模块列表页面
@@ -42,7 +43,7 @@ public class ModelTemplateAction extends BaseAction {
 	 */
 	@RequestMapping(value="/list")
 	public String list(ModelMap mode,HttpServletRequest request){
-		List list = modelTemplateBiz.queryByAppId(this.getAppId(request));
+		List list = pageBiz.queryByAppId(this.getAppId(request));
 		mode.addAttribute("list", list);
 		return view("/mdiy/model_template/model_template_list");
 	}
