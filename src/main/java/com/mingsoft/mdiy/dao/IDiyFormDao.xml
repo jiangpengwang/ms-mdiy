@@ -12,7 +12,7 @@
 
 	<!-- 新增表单内容模型开始 -->
 	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormEntity">
-		insert into diy_form
+		insert into mdiy_form
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="diyFormTipsName != null">DF_TIPSNAME,</if>
@@ -33,7 +33,7 @@
 
 	<!-- 更新表单内容模型开始 -->
 	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormEntity">
-		update diy_form
+		update mdiy_form
 		<set>
 			<if test="diyFormTipsName != null">DF_TIPSNAME=#{diyFormTipsName},</if>
 			<if test="diyFormTableName != null">DF_TABLENAME=#{diyFormTableName},</if>
@@ -44,7 +44,7 @@
 
 	<!-- 根据id删除内容模型表单记录开始 -->
 	<delete id="deleteEntity" parameterType="int">
-		delete from diy_form
+		delete from mdiy_form
 		where DF_ID = #{diyFormId}
 	</delete>
 	<!-- 根据id删除内容模型表单记录结束 -->
@@ -62,7 +62,7 @@
 	<!-- 根据id查找内容模型实体信息 -->
 	<select id="getEntity" resultMap="resultMap" parameterType="int">
 		select *
-		from diy_form
+		from mdiy_form
 		where DF_ID = #{diyFormId}
 
 	</select>
@@ -70,18 +70,18 @@
 
 	<!-- 查询所有内容模型实体信息开始 -->
 	<select id="queryAll" resultMap="resultMap">
-		select *	from diy_form order by DF_ID desc
+		select *	from mdiy_form order by DF_ID desc
 	</select>
 	<!-- 查询所有内容模型实体信息结束 -->
 	
 		<!-- 查询所有内容模型实体信息开始 -->
 	<select id="query" resultMap="resultMap" parameterType="int">
-		select *	from diy_form where DF_APPID=#{diyFormAppId}
+		select *	from mdiy_form where DF_APPID=#{diyFormAppId}
 	</select>
 	<!-- 查询所有内容模型实体信息结束 -->
 		<!-- 查询根据表名查找表单实体开始-->
 	<select id="getByTableName" resultMap="resultMap"  parameterType="String">
-		select * from diy_form where DF_TABLENAME=#{diyFormTableName}
+		select * from mdiy_form where DF_TABLENAME=#{diyFormTableName}
 	</select>
 	<!-- 查询据表名查找表单实体结束 -->
 	

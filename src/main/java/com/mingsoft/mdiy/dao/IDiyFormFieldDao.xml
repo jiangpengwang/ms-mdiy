@@ -15,7 +15,7 @@
 
 	<!-- 新增表单内容模型开始 -->
 	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormFieldEntity">
-		insert into diy_form_field
+		insert into mdiy_form_field
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="diyFormFieldTipsName != null">DFF_TIPSNAME,</if>
@@ -42,7 +42,7 @@
 
 	<!-- 更新表单内容模型开始 -->
 	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormFieldEntity">
-		update diy_form_field
+		update mdiy_form_field
 		<set>
 			<if test="diyFormFieldTipsName != null">DFF_TIPSNAME=#{diyFormFieldTipsName},</if>
 			<if test="diyFormFieldFieldName != null">DFF_FIELDNAME=#{diyFormFieldFieldName},</if>
@@ -57,7 +57,7 @@
 
 	<!-- 根据id删除内容模型表单记录开始 -->
 	<delete id="deleteEntity" parameterType="int">
-		delete from diy_form_field
+		delete from mdiy_form_field
 		where DFF_ID = #{diyFormFieldId}
 	</delete>
 	<!-- 根据id删除内容模型表单记录结束 -->
@@ -65,7 +65,7 @@
 	<!-- 根据id查找内容模型实体信息 -->
 	<select id="getEntity" resultMap="resultMap" parameterType="int">
 		select *
-		from diy_form_field
+		from mdiy_form_field
 		where DFF_ID = #{diyFormFieldId}
 
 	</select>
@@ -73,22 +73,22 @@
 
 	<!-- 查询所有内容模型实体信息开始 -->
 	<select id="queryAll" resultMap="resultMap">
-		select *	from diy_form_field order by DFF_ID desc
+		select *	from mdiy_form_field order by DFF_ID desc
 	</select>
 	<!-- 查询所有内容模型实体信息结束 -->
 	
 	<!-- 查询所有内容模型实体信息开始 -->
 	<select id="query" resultMap="resultMap" parameterType="int">
-		select *	from diy_form where DFF_FORMID=#{diyFormAppId}
+		select *	from mdiy_form where DFF_FORMID=#{diyFormAppId}
 	</select>
 	<!-- 查询所有内容模型实体信息结束 -->
 	<select id="queryByDiyFormId" resultMap="resultMap">
-		select * from diy_form_field where DFF_FORMID = #{diyFormFieldFormId}
+		select * from mdiy_form_field where DFF_FORMID = #{diyFormFieldFormId}
 	</select>
 	
 	<!-- 根据字段名和表单id查找字段实体 -->
 	<select id="getByFieldName" resultMap="resultMap">
-		select * from diy_form_field 
+		select * from mdiy_form_field 
 		where DFF_FORMID = #{diyFormFieldFormId} and DFF_FIELDNAME=#{diyFormFieldFieldName}
 	</select>
 	
