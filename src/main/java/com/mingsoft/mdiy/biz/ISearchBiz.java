@@ -43,4 +43,10 @@ import com.mingsoft.util.PageUtil;
  */
 public interface ISearchBiz extends IBasicBiz{
 	
+	/**
+	 * 根据id查询对应站点的搜索
+	 * @param searchId 搜索记录编号
+	 * @return
+	 */
+	SearchEntity getById(int searchId);
 }

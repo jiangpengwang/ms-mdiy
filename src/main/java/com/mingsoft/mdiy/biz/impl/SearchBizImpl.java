@@ -11,6 +11,8 @@ import com.mingsoft.mdiy.dao.ISearchDao;
 import com.mingsoft.mdiy.entity.SearchEntity;
 import com.mingsoft.util.PageUtil;
 
+import net.mingsoft.basic.util.BasicUtil;
+
 /**
  * 
  * 
@@ -61,6 +63,16 @@ public class SearchBizImpl extends BasicBizImpl implements ISearchBiz{
 	@Override
 	protected IBaseDao getDao() {
 		return searchDao;
+	}
+
+	@Override
+	public SearchEntity getById(int searchId) {
+		// TODO Auto-generated method stub
+		SearchEntity search = new SearchEntity();
+		search.setAppId(BasicUtil.getAppId());
+		search.setSearchId(searchId);
+		Object obj = searchDao.getByEntity(search);
+		return obj!=null?(SearchEntity)obj:null;
 	}
 	
 }
