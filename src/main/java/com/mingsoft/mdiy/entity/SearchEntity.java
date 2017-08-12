@@ -1,5 +1,5 @@
 package com.mingsoft.mdiy.entity;
-import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.basic.entity.BaseEntity;
 
 /**
  * 
@@ -53,10 +53,6 @@ public class SearchEntity extends BaseEntity{
 	 */
 	private String searchTemplets;
 	
-	/**
-	 * 站点ID
-	 */
-	private int searchWebsiteId;
 	
 	private String searchType;
 
@@ -108,21 +104,6 @@ public class SearchEntity extends BaseEntity{
 		this.searchTemplets = searchTemplets;
 	}
 
-	/**
-	 * 获取searchWebsiteId
-	 * @return searchWebsiteId
-	 */
-	public int getSearchWebsiteId() {
-		return searchWebsiteId;
-	}
-
-	/**
-	 * 设置searchWebsiteId
-	 * @param searchWebsiteId
-	 */
-	public void setSearchWebsiteId(int searchWebsiteId) {
-		this.searchWebsiteId = searchWebsiteId;
-	}
 
 	public String getSearchType() {
 		return searchType;

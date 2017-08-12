@@ -3,7 +3,7 @@
 <!-- 搜索管理持久化层XML配置继承ISearchDao -->
 <mapper namespace="com.mingsoft.mdiy.dao.ISearchDao">
 	<sql id="column_list">
-		SEARCH_ID,SEARCH_NAME,SEARCH_TEMPLETS,SEARCH_WEBSITEID,SEARCH_TYPE
+		SEARCH_ID,SEARCH_NAME,SEARCH_TEMPLETS,SEARCH_APP_ID,SEARCH_TYPE
 	</sql>
 
 	<!-- 表搜索与实体属性对应，供返回实体信息时使用 -->
@@ -11,7 +11,7 @@
 		<id column="SEARCH_ID" property="searchId" />
 		<result column="SEARCH_NAME" property="searchName" />
 		<result column="SEARCH_TEMPLETS" property="searchTemplets" />
-		<result column="SEARCH_WEBSITEID" property="searchWebsiteId" />
+		<result column="SEARCH_APP_ID" property="appId" />
 		<result column="SEARCH_TYPE" property="searchType" />
 	</resultMap>
 
@@ -21,37 +21,6 @@
 	</select>
 	<!-- 查询所有搜索结束 -->
 
-	<!-- 通过数字区域来查询数据集合开始 -->
-	<select id="queryMapByNumArea" resultType="Map">
-		select * from
-		${cmTableName} where ${fieldFieldName} between #{preNum} and
-		#{nextNum};
-	</select>
-	<!-- 通过数字区域来查询数据集合结束 -->
-
-	<!-- 统计搜索开始 -->
-	<select id="queryCount" resultType="int">
-		select count(*) from
-		mdiy_search where SEARCH_WEBSITEID = ${appId};
-	</select>
-	<!-- 统计搜索结束 -->
-
-	<!-- 搜索列表分页查询开始 -->
-	<select id="queryByPage" resultMap="resultMap">
-		select * from mdiy_search
-		<if test="orderBy != null">
-			order by ${orderBy}
-		</if>
-		<if test="order == true">
-			asc
-		</if>
-		<if test="order == false">
-			desc
-		</if>
-		limit ${pageNo*pageSize},#{pageSize}
-	</select>
-	<!-- 搜索列表分页查询结束 -->
-
 	<!-- 增加搜索实体开始 -->
 	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="searchId"
 		parameterType="com.mingsoft.base.entity.BaseEntity">
@@ -59,13 +28,13 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="searchName != null">SEARCH_NAME,</if>
 			<if test="searchTemplets != null">SEARCH_TEMPLETS,</if>
-			<if test="searchWebsiteId != null">SEARCH_WEBSITEID,</if>
+			<if test="appId != null">SEARCH_APP_ID,</if>
 			<if test="searchType != null">SEARCH_TYPE,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="searchName != null">#{searchName},</if>
 			<if test="searchTemplets != null">#{searchTemplets},</if>
-			<if test="searchWebsiteId != null">#{searchWebsiteId},</if>
+			<if test="appId != null">#{appId},</if>
 			<if test="searchType != null">#{searchType},</if>
 		</trim>
 	</insert>
@@ -93,20 +62,13 @@
 	</select>
 	<!-- 查询搜索实体结束 -->
 
-	<!-- 查询搜索实体开始 -->
-	<select id="getByIdAndAppId" resultMap="resultMap">
-		select
-		<include refid="column_list" />
-		from mdiy_search where SEARCH_ID=#{id} and SEARCH_WEBSITEID=#{appId};
-	</select>
-	<!-- 查询搜索实体结束 -->
 
 	<!-- 查询搜索实体开始 -->
 	<select id="query" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.SearchEntity">
 		select
 		<include refid="column_list" />
 		from mdiy_search 
-		where SEARCH_WEBSITEID=#{searchWebsiteId}
+		where SEARCH_APP_ID=#{appId}
 		<if test="searchName != null and searchName != ''"> and SEARCH_NAME=#{searchName} </if>				
 		<if test="searchTemplets != null and searchTemplets != ''"> and SEARCH_TEMPLETS=#{searchTemplets} </if>		
 		<if test="searchType != null and searchType != ''"> and SEARCH_TYPE=#{searchType} </if>	

@@ -99,7 +99,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 		if(search == null){
 			search = new SearchEntity();
 		}
-		search.setSearchWebsiteId(BasicUtil.getAppId());
+		search.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List searchList = searchBiz.query(search);
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(searchList,(int)BasicUtil.endPage(searchList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));
@@ -177,7 +177,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 			this.outJson(response, null, false, getResString("err.length", this.getResString("search.type"), "1", "255"));
 			return;			
 		}
-		search.setSearchWebsiteId(BasicUtil.getAppId());
+		search.setAppId(BasicUtil.getAppId());
 		searchBiz.saveEntity(search);
 		this.outJson(response, JSONObject.toJSONString(search));
 	}
