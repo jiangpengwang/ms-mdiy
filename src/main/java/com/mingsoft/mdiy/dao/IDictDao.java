@@ -3,7 +3,7 @@ package com.mingsoft.mdiy.dao;
 import java.util.List;
 
 import com.mingsoft.base.dao.IBaseDao;
-import com.mingsoft.basic.entity.DictEntity;
+import com.mingsoft.mdiy.entity.DictEntity;
 
 /**
  * 字典表持久层
@@ -14,10 +14,4 @@ import com.mingsoft.basic.entity.DictEntity;
  * 历史修订：<br/>
  */
 public interface IDictDao extends IBaseDao {
-	/**
-	 * 查询
-	 * @param dict 字典表
-	 * @return
-	 */
-	List query(DictEntity dict);
 }

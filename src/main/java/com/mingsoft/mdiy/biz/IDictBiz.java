@@ -3,7 +3,6 @@ package com.mingsoft.mdiy.biz;
 import java.util.List;
 
 import com.mingsoft.base.biz.IBaseBiz;
-import com.mingsoft.basic.entity.DictEntity;
 
 /**
  * 字典表业务

@@ -21,16 +21,13 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技
 
 package com.mingsoft.mdiy.biz.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mingsoft.base.biz.impl.BaseBizImpl;
 import com.mingsoft.base.dao.IBaseDao;
-import com.mingsoft.basic.entity.DictEntity;
+import com.mingsoft.mdiy.biz.IDictBiz;
+import com.mingsoft.mdiy.dao.IDictDao;
 
 /**
  * 字典表管理持久化层
