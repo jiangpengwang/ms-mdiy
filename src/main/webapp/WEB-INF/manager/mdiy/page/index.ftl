@@ -76,7 +76,7 @@
 				        	field: 'pageTitle',
 				        	title: '自定义页面标题',
 				        	formatter:function(value,row,index) {
-				        		return "<a onclick='editPage("+row.pageId+")'>" + value + "</a>";
+				        		return "<a style='cursor:pointer' onclick='editPage("+row.pageId+")'>" + value + "</a>";
 				        	}
 				    	},{
 				        	field: 'pagePath',

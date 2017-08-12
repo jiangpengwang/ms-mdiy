@@ -47,30 +47,17 @@
 	    				{
 				        	field: 'dictValue',
 				        	title: '数据值',
-				        	width:'100',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/dict/form.do?dictId="+row.dictId;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
+				        	align: 'center'
 				    	},{
 				        	field: 'dictLabel',
 				        	title: '标签名',
-				        	width:'100',
-				        	align: 'center',
 				        	formatter:function(value,row,index) {
 				        		var url = "${managerPath}/mdiy/dict/form.do?dictId="+row.dictId;
 				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
 				        	}
 				    	},{
 				        	field: 'dictSort',
-				        	title: '排序',
-				        	width:'10',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/dict/form.do?dictId="+row.dictId;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
+				        	title: '排序'
 				    	},{
 				        	field: 'dictType',
 				        	title: '类型'

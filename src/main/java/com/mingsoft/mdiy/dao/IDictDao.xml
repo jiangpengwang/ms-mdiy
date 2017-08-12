@@ -33,8 +33,6 @@
 			<if test="dictParentId != null and dictParentId != ''">dict_parent_id,</if>
 			<if test="createBy != null">create_by,</if>
 			<if test="createDate != null">create_date,</if>
-			<if test="updateBy != null">update_by,</if>
-			<if test="updateDate != null">update_date,</if>
 			<if test="dictRemarks != null and dictRemarks != ''">dict_remarks,</if>
 			<if test="del != null">del,</if>
 		</trim>
@@ -48,8 +46,6 @@
 			<if test="dictParentId != null and dictParentId != ''">#{dictParentId},</if>
 			<if test="createBy != null">#{createBy},</if>
 			<if test="createDate != null">#{createDate},</if>
-			<if test="updateBy != null">#{updateBy},</if>
-			<if test="updateDate != null">#{updateDate},</if>
 			<if test="dictRemarks != null and dictRemarks != ''">#{dictRemarks},</if>
 			<if test="del != null">#{del},</if>
 		</trim>
@@ -65,8 +61,6 @@
 			<if test="dictDescription != null and dictDescription != ''">dict_description=#{dictDescription},</if>			
 			<if test="dictSort != null">dict_sort=#{dictSort},</if>			
 			<if test="dictParentId != null and dictParentId != ''">dict_parent_id=#{dictParentId},</if>			
-			<if test="createBy != null">create_by=#{createBy},</if>			
-			<if test="createDate != null">create_date=#{createDate},</if>			
 			<if test="updateBy != null">update_by=#{updateBy},</if>			
 			<if test="updateDate != null">update_date=#{updateDate},</if>			
 			<if test="dictRemarks != null and dictRemarks != ''">dict_remarks=#{dictRemarks},</if>			
@@ -91,10 +85,6 @@
 			<if test="dictDescription != null and dictDescription != ''"> and dict_description=#{dictDescription} </if>				
 			<if test="dictSort != null"> and dict_sort=#{dictSort} </if>				
 			<if test="dictParentId != null and dictParentId != ''"> and dict_parent_id=#{dictParentId} </if>				
-			<if test="createBy != null"> and create_by=#{createBy} </if>				
-			<if test="createDate != null"> and create_date=#{createDate} </if>				
-			<if test="updateBy != null"> and update_by=#{updateBy} </if>				
-			<if test="updateDate != null"> and update_date=#{updateDate} </if>				
 			<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
 			<if test="del != null"> and del=#{del} </if>				
 		</where>
@@ -130,10 +120,6 @@
 				<if test="dictDescription != null and dictDescription != ''"> and dict_description=#{dictDescription} </if>				
 				<if test="dictSort != null"> and dict_sort=#{dictSort} </if>				
 				<if test="dictParentId != null and dictParentId != ''"> and dict_parent_id=#{dictParentId} </if>				
-				<if test="createBy != null"> and create_by=#{createBy} </if>				
-				<if test="createDate != null"> and create_date=#{createDate} </if>				
-				<if test="updateBy != null"> and update_by=#{updateBy} </if>				
-				<if test="updateDate != null"> and update_date=#{updateDate} </if>				
 				<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
 				<if test="del != null"> and del=#{del} </if>				
 		</where>		
