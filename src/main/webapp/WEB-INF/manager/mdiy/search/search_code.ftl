@@ -71,7 +71,7 @@
 			//生成搜索表的html代码
 	 		$.ajax({
 				type: "post",
-				url:"${managerPath}/mdiy/search/generateSreachFormHtml.do",
+				url:"${managerPath}/mdiy/search/generateSreachFormHtml.do?searchType=${searchType}",
 				data:$("#fieldForm").serialize(),
 				success:function(msg){
 					$("textarea[name='softCode']").html(msg);

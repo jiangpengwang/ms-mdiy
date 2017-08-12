@@ -55,13 +55,13 @@
 	</delete>
 
 	<!-- 查询搜索实体开始 -->
-	<select id="getEntity" resultMap="resultMap" parameterType="int">
+	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.SearchEntity">
 		select
 		<include refid="column_list" />
-		from mdiy_search where SEARCH_ID=#{searchId}
+		from mdiy_search 
 		<where>
 			SEARCH_ID=#{searchId}
-			<if test="appId != null "> and SEARCH_APP_ID=#{appId} </if>	
+			<if test="appId &gt; 0 "> and SEARCH_APP_ID=#{appId} </if>	
 		</where>
 	</select>
 	<!-- 查询搜索实体结束 -->

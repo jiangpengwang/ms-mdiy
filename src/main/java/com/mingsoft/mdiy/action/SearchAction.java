@@ -114,7 +114,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 			this.outJson(response, false);
 			return;
 		}
-		BaseEntity searchEntity = searchBiz.getEntity(search.getSearchId());
+		SearchEntity searchEntity = (SearchEntity)searchBiz.getEntity(search);
 		this.outJson(response, searchEntity);
 	}
 	
@@ -335,8 +335,12 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	@RequestMapping("/{searchId}/searchCode")
 	public String searchCode(@PathVariable int searchId,ModelMap model ,HttpServletRequest request){
  		List<ColumnEntity> columnList = columnBiz.queryColumnListByWebsiteId(this.getAppId(request));
+ 		SearchEntity searchEntity = new SearchEntity();
+ 		searchEntity.setSearchId(searchId);
+ 		SearchEntity search = (SearchEntity) searchBiz.getEntity(searchEntity);
  		model.addAttribute("columnList", JSONArray.toJSONString(columnList));
  		model.addAttribute("searchId",searchId);
+ 		model.addAttribute("searchType",search.getSearchType());
 		return view("/mdiy/search/search_code");
 	}
 }

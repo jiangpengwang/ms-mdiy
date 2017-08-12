@@ -1,5 +1,5 @@
 <#if listFieldName?exists>
-	<form id="searchDataForm" action="{ms:global.host/}/${Session.model_name_session}/${searchId?default()}/search.do" method="post">
+	<form id="searchDataForm" action="{ms:global.host/}/${searchType?default()}/${searchId?default()}/search.do" method="post">
 		<#if basicCategoryId!=0>
 		<input type="hidden" name="categoryId" value="${basicCategoryId}" label="栏目编号"/> <!--必须存在-->
 		</#if>
