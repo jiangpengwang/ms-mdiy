@@ -19,17 +19,10 @@ import com.mingsoft.mdiy.biz.IFormFieldBiz;
 import com.mingsoft.mdiy.entity.FormFieldEntity;
 import com.mingsoft.util.StringUtil;
 
-/**
- * 表单字段义字段管理
- * 
- * @author 史爱华
- * @version 版本号：100-000-000<br/>
- *          创建日期：2015-1-10<br/>
- *          历史修订：<br/>
- */
+
 @Controller("diyFormField")
-@RequestMapping("/${managerPath}/mdiy/diyForm/formField")
-public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
+@RequestMapping("/${managerPath}/mdiy/form/formField")
+public class FormFieldAction extends com.mingsoft.basic.action.BaseAction {
 
 	/**
 	 * 默认的字段id
