@@ -1,6 +1,8 @@
 package com.mingsoft.mdiy.entity;
 
 import com.mingsoft.basic.entity.BaseEntity;
+import com.mingsoft.util.AESUtil;
+import com.mingsoft.util.StringUtil;
 import java.util.Date;
 
  /**
@@ -35,7 +37,10 @@ public class FormEntity extends BaseEntity {
 	 * 自定义表单关联的应用编号
 	 */
 	private Integer formAppId; 
-	
+	/**
+	 * 表单的访问地址
+	 */
+	private String formUrl;
 		
 	/**
 	 * 设置自增长id
@@ -106,5 +111,13 @@ public class FormEntity extends BaseEntity {
 	public Integer getFormAppId() {
 		return this.formAppId;
 	}
-	
+	public String getFormUrl() {
+		formUrl=AESUtil.encrypt(this.formId+"", StringUtil.Md5(this.formAppId+"").substring(16));
+		return formUrl;
+	}
+
+	public void setFormUrl(String formUrl) {
+		this.formUrl = formUrl;
+	}
+
 }

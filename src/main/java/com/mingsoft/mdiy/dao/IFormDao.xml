@@ -43,7 +43,6 @@
 			<if test="formTipsName != null and formTipsName != ''">FORM_TIPS_NAME=#{formTipsName},</if>			
 			<if test="formTableName != null and formTableName != ''">FORM_TABLE_NAME=#{formTableName},</if>			
 			<if test="dfManagerid != null">DF_MANAGERID=#{dfManagerid},</if>			
-			<if test="formAppId != null">FORM_APP_ID=#{formAppId},</if>			
 			<if test="updateBy != null">UPDATE_BY=#{updateBy},</if>			
 			<if test="updateDate != null">UPDATE_DATE=#{updateDate},</if>			
 		</set>

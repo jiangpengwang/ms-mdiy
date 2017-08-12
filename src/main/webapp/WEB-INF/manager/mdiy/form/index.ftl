@@ -45,86 +45,28 @@
 	    	columns: [{ checkbox: true},
 				    	{
 				        	field: 'formId',
-				        	title: '自增长id',
-				        	width:'10',
-				        	align: 'center',
+				        	title: '编号'
+				        	
+				    	},{
+				        	field: 'formTipsName',
+				        	title: '名称',
 				        	formatter:function(value,row,index) {
 				        		var url = "${managerPath}/mdiy/form/form.do?formId="+row.formId;
 				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
 				        	}
-				    	},							    	{
+				    	},{
 				        	field: 'formTipsName',
-				        	title: '自定义表单提示文字',
-				        	width:'30',
-				        	align: 'center',
+				        	title: '表单提交地址',
 				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?formTipsName="+row.formTipsName;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
+				        		return "/mdiy/diyForm/"+row.formUrl+".do";
 				        	}
-				    	},							    	{
-				        	field: 'formTableName',
-				        	title: '自定义表单表名',
-				        	width:'20',
-				        	align: 'center',
+				    	},{
+				        	field: 'formTipsName',
+				        	title: '请求数据地址',
 				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?formTableName="+row.formTableName;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
+				        		return "/mdiy/diyForm/"+row.formUrl+"/queryData.do";
 				        	}
-				    	},							    	{
-				        	field: 'dfManagerid',
-				        	title: '自定义表单关联的关联员id',
-				        	width:'10',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?dfManagerid="+row.dfManagerid;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	},							    	{
-				        	field: 'formAppId',
-				        	title: '自定义表单关联的应用编号',
-				        	width:'10',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?formAppId="+row.formAppId;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	},							    	{
-				        	field: 'createBy',
-				        	title: '创建者',
-				        	width:'10',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?createBy="+row.createBy;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	},							    	{
-				        	field: 'updateBy',
-				        	title: '更新者',
-				        	width:'10',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?updateBy="+row.updateBy;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	},							    	{
-				        	field: 'createDate',
-				        	title: '创建时间',
-				        	width:'19',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?createDate="+row.createDate;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	},							    	{
-				        	field: 'updateDate',
-				        	title: '更新时间',
-				        	width:'19',
-				        	align: 'center',
-				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?updateDate="+row.updateDate;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
-				        	}
-				    	}			]
+				    	}]
 	    })
 	})
 	//增加按钮

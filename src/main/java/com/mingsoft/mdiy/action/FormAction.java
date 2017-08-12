@@ -299,6 +299,7 @@ public class FormAction extends BaseAction{
 		}
 		FormEntity _form = new FormEntity();
 		_form.setFormTableName(form.getFormTableName());
+		_form.setAppId(BasicUtil.getAppId());
 		_form = (FormEntity) formBiz.getEntity(_form);
 		//自增长ID
 		int formId =  _form.getFormId();
