@@ -18,6 +18,8 @@ import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.FileUtil;
 import com.mingsoft.util.StringUtil;
 
+import net.mingsoft.basic.util.SpringUtil;
+
 /**
  * 
  * 铭飞 ms-mdiy 模块
@@ -46,7 +48,7 @@ public abstract class BaseAction extends com.mingsoft.basic.action.BaseAction {
 			return null;
 		}
 
-		IPageBiz pageBiz = (IPageBiz) getBean(req.getServletContext(), "modelTemplateBiz");
+		IPageBiz pageBiz = (IPageBiz) SpringUtil.getBean(IPageBiz.class);
 		PageEntity pageEntity =new PageEntity();
 		pageEntity.setPageAppId(app.getAppId());
 		pageEntity.setPageKey(key);
