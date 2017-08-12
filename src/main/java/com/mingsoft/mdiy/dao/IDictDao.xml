@@ -4,93 +4,99 @@
 	
 	<resultMap id="resultMap" type="com.mingsoft.mdiy.entity.DictEntity">
 		<id column="dict_id" property="dictId" /><!--编号 -->
-		<result column="dict_id" property="dictId" /><!--编号 -->
+		<result column="dict_app_id" property="appId" /><!--应用编号 -->
 		<result column="dict_value" property="dictValue" /><!--数据值 -->
 		<result column="dict_label" property="dictLabel" /><!--标签名 -->
 		<result column="dict_type" property="dictType" /><!--类型 -->
 		<result column="dict_description" property="dictDescription" /><!--描述 -->
 		<result column="dict_sort" property="dictSort" /><!--排序（升序） -->
 		<result column="dict_parent_id" property="dictParentId" /><!--父级编号 -->
-		<result column="dict_create_by" property="dictCreateBy" /><!--创建者 -->
-		<result column="dict_create_date" property="dictCreateDate" /><!--创建时间 -->
-		<result column="dict_update_by" property="dictUpdateBy" /><!--更新者 -->
-		<result column="dict_update_date" property="dictUpdateDate" /><!--更新时间 -->
+		<result column="create_by" property="createBy" /><!--创建者 -->
+		<result column="create_date" property="createDate" /><!--创建时间 -->
+		<result column="update_by" property="updateBy" /><!--更新者 -->
+		<result column="update_date" property="updateDate" /><!--更新时间 -->
 		<result column="dict_remarks" property="dictRemarks" /><!--备注信息 -->
-		<result column="dict_del" property="dictDel" /><!--删除标记 -->
+		<result column="del" property="del" /><!--删除标记 -->
 	</resultMap>
 	
 	<!--保存-->	
 	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="dictId"
 		parameterType="com.mingsoft.mdiy.entity.DictEntity" >
-		insert into dict
+		insert into mdiy_dict
 		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="appId != null">dict_app_id,</if>
 			<if test="dictValue != null and dictValue != ''">dict_value,</if>
 			<if test="dictLabel != null and dictLabel != ''">dict_label,</if>
 			<if test="dictType != null and dictType != ''">dict_type,</if>
 			<if test="dictDescription != null and dictDescription != ''">dict_description,</if>
 			<if test="dictSort != null">dict_sort,</if>
-			<if test="dictParentId &gt; 0">dict_parent_id,</if>
-			<if test="createBy &gt; 0">dict_create_by,</if>
-			<if test="createDate != null">dict_create_date,</if>		
+			<if test="dictParentId != null and dictParentId != ''">dict_parent_id,</if>
+			<if test="createBy != null">create_by,</if>
+			<if test="createDate != null">create_date,</if>
+			<if test="updateBy != null">update_by,</if>
+			<if test="updateDate != null">update_date,</if>
 			<if test="dictRemarks != null and dictRemarks != ''">dict_remarks,</if>
-			<if test="dictDel &gt; 0">dict_del,</if>
+			<if test="del != null">del,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="appId != null">#{appId},</if>
 			<if test="dictValue != null and dictValue != ''">#{dictValue},</if>
 			<if test="dictLabel != null and dictLabel != ''">#{dictLabel},</if>
 			<if test="dictType != null and dictType != ''">#{dictType},</if>
 			<if test="dictDescription != null and dictDescription != ''">#{dictDescription},</if>
 			<if test="dictSort != null">#{dictSort},</if>
-			<if test="dictParentId &gt; 0">#{dictParentId},</if>
-			<if test="createBy &gt; 0">#{createBy},</if>
+			<if test="dictParentId != null and dictParentId != ''">#{dictParentId},</if>
+			<if test="createBy != null">#{createBy},</if>
 			<if test="createDate != null">#{createDate},</if>
+			<if test="updateBy != null">#{updateBy},</if>
+			<if test="updateDate != null">#{updateDate},</if>
 			<if test="dictRemarks != null and dictRemarks != ''">#{dictRemarks},</if>
-			<if test="dictDel &gt; 0">#{dictDel},</if>
+			<if test="del != null">#{del},</if>
 		</trim>
 	</insert>
 	
 	<!--更新-->	
 	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.DictEntity">
-		update dict
+		update mdiy_dict
 		<set>
 			<if test="dictValue != null and dictValue != ''">dict_value=#{dictValue},</if>			
 			<if test="dictLabel != null and dictLabel != ''">dict_label=#{dictLabel},</if>			
 			<if test="dictType != null and dictType != ''">dict_type=#{dictType},</if>			
 			<if test="dictDescription != null and dictDescription != ''">dict_description=#{dictDescription},</if>			
 			<if test="dictSort != null">dict_sort=#{dictSort},</if>			
-			<if test="dictParentId &gt; 0">dict_parent_id=#{dictParentId},</if>			
-			<if test="createBy &gt; 0">dict_create_by=#{createBy},</if>			
-			<if test="createDate != null">dict_create_date=#{createDate},</if>			
-			<if test="updateBy &gt; 0">dict_update_by=#{updateBy},</if>			
-			<if test="updateDate != null">dict_update_date=#{updateDate},</if>			
+			<if test="dictParentId != null and dictParentId != ''">dict_parent_id=#{dictParentId},</if>			
+			<if test="createBy != null">create_by=#{createBy},</if>			
+			<if test="createDate != null">create_date=#{createDate},</if>			
+			<if test="updateBy != null">update_by=#{updateBy},</if>			
+			<if test="updateDate != null">update_date=#{updateDate},</if>			
 			<if test="dictRemarks != null and dictRemarks != ''">dict_remarks=#{dictRemarks},</if>			
-			<if test="dictDel &gt; 0">dict_del=#{dictDel},</if>			
+			<if test="del != null">del=#{del},</if>			
 		</set>
 		where dict_id = #{dictId}
 	</update>
 	
 	<!--根据id获取-->	
 	<select id="getEntity" resultMap="resultMap" parameterType="int">
-		select * from dict where dict_id=#{dictId} and dict_del=0
+		select * from mdiy_dict where dict_id=#{dictId}
 	</select>
 	
 	<!--根据实体获取-->
 	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.DictEntity">
-		select * from dict 
+		select * from mdiy_dict 
 		<where>
+			<if test="appId != null"> and dict_app_id=#{appId} </if>				
 			<if test="dictValue != null and dictValue != ''"> and dict_value=#{dictValue} </if>				
 			<if test="dictLabel != null and dictLabel != ''"> and dict_label=#{dictLabel} </if>				
 			<if test="dictType != null and dictType != ''"> and dict_type=#{dictType} </if>				
 			<if test="dictDescription != null and dictDescription != ''"> and dict_description=#{dictDescription} </if>				
 			<if test="dictSort != null"> and dict_sort=#{dictSort} </if>				
-			<if test="dictParentId &gt; 0"> and dict_parent_id=#{dictParentId} </if>				
-			<if test="createBy &gt; 0"> and dict_create_by=#{createBy} </if>				
-			<if test="createDate != null"> and dict_create_date=#{createDate} </if>				
-			<if test="updateBy &gt; 0"> and dict_update_by=#{updateBy} </if>				
-			<if test="updateDate != null"> and dict_update_date=#{updateDate} </if>				
+			<if test="dictParentId != null and dictParentId != ''"> and dict_parent_id=#{dictParentId} </if>				
+			<if test="createBy != null"> and create_by=#{createBy} </if>				
+			<if test="createDate != null"> and create_date=#{createDate} </if>				
+			<if test="updateBy != null"> and update_by=#{updateBy} </if>				
+			<if test="updateDate != null"> and update_date=#{updateDate} </if>				
 			<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
-			<if test="dictDel &gt; 0"> and dict_del=#{dictDel} </if>	
-			and dict_del=0			
+			<if test="del != null"> and del=#{del} </if>				
 		</where>
 		limit 0,1
 	</select>	
@@ -98,12 +104,12 @@
 	
 	<!--删除-->	
 	<delete id="deleteEntity" parameterType="int">
-		update  dict set dict_del=1  where dict_id=#{dictId}
+		delete from mdiy_dict  where dict_id=#{dictId}
 	</delete>	
 	
 	<!--批量删除-->	
 	<delete id="delete" >
-		update  dict set dict_del=1
+		delete from mdiy_dict
 		<where>
 			 dict_id  in <foreach collection="ids" item="item" index="index" 
 			open="(" separator="," close=")">#{item}</foreach>
@@ -111,24 +117,25 @@
 	</delete>
 	<!--查询全部-->	
 	<select id="queryAll" resultMap="resultMap">
-		select * from dict where dict_del=0 order by dict_id desc
+		select * from mdiy_dict order by dict_id desc
 	</select>
 	<!--条件查询-->	
 	<select id="query" resultMap="resultMap">
-		select * from dict  
+		select * from mdiy_dict  
 		<where>
+				dict_app_id = #{appId}
 				<if test="dictValue != null and dictValue != ''"> and dict_value=#{dictValue} </if>				
 				<if test="dictLabel != null and dictLabel != ''"> and dict_label=#{dictLabel} </if>				
 				<if test="dictType != null and dictType != ''"> and dict_type=#{dictType} </if>				
 				<if test="dictDescription != null and dictDescription != ''"> and dict_description=#{dictDescription} </if>				
 				<if test="dictSort != null"> and dict_sort=#{dictSort} </if>				
-				<if test="dictParentId &gt; 0"> and dict_parent_id=#{dictParentId} </if>				
-				<if test="createBy &gt; 0"> and dict_create_by=#{createBy} </if>				
-				<if test="createDate != null"> and dict_create_date=#{createDate} </if>				
-				<if test="updateBy &gt; 0"> and dict_update_by=#{updateBy} </if>				
-				<if test="updateDate != null"> and dict_update_date=#{updateDate} </if>				
+				<if test="dictParentId != null and dictParentId != ''"> and dict_parent_id=#{dictParentId} </if>				
+				<if test="createBy != null"> and create_by=#{createBy} </if>				
+				<if test="createDate != null"> and create_date=#{createDate} </if>				
+				<if test="updateBy != null"> and update_by=#{updateBy} </if>				
+				<if test="updateDate != null"> and update_date=#{updateDate} </if>				
 				<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
-				and dict_del=0	
+				<if test="del != null"> and del=#{del} </if>				
 		</where>		
 		order by dict_id desc
 	</select>

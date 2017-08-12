@@ -1,24 +1,30 @@
 package com.mingsoft.mdiy.entity;
 
+
+import java.util.Date;
+
 import com.mingsoft.basic.entity.BaseEntity;
 
  /**
  * 字典表实体
- * @author 铭飞开发团队
+ * @author 蓝精灵
  * @version 
- * 版本号：1.0.0<br/>
- * 创建日期：2016-9-8 17:11:19<br/>
+ * 版本号：1<br/>
+ * 创建日期：2017-8-12 14:22:36<br/>
  * 历史修订：<br/>
  */
 public class DictEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1473325879430L;
-	
+	private static final long serialVersionUID = 1502518956351L;
 	
 	/**
 	 * 编号
 	 */
-	private int dictId; 
+	private Integer dictId; 
+	/**
+	 * 应用编号
+	 */
+	private Integer dictAppId; 
 	/**
 	 * 数据值
 	 */
@@ -38,7 +44,7 @@ public class DictEntity extends BaseEntity {
 	/**
 	 * 排序（升序）
 	 */
-	private Long dictSort; 
+	private Integer dictSort; 
 	/**
 	 * 父级编号
 	 */
@@ -46,19 +52,19 @@ public class DictEntity extends BaseEntity {
 	/**
 	 * 创建者
 	 */
-	private int dictCreateBy; 
+	private Integer createBy; 
 	/**
 	 * 创建时间
 	 */
-	private java.util.Date dictCreateDate; 
+	private Date createDate; 
 	/**
 	 * 更新者
 	 */
-	private int dictUpdateBy; 
+	private Integer updateBy; 
 	/**
 	 * 更新时间
 	 */
-	private java.util.Date dictUpdateDate; 
+	private Date updateDate; 
 	/**
 	 * 备注信息
 	 */
@@ -66,73 +72,36 @@ public class DictEntity extends BaseEntity {
 	/**
 	 * 删除标记
 	 */
-	private String dictDel; 
-	
-	public DictEntity(){}
-	public DictEntity(int dictId) {
-	this.dictId = dictId;	}
-	
-	public DictEntity(String dictValue) {
-		this.dictValue = dictValue;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy,java.util.Date dictCreateDate) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;		this.dictCreateDate = dictCreateDate;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy,java.util.Date dictCreateDate,int dictUpdateBy) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;		this.dictCreateDate = dictCreateDate;		this.dictUpdateBy = dictUpdateBy;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy,java.util.Date dictCreateDate,int dictUpdateBy,java.util.Date dictUpdateDate) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;		this.dictCreateDate = dictCreateDate;		this.dictUpdateBy = dictUpdateBy;		this.dictUpdateDate = dictUpdateDate;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy,java.util.Date dictCreateDate,int dictUpdateBy,java.util.Date dictUpdateDate,String dictRemarks) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;		this.dictCreateDate = dictCreateDate;		this.dictUpdateBy = dictUpdateBy;		this.dictUpdateDate = dictUpdateDate;		this.dictRemarks = dictRemarks;	
-	}
-	
-	public DictEntity(String dictValue,String dictLabel,String dictType,String dictDescription,Long dictSort,String dictParentId,int dictCreateBy,java.util.Date dictCreateDate,int dictUpdateBy,java.util.Date dictUpdateDate,String dictRemarks,String dictDel) {
-		this.dictValue = dictValue;		this.dictLabel = dictLabel;		this.dictType = dictType;		this.dictDescription = dictDescription;		this.dictSort = dictSort;		this.dictParentId = dictParentId;		this.dictCreateBy = dictCreateBy;		this.dictCreateDate = dictCreateDate;		this.dictUpdateBy = dictUpdateBy;		this.dictUpdateDate = dictUpdateDate;		this.dictRemarks = dictRemarks;		this.dictDel = dictDel;	
-	}
+	private Integer del; 
 	
 	
+		
 	/**
 	 * 设置编号
 	 */
-	public void setDictId(int dictId) {
+	public void setDictId(Integer dictId) {
 		this.dictId = dictId;
 	}
 
 	/**
 	 * 获取编号
 	 */
-	public int getDictId() {
+	public Integer getDictId() {
 		return this.dictId;
+	}
+	
+	/**
+	 * 设置应用编号
+	 */
+	public void setDictAppId(Integer dictAppId) {
+		this.dictAppId = dictAppId;
+	}
+
+	/**
+	 * 获取应用编号
+	 */
+	public Integer getDictAppId() {
+		return this.dictAppId;
 	}
 	
 	/**
@@ -194,14 +163,14 @@ public class DictEntity extends BaseEntity {
 	/**
 	 * 设置排序（升序）
 	 */
-	public void setDictSort(Long dictSort) {
+	public void setDictSort(Integer dictSort) {
 		this.dictSort = dictSort;
 	}
 
 	/**
 	 * 获取排序（升序）
 	 */
-	public Long getDictSort() {
+	public Integer getDictSort() {
 		return this.dictSort;
 	}
 	
@@ -219,61 +188,6 @@ public class DictEntity extends BaseEntity {
 		return this.dictParentId;
 	}
 	
-	/**
-	 * 设置创建者
-	 */
-	public void setDictCreateBy(int dictCreateBy) {
-		this.dictCreateBy = dictCreateBy;
-	}
-
-	/**
-	 * 获取创建者
-	 */
-	public int getDictCreateBy() {
-		return this.dictCreateBy;
-	}
-	
-	/**
-	 * 设置创建时间
-	 */
-	public void setDictCreateDate(java.util.Date dictCreateDate) {
-		this.dictCreateDate = dictCreateDate;
-	}
-
-	/**
-	 * 获取创建时间
-	 */
-	public java.util.Date getDictCreateDate() {
-		return this.dictCreateDate;
-	}
-	
-	/**
-	 * 设置更新者
-	 */
-	public void setDictUpdateBy(int dictUpdateBy) {
-		this.dictUpdateBy = dictUpdateBy;
-	}
-
-	/**
-	 * 获取更新者
-	 */
-	public int getDictUpdateBy() {
-		return this.dictUpdateBy;
-	}
-	
-	/**
-	 * 设置更新时间
-	 */
-	public void setDictUpdateDate(java.util.Date dictUpdateDate) {
-		this.dictUpdateDate = dictUpdateDate;
-	}
-
-	/**
-	 * 获取更新时间
-	 */
-	public java.util.Date getDictUpdateDate() {
-		return this.dictUpdateDate;
-	}
 	
 	/**
 	 * 设置备注信息
@@ -292,15 +206,15 @@ public class DictEntity extends BaseEntity {
 	/**
 	 * 设置删除标记
 	 */
-	public void setDictDel(String dictDel) {
-		this.dictDel = dictDel;
+	public void setDel(Integer del) {
+		this.del = del;
 	}
 
 	/**
 	 * 获取删除标记
 	 */
-	public String getDictDel() {
-		return this.dictDel;
+	public Integer getDel() {
+		return this.del;
 	}
 	
 }
