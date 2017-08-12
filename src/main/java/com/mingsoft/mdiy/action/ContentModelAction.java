@@ -100,6 +100,7 @@ public class ContentModelAction extends BaseAction{
 	@RequestMapping("/list")
 	@ResponseBody
 	public void list(@ModelAttribute ContentModelEntity contentModel,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
+		contentModel.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List contentModelList = contentModelBiz.query(contentModel);
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(new EUListBean(contentModelList,(int)BasicUtil.endPage(contentModelList).getTotal()),new DoubleValueFilter(),new DateValueFilter()));
@@ -167,6 +168,7 @@ public class ContentModelAction extends BaseAction{
 	@RequestMapping("/save")
 	@ResponseBody
 	public void save(@ModelAttribute ContentModelEntity contentModel,HttpServletRequest request, HttpServletResponse response){
+		contentModel.setAppId(BasicUtil.getAppId());
 		// 保存前判断数据是否合法
 		if(!StringUtil.checkLength(contentModel.getCmTipsName(), 1,30)){
 			this.outJson(response, null, false,getResString("err.length",this.getResString("content.model.tips.name"),"1","30"));
