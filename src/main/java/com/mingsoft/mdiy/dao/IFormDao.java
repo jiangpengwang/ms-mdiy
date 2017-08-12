@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import com.mingsoft.base.dao.IBaseDao;
-import com.mingsoft.mdiy.entity.DiyFormEntity;
+import com.mingsoft.mdiy.entity.FormEntity;
 
 /**
  * 自定义表单
@@ -14,7 +14,7 @@ import com.mingsoft.mdiy.entity.DiyFormEntity;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
-public interface IDiyFormDao extends IBaseDao{
+public interface IFormDao extends IBaseDao{
 	/**
 	 * 查询列表
 	 * @param appId　应用编号
@@ -27,7 +27,7 @@ public interface IDiyFormDao extends IBaseDao{
 	 * @param diyFormTableName
 	 * @return 返回自定义表单实体
 	 */
-	DiyFormEntity getByTableName(@Param("diyFormTableName")String diyFormTableName);
+	FormEntity getByTableName(@Param("diyFormTableName")String diyFormTableName);
 	
 	/**
 	 * 为自定义表单创建表

@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import com.mingsoft.base.biz.impl.BaseBizImpl;
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.mdiy.constant.e.DiyFormFieldEnum;
-import com.mingsoft.mdiy.dao.IDiyFormFieldDao;
-import com.mingsoft.mdiy.entity.DiyFormEntity;
-import com.mingsoft.mdiy.biz.IDiyFormBiz;
-import com.mingsoft.mdiy.dao.IDiyFormDao;
-import com.mingsoft.mdiy.entity.DiyFormFieldEntity;
+import com.mingsoft.mdiy.dao.IFormFieldDao;
+import com.mingsoft.mdiy.entity.FormEntity;
+import com.mingsoft.mdiy.biz.IFormBiz;
+import com.mingsoft.mdiy.dao.IFormDao;
+import com.mingsoft.mdiy.entity.FormFieldEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -27,7 +27,7 @@ import com.mingsoft.util.StringUtil;
  * 历史修订：<br/>
  */
 @Service
-public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
+public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 
 	/**
 	 * 自定义表单的默认字段
@@ -45,13 +45,13 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	 * 注入自定义表单持久化层
 	 */
 	@Autowired
-	private IDiyFormDao diyFormDao;
+	private IFormDao diyFormDao;
 	
 	/**
 	 * 自定义表单字段持久化层的注入
 	 */
 	@Autowired
-	private IDiyFormFieldDao diyFormFieldDao;
+	private IFormFieldDao diyFormFieldDao;
 
 	/**
 	 * 获取类别持久化层
@@ -66,12 +66,12 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	@Override
 	public void saveDiyFormData(int formId, Map params) {
 		// TODO Auto-generated method stub
-		DiyFormEntity dfe = (DiyFormEntity) diyFormDao.getEntity(formId);
+		FormEntity dfe = (FormEntity) diyFormDao.getEntity(formId);
 		if (dfe == null) {
 			return;
 		}
 		String tableName = dfe.getDiyFormTableName();
-		List<DiyFormFieldEntity> filedList = diyFormFieldDao.queryByDiyFormId(formId);
+		List<FormFieldEntity> filedList = diyFormFieldDao.queryByDiyFormId(formId);
 		if (filedList == null) {
 			return;
 		}
@@ -84,9 +84,9 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	@Override
 	public Map queryDiyFormData(int diyFormId,int appId,PageUtil page) {
 		// TODO Auto-generated method stub
-		DiyFormEntity dfe = (DiyFormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
 		if (dfe!=null) {
-			List<DiyFormFieldEntity> fieldList = diyFormFieldDao.queryByDiyFormId(diyFormId);
+			List<FormFieldEntity> fieldList = diyFormFieldDao.queryByDiyFormId(diyFormId);
 			List<Map<String,String>> fields = new ArrayList<Map<String,String>>();
 			for (int i=0;i<fieldList.size();i++) {
 				Map<String,String> field = new HashMap<String,String>();
@@ -109,7 +109,7 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	@Override
 	public void deleteQueryDiyFormData(int id,int diyFormId) {
 		// TODO Auto-generated method stub
-		DiyFormEntity dfe = (DiyFormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
 		wheres.put(ID, id);
@@ -119,7 +119,7 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	@Override
 	public int countDiyFormData(int diyFormId, int appId) {
 		// TODO Auto-generated method stub
-		DiyFormEntity dfe = (DiyFormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
 		return diyFormDao.countBySQL(dfe.getDiyFormTableName(),wheres );
@@ -143,7 +143,7 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 		Map mapParams = new HashMap();
 		// 遍历字段名
 		for (int i = 0; i < listField.size(); i++) {
-			DiyFormFieldEntity field = (DiyFormFieldEntity) listField.get(i);
+			FormFieldEntity field = (FormFieldEntity) listField.get(i);
 			String fieldName = field.getDiyFormFieldFieldName();
 //			int fieldType = field.getDiyFormFieldType();
 //			if (fieldType == DiyFormFieldEnum. ) {
@@ -169,7 +169,7 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 	}
 
 	@Override
-	public DiyFormEntity getByTableName(String diyFormTableName) {
+	public FormEntity getByTableName(String diyFormTableName) {
 		// TODO Auto-generated method stub
 		return diyFormDao.getByTableName(diyFormTableName);
 	}

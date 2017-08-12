@@ -2,7 +2,7 @@ package com.mingsoft.mdiy.biz;
 
 import java.util.List;
 import com.mingsoft.base.biz.IBaseBiz;
-import com.mingsoft.mdiy.entity.DiyFormFieldEntity;
+import com.mingsoft.mdiy.entity.FormFieldEntity;
 
 /**
  * 自定义表单接口
@@ -12,14 +12,14 @@ import com.mingsoft.mdiy.entity.DiyFormFieldEntity;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
-public interface IDiyFormFieldBiz extends IBaseBiz{
+public interface IFormFieldBiz extends IBaseBiz{
 	
 	/**
 	 * 通过from的id获取实体
 	 * @param diyFormId　自定义表单id 
 	 * @return　返回实体
 	 */
-	List<DiyFormFieldEntity> queryByDiyFormId( int diyFormId);
+	List<FormFieldEntity> queryByDiyFormId( int diyFormId);
 	
 	/**
 	 * 获取自定义表单字段
@@ -27,6 +27,6 @@ public interface IDiyFormFieldBiz extends IBaseBiz{
 	 * @param diyFormFieldFieldName 　自定义表单字段名
 	 * @return 返回自定义表单实体
 	 */
-	DiyFormFieldEntity  getByFieldName(Integer diyFormFieldFormId,String diyFormFieldFieldName);
+	FormFieldEntity  getByFieldName(Integer diyFormFieldFormId,String diyFormFieldFieldName);
 	
 }

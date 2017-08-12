@@ -3,7 +3,7 @@ package com.mingsoft.mdiy.biz;
 import java.util.List;
 import java.util.Map;
 import com.mingsoft.base.biz.IBaseBiz;
-import com.mingsoft.mdiy.entity.DiyFormEntity;
+import com.mingsoft.mdiy.entity.FormEntity;
 import com.mingsoft.util.PageUtil;
 
 /**
@@ -14,7 +14,7 @@ import com.mingsoft.util.PageUtil;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
-public interface IDiyFormBiz extends IBaseBiz{
+public interface IFormBiz extends IBaseBiz{
 
 	/**
 	 * 保存自定义表单的数据
@@ -59,7 +59,7 @@ public interface IDiyFormBiz extends IBaseBiz{
 	 * @param diyFormTableName 表单名称
 	 * @return 返回表单实体
 	 */
-	DiyFormEntity  getByTableName(String diyFormTableName);
+	FormEntity  getByTableName(String diyFormTableName);
 	
 	/**
 	 * 创建表

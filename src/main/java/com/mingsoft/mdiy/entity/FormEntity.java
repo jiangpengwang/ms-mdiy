@@ -12,7 +12,7 @@ import com.mingsoft.util.StringUtil;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
-public class DiyFormEntity extends BaseEntity{
+public class FormEntity extends BaseEntity{
 	/**
 	 * 自增长ID
 	 */

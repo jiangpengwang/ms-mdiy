@@ -13,7 +13,7 @@ import com.mingsoft.mdiy.constant.e.DiyFormFieldEnum;
  * 创建日期：2012-03-15<br/>
  * 历史修订：<br/>
  */
-public class DiyFormFieldEntity extends BaseEntity{
+public class FormFieldEntity extends BaseEntity{
 	/**
 	 * 字段的默认值
 	 */

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mingsoft.base.constant.e.TableEnum;
 import com.mingsoft.mdiy.constant.e.DiyFormFieldEnum;
-import com.mingsoft.mdiy.entity.DiyFormEntity;
-import com.mingsoft.mdiy.biz.IDiyFormBiz;
-import com.mingsoft.mdiy.biz.IDiyFormFieldBiz;
-import com.mingsoft.mdiy.entity.DiyFormFieldEntity;
+import com.mingsoft.mdiy.entity.FormEntity;
+import com.mingsoft.mdiy.biz.IFormBiz;
+import com.mingsoft.mdiy.biz.IFormFieldBiz;
+import com.mingsoft.mdiy.entity.FormFieldEntity;
 import com.mingsoft.util.StringUtil;
 
 /**
@@ -50,13 +50,13 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	 * 注入自定义表单字段biz
 	 */
 	@Autowired
-	private IDiyFormFieldBiz diyFormFieldBiz;
+	private IFormFieldBiz diyFormFieldBiz;
 
 	/**
 	 * 注入自定义表单biz
 	 */
 	@Autowired
-	private IDiyFormBiz diyFormBiz;
+	private IFormBiz diyFormBiz;
 
 	/**
 	 * 查询字段的列表信息
@@ -74,7 +74,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	public Map list(int diyFormId, HttpServletRequest request, HttpServletResponse response) {
 		Map map = new HashMap();
 		// 查询所有的字段信息
-		List<DiyFormFieldEntity> fieldList = diyFormFieldBiz.queryByDiyFormId(diyFormId);
+		List<FormFieldEntity> fieldList = diyFormFieldBiz.queryByDiyFormId(diyFormId);
 		map.put("fieldList", fieldList);
 		// 获取字段属性
 		Map<Integer, String> fieldType = DiyFormFieldEnum.toMap();
@@ -95,10 +95,10 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	 */
 	@RequestMapping("/{diyFormId}/save")
 	@ResponseBody
-	public void save(@ModelAttribute DiyFormFieldEntity diyFormfield, @PathVariable int diyFormId,
+	public void save(@ModelAttribute FormFieldEntity diyFormfield, @PathVariable int diyFormId,
 			HttpServletResponse response) {
 		// 获取自定义表单实体
-		DiyFormEntity diyForm = (DiyFormEntity) diyFormBiz.getEntity(diyFormId);
+		FormEntity diyForm = (FormEntity) diyFormBiz.getEntity(diyFormId);
 		if (diyForm == null) {
 			this.outJson(response, null, false, this.getResString("err.not.exist", this.getResString("diy.form")));
 			return;
@@ -149,7 +149,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	@ResponseBody
 	public Map edit(@PathVariable int diyFormFieldId, HttpServletRequest request) {
 		Map mode = new HashMap();
-		DiyFormFieldEntity diyFormfield = (DiyFormFieldEntity) diyFormFieldBiz.getEntity(diyFormFieldId);
+		FormFieldEntity diyFormfield = (FormFieldEntity) diyFormFieldBiz.getEntity(diyFormFieldId);
 		mode.put("diyFormfield", diyFormfield);
 		return mode;
 	}
@@ -164,7 +164,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody
-	public void update(@ModelAttribute DiyFormFieldEntity diyFormfield, HttpServletResponse response) {
+	public void update(@ModelAttribute FormFieldEntity diyFormfield, HttpServletResponse response) {
 		// 更新前判断数据是否合法
 		if (!StringUtil.checkLength(diyFormfield.getDiyFormFieldTipsName(), 1, 20)) {
 			this.outJson(response, null, false,
@@ -178,9 +178,9 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 		}
 
 		// 获取自定义表单实体
-		DiyFormEntity diyForm = (DiyFormEntity) diyFormBiz.getEntity(diyFormfield.getDiyFormFieldFormId());
+		FormEntity diyForm = (FormEntity) diyFormBiz.getEntity(diyFormfield.getDiyFormFieldFormId());
 		// 读取属性配置文件
-		DiyFormFieldEntity oldField = (DiyFormFieldEntity) diyFormFieldBiz.getEntity(diyFormfield.getDiyFormFieldId());
+		FormFieldEntity oldField = (FormFieldEntity) diyFormFieldBiz.getEntity(diyFormfield.getDiyFormFieldId());
 		Map fields = new HashMap();
 		// 更改前的字段名
 		fields.put("fieldOldName", oldField.getDiyFormFieldFieldName());
@@ -238,13 +238,13 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 	@RequestMapping("/{fieldId}/delete")
 	public void delete(@PathVariable int fieldId, HttpServletRequest request, HttpServletResponse response) {
 		//
-		DiyFormFieldEntity diyFormField = (DiyFormFieldEntity) this.diyFormFieldBiz.getEntity(fieldId);
+		FormFieldEntity diyFormField = (FormFieldEntity) this.diyFormFieldBiz.getEntity(fieldId);
 		if (diyFormField == null) {
 			this.outJson(response, null, false,
 					this.getResString("err.not.exist", this.getResString("diy.form.field")));
 			return;
 		}
-		DiyFormEntity diyForm = (DiyFormEntity) this.diyFormBiz.getEntity(diyFormField.getDiyFormFieldFormId());
+		FormEntity diyForm = (FormEntity) this.diyFormBiz.getEntity(diyFormField.getDiyFormFieldFormId());
 		if (diyForm == null) {
 			this.outJson(response, null, false, this.getResString("err.not.exist", this.getResString("diy.form")));
 			return;

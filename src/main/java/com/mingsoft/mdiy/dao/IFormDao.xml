@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingsoft.mdiy.dao.IDiyFormDao">
-	<resultMap type="com.mingsoft.mdiy.entity.DiyFormEntity" id="resultMap">
+<mapper namespace="com.mingsoft.mdiy.dao.IFormDao">
+	<resultMap type="com.mingsoft.mdiy.entity.FormEntity" id="resultMap">
 		<id column="DF_ID" property="diyFormId"></id>
 		<result column="DF_TIPSNAME" property="diyFormTipsName" />
 		<result column="DF_TABLENAME" property="diyFormTableName" />
@@ -11,7 +11,7 @@
 
 
 	<!-- 新增表单内容模型开始 -->
-	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormEntity">
+	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.FormEntity">
 		insert into mdiy_form
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -32,7 +32,7 @@
 	<!-- 新增表单内容模型结束 -->
 
 	<!-- 更新表单内容模型开始 -->
-	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormEntity">
+	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.FormEntity">
 		update mdiy_form
 		<set>
 			<if test="diyFormTipsName != null">DF_TIPSNAME=#{diyFormTipsName},</if>

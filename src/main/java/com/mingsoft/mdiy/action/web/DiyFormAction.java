@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.constant.e.SessionConstEnum;
-import com.mingsoft.mdiy.biz.IDiyFormBiz;
+import com.mingsoft.mdiy.biz.IFormBiz;
 import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
@@ -35,7 +35,7 @@ public class DiyFormAction extends BaseAction{
 	 * 自定义表单业务处理层
 	 */
 	@Autowired
-	IDiyFormBiz diyFormBiz;
+	IFormBiz diyFormBiz;
 	
 	/**
 	 * 保存

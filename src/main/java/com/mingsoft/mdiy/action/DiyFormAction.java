@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.constant.Const;
 import com.mingsoft.basic.constant.e.SessionConstEnum;
-import com.mingsoft.mdiy.entity.DiyFormEntity;
+import com.mingsoft.mdiy.entity.FormEntity;
 import com.mingsoft.basic.entity.ManagerEntity;
-import com.mingsoft.mdiy.biz.IDiyFormBiz;
-import com.mingsoft.mdiy.biz.IDiyFormFieldBiz;
+import com.mingsoft.mdiy.biz.IFormBiz;
+import com.mingsoft.mdiy.biz.IFormFieldBiz;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -48,13 +48,13 @@ public class DiyFormAction extends BaseAction{
 	 * 注入自定义表单biz
 	 */
 	@Autowired
-	IDiyFormBiz diyFormBiz;
+	IFormBiz diyFormBiz;
 	
 	/**
 	 * 注入自定义表单字段的biz
 	 */
 	@Autowired
-	IDiyFormFieldBiz diyFormFieldBiz;
+	IFormFieldBiz diyFormFieldBiz;
 	
 	/**
 	 * 加载自定义表单列表页面
@@ -156,7 +156,7 @@ public class DiyFormAction extends BaseAction{
 	 */
 	@RequestMapping("/{diyFormId}/edit")
 	public String edit(@PathVariable int diyFormId,ModelMap model){
-		DiyFormEntity diyForm = (DiyFormEntity) this.diyFormBiz.getEntity(diyFormId);
+		FormEntity diyForm = (FormEntity) this.diyFormBiz.getEntity(diyFormId);
 		model.addAttribute("diyForm", diyForm);
 		
 		return view("/mdiy/diy_form/diy_form");
@@ -169,7 +169,7 @@ public class DiyFormAction extends BaseAction{
 	 * @param response 响应对象
 	 */
 	@RequestMapping("/save")
-	public void  save(@ModelAttribute DiyFormEntity diyForm,HttpServletRequest request, HttpServletResponse response){
+	public void  save(@ModelAttribute FormEntity diyForm,HttpServletRequest request, HttpServletResponse response){
 		// 更新前判断数据是否合法
 		if(!StringUtil.checkLength(diyForm.getDiyFormTableName(), 1,20)){
 				this.outJson(response, null, false,getResString("err.length",this.getResString("fieldTipsName"),"1","20"));
@@ -216,7 +216,7 @@ public class DiyFormAction extends BaseAction{
 	 * @param request 请求对象
 	 */
 	@RequestMapping("/update")
-	public void update(@ModelAttribute DiyFormEntity diyForm, HttpServletResponse response,HttpServletRequest request){
+	public void update(@ModelAttribute FormEntity diyForm, HttpServletResponse response,HttpServletRequest request){
 		// 更新前判断数据是否合法
 		if(!StringUtil.checkLength(diyForm.getDiyFormTableName(), 1,20)){
 				this.outJson(response, null, false,getResString("err.length",this.getResString("fieldTipsName"),"1","20"));
@@ -250,7 +250,7 @@ public class DiyFormAction extends BaseAction{
 		int managerId = managerSession.getManagerId();
 		//组装表名
 		diyFormTableName =TABLE_NAME_PREFIX+diyFormTableName+TABLE_NAME_SPLIT+managerId;
-		DiyFormEntity diyForm = this.diyFormBiz.getByTableName(diyFormTableName);
+		FormEntity diyForm = this.diyFormBiz.getByTableName(diyFormTableName);
 		if(diyForm==null){
 			this.outJson(response, null, false);
 		}
@@ -266,7 +266,7 @@ public class DiyFormAction extends BaseAction{
 	public void delete(@PathVariable int diyFormId, HttpServletResponse response){
 		
 		//根据表单id查找表单实体
-		DiyFormEntity diyForm = (DiyFormEntity) this.diyFormBiz.getEntity(diyFormId);
+		FormEntity diyForm = (FormEntity) this.diyFormBiz.getEntity(diyFormId);
 		if(diyForm==null){
 			this.outJson(response, null, false,this.getResString("err.not.exist",this.getResString("diy.form")));
 			return;

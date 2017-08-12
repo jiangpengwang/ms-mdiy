@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mingsoft.mdiy.dao.IDiyFormFieldDao">
-	<resultMap type="com.mingsoft.mdiy.entity.DiyFormFieldEntity" id="resultMap">
+<mapper namespace="com.mingsoft.mdiy.dao.IFormFieldDao">
+	<resultMap type="com.mingsoft.mdiy.entity.FormFieldEntity" id="resultMap">
 		<id column="DFF_ID" property="diyFormFieldId"></id>
 		<result column="DFF_TIPSNAME" property="diyFormFieldTipsName" />
 		<result column="DFF_FIELDNAME" property="diyFormFieldFieldName" />
@@ -14,7 +14,7 @@
 
 
 	<!-- 新增表单内容模型开始 -->
-	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormFieldEntity">
+	<insert id="saveEntity" parameterType="com.mingsofFormentity.FormFieldEntity">
 		insert into mdiy_form_field
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,7 +41,7 @@
 	<!-- 新增表单内容模型结束 -->
 
 	<!-- 更新表单内容模型开始 -->
-	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.DiyFormFieldEntity">
+	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.FormFieldEntity">
 		update mdiy_form_field
 		<set>
 			<if test="diyFormFieldTipsName != null">DFF_TIPSNAME=#{diyFormFieldTipsName},</if>
