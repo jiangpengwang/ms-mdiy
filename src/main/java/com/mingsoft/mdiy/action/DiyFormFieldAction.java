@@ -131,7 +131,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 		fileds.put("fieldType", diyFormfield.getDiyFormFieldColumnType());
 		fileds.put("default", diyFormfield.getDiyFormFieldDefault());
 		// 在表中创建字段
-		diyFormFieldBiz.alterTable(diyForm.getDiyFormTableName(), fileds, TableEnum.ALTER_ADD);
+		diyFormFieldBiz.alterTable(diyForm.getFormTableName(), fileds, TableEnum.ALTER_ADD);
 		this.diyFormFieldBiz.saveEntity(diyFormfield);
 		this.outJson(response, null, true, null);
 	}
@@ -193,7 +193,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 			return;
 		}
 		// 更新表的字段名
-		diyFormFieldBiz.alterTable(diyForm.getDiyFormTableName(), fields, "modify");
+		diyFormFieldBiz.alterTable(diyForm.getFormTableName(), fields, "modify");
 		diyFormFieldBiz.updateEntity(diyFormfield);
 		this.outJson(response, null, true, null);
 	}
@@ -253,7 +253,7 @@ public class DiyFormFieldAction extends com.mingsoft.basic.action.BaseAction {
 		// 要删除的字段名
 		fields.put("fieldName", diyFormField.getDiyFormFieldFieldName());
 		// 删除列
-		diyFormFieldBiz.alterTable(diyForm.getDiyFormTableName(), fields, "drop");
+		diyFormFieldBiz.alterTable(diyForm.getFormTableName(), fields, "drop");
 		diyFormFieldBiz.deleteEntity(diyFormField.getDiyFormFieldId());
 		this.outJson(response, null, true);
 	}

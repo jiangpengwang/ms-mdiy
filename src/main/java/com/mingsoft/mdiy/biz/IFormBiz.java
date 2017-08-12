@@ -48,20 +48,6 @@ public interface IFormBiz extends IBaseBiz{
 	int countDiyFormData(int diyFormId,int appId);
 	
 	/**
-	 * 查询列表
-	 * @param appId　应用编号
-	 * @return 返回列表集合
-	 */
-	List query(int appId);
-	
-	/**
-	 * 根据表单名称获取表单实体
-	 * @param diyFormTableName 表单名称
-	 * @return 返回表单实体
-	 */
-	FormEntity  getByTableName(String diyFormTableName);
-	
-	/**
 	 * 创建表
 	 * @param table 表名称
 	 * @param fileds Map,key:字段名称  list[0] 类型  list[1]长度 list[2]默认值 list[3]是否不填
@@ -69,9 +55,4 @@ public interface IFormBiz extends IBaseBiz{
 	@SuppressWarnings("rawtypes")
 	void createDiyFormTable(String table,Map<Object,List> fileds);
 	
-	/**
-	 * 多选删除
-	 * @param ids 前端传来的勾选的checkbox的序列化id值
-	 */
-	void deleteAll(String[] ids);
 }

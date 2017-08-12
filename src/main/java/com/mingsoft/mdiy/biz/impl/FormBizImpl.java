@@ -70,7 +70,7 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 		if (dfe == null) {
 			return;
 		}
-		String tableName = dfe.getDiyFormTableName();
+		String tableName = dfe.getFormTableName();
 		List<FormFieldEntity> filedList = diyFormFieldDao.queryByDiyFormId(formId);
 		if (filedList == null) {
 			return;
@@ -95,7 +95,7 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 			}
 			Map wheres = new HashMap();
 			wheres.put(FORM_ID, diyFormId);
-			List list = diyFormDao.queryBySQL(dfe.getDiyFormTableName(), null, wheres, page.getPageSize()*page.getPageNo(), page.getPageSize(),ID);
+			List list = diyFormDao.queryBySQL(dfe.getFormTableName(), null, wheres, page.getPageSize()*page.getPageNo(), page.getPageSize(),ID);
 			Map r = new HashMap();
 			r.put("fields", fieldList);
 			r.put("list", list);
@@ -113,7 +113,7 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
 		wheres.put(ID, id);
-		diyFormDao.deleteBySQL(dfe.getDiyFormTableName(), wheres);
+		diyFormDao.deleteBySQL(dfe.getFormTableName(), wheres);
 	}
 
 	@Override
@@ -122,15 +122,8 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
-		return diyFormDao.countBySQL(dfe.getDiyFormTableName(),wheres );
+		return diyFormDao.countBySQL(dfe.getFormTableName(),wheres );
 	}
-
-	@Override
-	public List query(int appId) {
-		// TODO Auto-generated method stub
-		return diyFormDao.query(appId);
-	}
-	
 
 	/**
 	 * 遍历出所有字段的信息
@@ -169,21 +162,9 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 	}
 
 	@Override
-	public FormEntity getByTableName(String diyFormTableName) {
-		// TODO Auto-generated method stub
-		return diyFormDao.getByTableName(diyFormTableName);
-	}
-	
-	@Override
 	public void createDiyFormTable(String table, Map<Object, List> fileds) {
 		// TODO Auto-generated method stub
 		diyFormDao.createDiyFormTable(table, fileds);
 	}
 
-	@Override
-	public void deleteAll(String[] ids) {
-		// TODO Auto-generated method stub
-		diyFormDao.deleteAll(ids);
-	}
-	
 }

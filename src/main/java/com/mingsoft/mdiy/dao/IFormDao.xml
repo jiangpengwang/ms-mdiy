@@ -1,90 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mingsoft.mdiy.dao.IFormDao">
-	<resultMap type="com.mingsoft.mdiy.entity.FormEntity" id="resultMap">
-		<id column="DF_ID" property="diyFormId"></id>
-		<result column="DF_TIPSNAME" property="diyFormTipsName" />
-		<result column="DF_TABLENAME" property="diyFormTableName" />
-		<result column="DF_MANAGERID" property="diyFormManagerId" />
-		<result column="DF_APPID" property="diyFormAppId" />
+	
+	<resultMap id="resultMap" type="com.mingsoft.mdiy.entity.FormEntity">
+		<id column="FORM_ID" property="formId" /><!--自增长id -->
+		<result column="FORM_TIPS_NAME" property="formTipsName" /><!--自定义表单提示文字 -->
+		<result column="FORM_TABLE_NAME" property="formTableName" /><!--自定义表单表名 -->
+		<result column="DF_MANAGERID" property="dfManagerid" /><!--自定义表单关联的关联员id -->
+		<result column="FORM_APP_ID" property="appId" /><!--自定义表单关联的应用编号 -->
+		<result column="CREATE_BY" property="createBy" /><!--创建者 -->
+		<result column="UPDATE_BY" property="updateBy" /><!--更新者 -->
+		<result column="CREATE_DATE" property="createDate" /><!--创建时间 -->
+		<result column="UPDATE_DATE" property="updateDate" /><!--更新时间 -->
 	</resultMap>
-
-
-	<!-- 新增表单内容模型开始 -->
-	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.FormEntity">
+	
+	<!--保存-->	
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="formId"
+		parameterType="com.mingsoft.mdiy.entity.FormEntity" >
 		insert into mdiy_form
-		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="diyFormTipsName != null">DF_TIPSNAME,</if>
-			<if test="diyFormTableName != null">DF_TABLENAME,</if>
-			<if test="diyFormManagerId != null">DF_MANAGERID,</if>
-			<if test="diyFormAppId != null">DF_APPID,</if>
+			<if test="formTipsName != null and formTipsName != ''">FORM_TIPS_NAME,</if>
+			<if test="formTableName != null and formTableName != ''">FORM_TABLE_NAME,</if>
+			<if test="dfManagerid != null">DF_MANAGERID,</if>
+			<if test="appId != null">FORM_APP_ID,</if>
+			<if test="createBy != null">CREATE_BY,</if>
+			<if test="createDate != null">CREATE_DATE,</if>
 		</trim>
-
-		<!-- 注入控制层字段 -->
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="diyFormTipsName != null">#{diyFormTipsName},</if>
-			<if test="diyFormTableName != null">#{diyFormTableName},</if>
-			<if test="diyFormManagerId != null">#{diyFormManagerId},</if>
-			<if test="diyFormAppId != null">#{diyFormAppId},</if>
+			<if test="formTipsName != null and formTipsName != ''">#{formTipsName},</if>
+			<if test="formTableName != null and formTableName != ''">#{formTableName},</if>
+			<if test="dfManagerid != null">#{dfManagerid},</if>
+			<if test="appId != null">#{appId},</if>
+			<if test="createBy != null">#{createBy},</if>
+			<if test="createDate != null">#{createDate},</if>
 		</trim>
 	</insert>
-	<!-- 新增表单内容模型结束 -->
-
-	<!-- 更新表单内容模型开始 -->
+	
+	<!--更新-->	
 	<update id="updateEntity" parameterType="com.mingsoft.mdiy.entity.FormEntity">
 		update mdiy_form
 		<set>
-			<if test="diyFormTipsName != null">DF_TIPSNAME=#{diyFormTipsName},</if>
-			<if test="diyFormTableName != null">DF_TABLENAME=#{diyFormTableName},</if>
+			<if test="formTipsName != null and formTipsName != ''">FORM_TIPS_NAME=#{formTipsName},</if>			
+			<if test="formTableName != null and formTableName != ''">FORM_TABLE_NAME=#{formTableName},</if>			
+			<if test="dfManagerid != null">DF_MANAGERID=#{dfManagerid},</if>			
+			<if test="formAppId != null">FORM_APP_ID=#{formAppId},</if>			
+			<if test="updateBy != null">UPDATE_BY=#{updateBy},</if>			
+			<if test="updateDate != null">UPDATE_DATE=#{updateDate},</if>			
 		</set>
-		where DF_ID = #{diyFormId}
+		where FORM_ID = #{formId}
 	</update>
-	<!-- 更新表单内容模型结束 -->
-
-	<!-- 根据id删除内容模型表单记录开始 -->
-	<delete id="deleteEntity" parameterType="int">
-		delete from mdiy_form
-		where DF_ID = #{diyFormId}
-	</delete>
-	<!-- 根据id删除内容模型表单记录结束 -->
 	
-	<!--根据id数组批量删除开始 -->
-		<delete id="deleteAll" parameterType="List">
-		DELETE  FROM `diy_form`
+	<!--根据id获取-->	
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select * from mdiy_form where FORM_ID=#{formId}
+	</select>
+	
+	<!--根据实体获取-->
+	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.FormEntity">
+		select * from mdiy_form 
 		<where>
-    		DF_ID in <foreach collection="ids" item="item" index="index" 
+			<if test="formTipsName != null and formTipsName != ''"> and FORM_TIPS_NAME=#{formTipsName} </if>				
+			<if test="formTableName != null and formTableName != ''"> and FORM_TABLE_NAME=#{formTableName} </if>				
+			<if test="dfManagerid != null"> and DF_MANAGERID=#{dfManagerid} </if>				
+			<if test="appId != null"> and FORM_APP_ID=#{appId} </if>				
+		</where>
+		limit 0,1
+	</select>	
+	
+	
+	<!--删除-->	
+	<delete id="deleteEntity" parameterType="int">
+		delete from mdiy_form  where FORM_ID=#{formId}
+	</delete>	
+	
+	<!--批量删除-->	
+	<delete id="delete" >
+		delete from mdiy_form
+		<where>
+			 FORM_ID  in <foreach collection="ids" item="item" index="index" 
 			open="(" separator="," close=")">#{item}</foreach>
 		</where>
 	</delete>
-	<!--根据id数组批量删除结束 -->
-	
-	<!-- 根据id查找内容模型实体信息 -->
-	<select id="getEntity" resultMap="resultMap" parameterType="int">
-		select *
-		from mdiy_form
-		where DF_ID = #{diyFormId}
-
-	</select>
-	<!-- 根据id查找内容模型实体信息 -->
-
-	<!-- 查询所有内容模型实体信息开始 -->
+	<!--查询全部-->	
 	<select id="queryAll" resultMap="resultMap">
-		select *	from mdiy_form order by DF_ID desc
+		select * from mdiy_form order by FORM_ID desc
 	</select>
-	<!-- 查询所有内容模型实体信息结束 -->
-	
-		<!-- 查询所有内容模型实体信息开始 -->
-	<select id="query" resultMap="resultMap" parameterType="int">
-		select *	from mdiy_form where DF_APPID=#{diyFormAppId}
+	<!--条件查询-->	
+	<select id="query" resultMap="resultMap">
+		select * from mdiy_form  
+		<where>
+				FORM_APP_ID = #{appId}
+				<if test="formTipsName != null and formTipsName != ''"> and FORM_TIPS_NAME=#{formTipsName} </if>				
+				<if test="formTableName != null and formTableName != ''"> and FORM_TABLE_NAME=#{formTableName} </if>				
+				<if test="dfManagerid != null"> and DF_MANAGERID=#{dfManagerid} </if>				
+		</where>		
+		order by FORM_ID desc
 	</select>
-	<!-- 查询所有内容模型实体信息结束 -->
-		<!-- 查询根据表名查找表单实体开始-->
-	<select id="getByTableName" resultMap="resultMap"  parameterType="String">
-		select * from mdiy_form where DF_TABLENAME=#{diyFormTableName}
-	</select>
-	<!-- 查询据表名查找表单实体结束 -->
-	
 	<!-- 根据sql动态创建表开始 -->
 	<update id="createDiyFormTable" statementType="STATEMENT">
 		CREATE TABLE `${table}` (

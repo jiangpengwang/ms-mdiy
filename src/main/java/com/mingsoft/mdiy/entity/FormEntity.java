@@ -1,97 +1,110 @@
 package com.mingsoft.mdiy.entity;
 
-import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.util.AESUtil;
-import com.mingsoft.util.StringUtil;
+import com.mingsoft.basic.entity.BaseEntity;
+import java.util.Date;
 
-/**
- * 自定义表单实体
- * @author 王天培QQ:78750478
+ /**
+ * 自定义表单表实体
+ * @author 蓝精灵
  * @version 
- * 版本号：100-000-000<br/>
- * 创建日期：2012-03-15<br/>
+ * 版本号：1<br/>
+ * 创建日期：2017-8-12 15:58:29<br/>
  * 历史修订：<br/>
  */
-public class FormEntity extends BaseEntity{
-	/**
-	 * 自增长ID
-	 */
-	private int diyFormId;
+public class FormEntity extends BaseEntity {
+
+	private static final long serialVersionUID = 1502524709328L;
 	
 	/**
-	 * 表名提示文字
+	 * 自增长id
 	 */
-	private String diyFormTipsName;
-	
+	private Integer formId; 
 	/**
-	 * 表单名称
+	 * 自定义表单提示文字
 	 */
-	private String diyFormTableName;
-	
+	private String formTipsName; 
 	/**
-	 * 表单所属的管理员id
+	 * 自定义表单表名
 	 */
-	private int diyFormManagerId;
-	
+	private String formTableName; 
 	/**
-	 * 表单所属的管理员id
+	 * 自定义表单关联的关联员id
 	 */
-	private int diyFormAppId;
-	
+	private Integer dfManagerid; 
 	/**
-	 * 表单的访问地址
+	 * 自定义表单关联的应用编号
 	 */
-	private String diyFormUrl;
-
-	public int getDiyFormId() {
-		return diyFormId;
-	}
-
-	public void setDiyFormId(int diyFormId) {
-		this.diyFormId = diyFormId;
-	}
-
-	public String getDiyFormTipsName() {
-		return diyFormTipsName;
-	}
-
-	public void setDiyFormTipsName(String diyFormTipsName) {
-		this.diyFormTipsName = diyFormTipsName;
-	}
-
-	public String getDiyFormTableName() {
-		return diyFormTableName;
-	}
-
-	public void setDiyFormTableName(String diyFormTableName) {
-		this.diyFormTableName = diyFormTableName;
-	}
-
-	public int getDiyFormManagerId() {
-		return diyFormManagerId;
-	}
-
-	public void setDiyFormManagerId(int diyFormManagerId) {
-		this.diyFormManagerId = diyFormManagerId;
-	}
-
-	public int getDiyFormAppId() {
-		return diyFormAppId;
-	}
-
-	public void setDiyFormAppId(int diyFormAppId) {
-		this.diyFormAppId = diyFormAppId;
+	private Integer formAppId; 
+	
 		
+	/**
+	 * 设置自增长id
+	 */
+	public void setFormId(Integer formId) {
+		this.formId = formId;
 	}
 
-	public String getDiyFormUrl() {
-		diyFormUrl=AESUtil.encrypt(this.diyFormId+"", StringUtil.Md5(this.diyFormAppId+"").substring(16));
-		return diyFormUrl;
-	}
-
-	public void setDiyFormUrl(String diyFormUrl) {
-		this.diyFormUrl = diyFormUrl;
+	/**
+	 * 获取自增长id
+	 */
+	public Integer getFormId() {
+		return this.formId;
 	}
 	
+	/**
+	 * 设置自定义表单提示文字
+	 */
+	public void setFormTipsName(String formTipsName) {
+		this.formTipsName = formTipsName;
+	}
+
+	/**
+	 * 获取自定义表单提示文字
+	 */
+	public String getFormTipsName() {
+		return this.formTipsName;
+	}
+	
+	/**
+	 * 设置自定义表单表名
+	 */
+	public void setFormTableName(String formTableName) {
+		this.formTableName = formTableName;
+	}
+
+	/**
+	 * 获取自定义表单表名
+	 */
+	public String getFormTableName() {
+		return this.formTableName;
+	}
+	
+	/**
+	 * 设置自定义表单关联的关联员id
+	 */
+	public void setDfManagerid(Integer dfManagerid) {
+		this.dfManagerid = dfManagerid;
+	}
+
+	/**
+	 * 获取自定义表单关联的关联员id
+	 */
+	public Integer getDfManagerid() {
+		return this.dfManagerid;
+	}
+	
+	/**
+	 * 设置自定义表单关联的应用编号
+	 */
+	public void setFormAppId(Integer formAppId) {
+		this.formAppId = formAppId;
+	}
+
+	/**
+	 * 获取自定义表单关联的应用编号
+	 */
+	public Integer getFormAppId() {
+		return this.formAppId;
+	}
 	
 }

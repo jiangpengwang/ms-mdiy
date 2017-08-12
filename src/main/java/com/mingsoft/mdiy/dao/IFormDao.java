@@ -16,29 +16,10 @@ import com.mingsoft.mdiy.entity.FormEntity;
  */
 public interface IFormDao extends IBaseDao{
 	/**
-	 * 查询列表
-	 * @param appId　应用编号
-	 * @return 返回列表集合
-	 */
-	List query(@Param("diyFormAppId")int appId);
-	
-	/**
-	 * 根据表名查找自定义表单实体
-	 * @param diyFormTableName
-	 * @return 返回自定义表单实体
-	 */
-	FormEntity getByTableName(@Param("diyFormTableName")String diyFormTableName);
-	
-	/**
 	 * 为自定义表单创建表
 	 * @param table 表名
 	 * @param fileds 字段集合
 	 */
 	void createDiyFormTable(@Param("table")String table,@Param("fileds")Map<Object,List> fileds);
 	
-	/**
-	 * 删除自定义表单，多条或者一条
-	 * @param ids  多条表单集合（id）
-	 */
-	public void deleteAll(@Param("ids")String[] ids);
 }
