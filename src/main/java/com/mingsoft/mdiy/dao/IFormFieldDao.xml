@@ -14,7 +14,7 @@
 
 
 	<!-- 新增表单内容模型开始 -->
-	<insert id="saveEntity" parameterType="com.mingsofFormentity.FormFieldEntity">
+	<insert id="saveEntity" parameterType="com.mingsoft.mdiy.entity.FormFieldEntity">
 		insert into mdiy_form_field
 		<!-- 注入表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
