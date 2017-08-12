@@ -59,6 +59,10 @@
 		select
 		<include refid="column_list" />
 		from mdiy_search where SEARCH_ID=#{searchId}
+		<where>
+			SEARCH_ID=#{searchId}
+			<if test="appId != null "> and SEARCH_APP_ID=#{appId} </if>	
+		</where>
 	</select>
 	<!-- 查询搜索实体结束 -->
 
