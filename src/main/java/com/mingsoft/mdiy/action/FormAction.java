@@ -254,6 +254,7 @@ public class FormAction extends BaseAction{
 		formBiz.createDiyFormTable(form.getFormTableName(), null);
 		//保存自定义表单实体
 		formBiz.saveEntity(form);
+		_form.setAppId(BasicUtil.getAppId());
 		_form = (FormEntity) formBiz.getEntity(_form);
 		int diyFormId =  _form.getFormId();
 		this.outJson(response, null, true,String.valueOf(diyFormId));
