@@ -66,6 +66,13 @@
 				        	formatter:function(value,row,index) {
 				        		return "/mdiy/diyForm/"+row.formUrl+"/queryData.do";
 				        	}
+				    	},{
+				        	title: '操作',
+				        	align: 'center',
+				        	formatter:function(value,row,index) {
+				        		var url="${managerPath}/mdiy/form/querydata.do?formId="+row.formId+"&formTipsName="+row.formTipsName
+				        		return "<a href=" +url+ " target='_self'> 查看提交记录 </a>";
+				        	}
 				    	}]
 	    })
 	})

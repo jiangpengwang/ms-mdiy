@@ -1,6 +1,7 @@
 package com.mingsoft.mdiy.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -332,5 +333,50 @@ public class FormAction extends BaseAction{
 		}
 		this.outJson(response, null, true);
 	}
+	/**
+	 * 加载自定义表单的数据列表页面
+	 * @param diyFormId 自定义表单id
+	 * @param request 请求对象
+	 * @param model ModelMap实体对象
+	 * @return 自定义表单数据列表页面地址
+	 */
+	@RequestMapping("/querydata")
+	public String query(@ModelAttribute FormEntity form,HttpServletRequest request,ModelMap model)  {
+		// 当前页面
+		int pageNo = 1;
+		// 获取页面的当页数
+		if (request.getParameter("pageNo") != null) {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		}
+		int appId = BasicUtil.getAppId();
+		int count = formBiz.countDiyFormData(form.getFormId(), appId);
+		PageUtil page = new PageUtil(pageNo, 30,count,"/manager/diy_form/"+form.getFormId()+"/query.do");
+		Map map = formBiz.queryDiyFormData(form.getFormId(), appId, page);
+		if (map!=null) {
+			if (map.get("fields") != null) {
+				model.addAttribute("fields", map.get("fields"));
+			}
+			if (map.get("list") != null) {
+				model.addAttribute("list", map.get("list"));
+			}			
+		}
+		
+		model.addAttribute("title", request.getParameter("title"));
+		model.addAttribute("page", page);
+		return view("/mdiy/diy_form/diy_form_data_list");
+	}
 	
+	/**
+	 * 根据id删除自定义表单
+	 * @param id 自定义表单的自增长id
+	 * @param diyFormId 自定义表单id
+	 * @param request 请求对象
+	 * @param response 响应对象
+	 */
+	@RequestMapping("/{diyFormId}/{id}/delete")
+	@ResponseBody
+	public void delete(@PathVariable("id") int id,@PathVariable("diyFormId") int diyFormId,HttpServletRequest request,HttpServletResponse response)  {
+		formBiz.deleteQueryDiyFormData(id, diyFormId);
+		this.outJson(response, null, true);
+	}
 }

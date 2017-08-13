@@ -30,7 +30,7 @@
 			           				</td>
 			            			<td style="width:40%" id="name" class="text-center">${form.date?default("")}</td>
 			            			<td class="text-center">
-                    					<a class="btn btn-xs red tooltips del-btn " data-toggle="tooltip" data-original-title="删除" data-url="${managerPath}/mdiy/diyForm/form/${form['fromID']?default(0)}/${form['Id']?default(0)}/delete.do">
+                    					<a class="btn btn-xs red tooltips del-btn " data-toggle="tooltip" data-original-title="删除" data-url="${managerPath}/mdiy/form/${form['fromID']?default(0)}/${form['Id']?default(0)}/delete.do">
 	                     					<i class="glyphicon glyphicon-trash"></i>
 	                    				</a>
 									</td>

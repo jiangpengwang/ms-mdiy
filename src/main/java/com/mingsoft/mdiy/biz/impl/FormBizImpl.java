@@ -45,13 +45,13 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 	 * 注入自定义表单持久化层
 	 */
 	@Autowired
-	private IFormDao diyFormDao;
+	private IFormDao formDao;
 	
 	/**
 	 * 自定义表单字段持久化层的注入
 	 */
 	@Autowired
-	private IFormFieldDao diyFormFieldDao;
+	private IFormFieldDao formFieldDao;
 
 	/**
 	 * 获取类别持久化层
@@ -60,33 +60,33 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 	@Override
 	protected IBaseDao getDao() {
 		// TODO Auto-generated method stub
-		return diyFormDao;
+		return formDao;
 	}
 
 	@Override
 	public void saveDiyFormData(int formId, Map params) {
 		// TODO Auto-generated method stub
-		FormEntity dfe = (FormEntity) diyFormDao.getEntity(formId);
+		FormEntity dfe = (FormEntity) formDao.getEntity(formId);
 		if (dfe == null) {
 			return;
 		}
 		String tableName = dfe.getFormTableName();
-		List<FormFieldEntity> filedList = diyFormFieldDao.queryByDiyFormId(formId);
+		List<FormFieldEntity> filedList = formFieldDao.queryByDiyFormId(formId);
 		if (filedList == null) {
 			return;
 		}
 		Map values = builderSqlMap(filedList,params);
 		values.put(FORM_ID, formId);
 		values.put(DATE, new Date());
-		diyFormFieldDao.insertBySQL(tableName,values);
+		formFieldDao.insertBySQL(tableName,values);
 	}
 
 	@Override
 	public Map queryDiyFormData(int diyFormId,int appId,PageUtil page) {
 		// TODO Auto-generated method stub
-		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) formDao.getEntity(diyFormId);
 		if (dfe!=null) {
-			List<FormFieldEntity> fieldList = diyFormFieldDao.queryByDiyFormId(diyFormId);
+			List<FormFieldEntity> fieldList = formFieldDao.queryByDiyFormId(diyFormId);
 			List<Map<String,String>> fields = new ArrayList<Map<String,String>>();
 			for (int i=0;i<fieldList.size();i++) {
 				Map<String,String> field = new HashMap<String,String>();
@@ -95,7 +95,7 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 			}
 			Map wheres = new HashMap();
 			wheres.put(FORM_ID, diyFormId);
-			List list = diyFormDao.queryBySQL(dfe.getFormTableName(), null, wheres, page.getPageSize()*page.getPageNo(), page.getPageSize(),ID);
+			List list = formDao.queryBySQL(dfe.getFormTableName(), null, wheres, page.getPageSize()*page.getPageNo(), page.getPageSize(),ID);
 			Map r = new HashMap();
 			r.put("fields", fieldList);
 			r.put("list", list);
@@ -109,20 +109,20 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 	@Override
 	public void deleteQueryDiyFormData(int id,int diyFormId) {
 		// TODO Auto-generated method stub
-		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) formDao.getEntity(diyFormId);
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
 		wheres.put(ID, id);
-		diyFormDao.deleteBySQL(dfe.getFormTableName(), wheres);
+		formDao.deleteBySQL(dfe.getFormTableName(), wheres);
 	}
 
 	@Override
 	public int countDiyFormData(int diyFormId, int appId) {
 		// TODO Auto-generated method stub
-		FormEntity dfe = (FormEntity) diyFormDao.getEntity(diyFormId);
+		FormEntity dfe = (FormEntity) formDao.getEntity(diyFormId);
 		Map wheres = new HashMap();
 		wheres.put(FORM_ID, diyFormId);
-		return diyFormDao.countBySQL(dfe.getFormTableName(),wheres );
+		return formDao.countBySQL(dfe.getFormTableName(),wheres );
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class FormBizImpl extends BaseBizImpl implements IFormBiz {
 	@Override
 	public void createDiyFormTable(String table, Map<Object, List> fileds) {
 		// TODO Auto-generated method stub
-		diyFormDao.createDiyFormTable(table, fileds);
+		formDao.createDiyFormTable(table, fileds);
 	}
 
 }
