@@ -37,7 +37,7 @@
 			data:$("form[name = 'dictForm']").serialize(),
 			url:url,
 			success: function(status) {
-				if(status.result == true) { 
+				if(status != null) { 
 					<@ms.notify msg="保存或更新成功" type= "success" />
 					location.href = "${managerPath}/mdiy/dict/index.do";
 				}
