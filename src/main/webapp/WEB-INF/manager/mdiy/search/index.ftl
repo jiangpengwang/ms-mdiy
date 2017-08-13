@@ -65,7 +65,7 @@
 		        	title: '搜索名称',
 		        	width:'20',
 		        	formatter:function(value,row,index) {
-		        		return "<a onclick='updateSearch("+row.searchId+")' style='cursor: pointer;' >" + value + "</a>";
+		        		return "<a onclick='updateSearch("+row.searchId+")' style='cursor:pointer;text-decoration:none;' >" + value + "</a>";
 		        	}
 		    	},{
 		        	field: 'searchTemplets',

@@ -61,7 +61,7 @@
 				        	field: 'cmTipsName',
 				        	title: '模型名称',
 				        	formatter:function(value,row,index) {
-				        		return "<a onclick='editModel("+row.cmId+")'>" + value + "</a>";
+				        		return "<a style='cursor:pointer;text-decoration:none;' onclick='editModel("+row.cmId+")'>" + value + "</a>";
 				        	}
 				    	},{
 				        	field: 'cmTableName',
