@@ -34,11 +34,11 @@
 	 <@ms.modalBody>
 	 	<@ms.form isvalidation=true name="searchForm" action="${managerPath}/mdiy/search/save.do" redirect="${managerPath}/mdiy/search/index.do">
 				<@ms.hidden name="searchId" value="0"/>
-				<@ms.text label="搜索名称"  id="searchName" title="搜索名称"  placeholder="请输入搜索名称" name="searchName" 
+				<@ms.text label="搜索名称"  id="searchName" title="搜索名称" labelStyle="width:25%" width="250"  placeholder="请输入搜索名称" name="searchName" 
 					 validation={"minlength":"1","maxlength":"10","required":"true","data-bv-notempty-message":"必填项目", "data-bv-stringlength-message":"长度在1到10个字符以内!"} />
 				<!--搜索结果模板-->
-				<@ms.select  name="searchTemplets" label="结果模版"/>	
-				<@ms.select  name="searchType" label="所属模块" list=searchType  value="" listKey="key" listValue="Value"/>			 	
+				<@ms.select id="searchTemplets"  name="searchTemplets" label="结果模版"/>	
+				<@ms.select  name="searchType" labelStyle="width:25%" width="250" label="所属模块" list=searchType  value="" listKey="key" listValue="Value"/>			 	
 		</@ms.form>
      </@ms.modalBody>
      <@ms.modalButton>
@@ -49,6 +49,18 @@
 <!--=================模态框部分结束=================-->
 <script>
 	$(function(){
+		//加载选择模块列表
+		$("#searchTemplets").request({url:base+"${baseManager}/template/queryTemplateFileForColumn.do",type:"json",method:"post",func:function(msg) {
+			if(msg.length != 0 && ($("#searchTemplets").val() == null)){
+	   			for(var i=0; i<msg.length; i++){
+		   			$("#searchTemplets").append($("<option>").val(msg[i]).text(msg[i]));
+		   		}
+	   		} else {
+	   			$("#searchTemplets").append("<option>暂无文件</option>");
+	   		}
+	   		//使用select2插件
+	 		$("#searchTemplets").select2({width: "220px"});
+		}});
 		$("#searchList").bootstrapTable({
 			url:"${managerPath}/mdiy/search/list.do",
 			contentType : "application/x-www-form-urlencoded",
@@ -86,19 +98,6 @@
 		    	}]
 	    })
 	})
-	$.ajax({
-		type: "post",
-		url:"${managerPath}/template/queryTemplateFileForColumn.do",
-		dataType:"json",
-		success:function(msg){
-			if(msg.length==0){
-				$("select[name='searchTemplets']").append("<option value=''>暂无模板文件</option>")
-			}
-			for(var i = 0;i<msg.length;i++) {
-				$("select[name='searchTemplets']").append("<option value="+msg[i]+">"+msg[i]+"</option>");
-			}							
-		}
-	});
 	
 	//增加按钮
 	$("#setUp").click(function(){
@@ -176,7 +175,7 @@
 				$("#searchForm").attr("action","${managerPath}/mdiy/search/update.do");
 				$("#searchForm input[name='searchId']").val(search.searchId);
 				$("#searchForm input[name='searchName']").val(search.searchName);
-				$("#searchForm select[name='searchTemplets']").val(search.searchTemplets);
+				$("#searchTemplets").select2({width: "220px"}).val(search.searchTemplets).trigger("change");
 				$("#searchForm select[name='searchType']").val(search.searchType);
 				$("#searchModal").modal();
 			}					
