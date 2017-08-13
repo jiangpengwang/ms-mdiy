@@ -4,7 +4,7 @@
 	</@ms.nav>
 	<@ms.panel>	
 		<#if formEntity.formId?has_content>
-			<@ms.form name="formForm" isvalidation=true  action="${managerPath}/mdiy/form/update.do">
+			<@ms.form name="diyForm" isvalidation=true  action="${managerPath}/mdiy/form/update.do">
 				<@ms.text label="自定义表单提示文字" name="formTipsName" value="${(formEntity.formTipsName)?default('')}"  width="240px;" placeholder="请输入自定义表单提示文字" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
     			<@ms.text label="自定义表单表名" name="formTableName" readonly="true" value="${(formEntity.formTableName)?default('')}"  width="240px;" placeholder="请输入自定义表单表名" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单表名长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>		
 			</@ms.form>
