@@ -61,7 +61,7 @@
 			<if test="formTipsName != null and formTipsName != ''"> and FORM_TIPS_NAME=#{formTipsName} </if>				
 			<if test="formTableName != null and formTableName != ''"> and FORM_TABLE_NAME=#{formTableName} </if>				
 			<if test="dfManagerid != null"> and DF_MANAGERID=#{dfManagerid} </if>				
-			<if test="appId != null"> and FORM_APP_ID=#{appId} </if>				
+			<if test="appId &gt; 0"> and FORM_APP_ID=#{appId} </if>				
 		</where>
 		limit 0,1
 	</select>	

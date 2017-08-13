@@ -120,7 +120,7 @@ public class FormAction extends BaseAction{
 	@RequestMapping("/form")
 	public String form(@ModelAttribute FormEntity form,HttpServletResponse response,HttpServletRequest request,ModelMap model){
 		if(form.getFormId() != null){
-			BaseEntity formEntity = formBiz.getEntity(form.getFormId());			
+			FormEntity formEntity = (FormEntity) formBiz.getEntity(form.getFormId());			
 			model.addAttribute("formEntity",formEntity);
 		}
 		
@@ -326,10 +326,11 @@ public class FormAction extends BaseAction{
 		//组装表名
 		String formTableName =TABLE_NAME_PREFIX+form.getFormTableName()+TABLE_NAME_SPLIT+managerId;
 		FormEntity _form = new FormEntity();
-		_form.setFormTableName(form.getFormTableName());
+		_form.setFormTableName(formTableName);
 		_form = (FormEntity) formBiz.getEntity(_form);
 		if(_form==null){
 			this.outJson(response, null, false);
+			return;
 		}
 		this.outJson(response, null, true);
 	}

@@ -3,18 +3,18 @@
 		<@ms.saveButton id="saveDiyForm" />
 	</@ms.nav>
 	<@ms.panel>	
-		<#if formEntity?has_content>
+		<#if formEntity.formId?has_content>
 			<@ms.form name="formForm" isvalidation=true  action="${managerPath}/mdiy/form/update.do">
 				<@ms.text label="自定义表单提示文字" name="formTipsName" value="${(formEntity.formTipsName)?default('')}"  width="240px;" placeholder="请输入自定义表单提示文字" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
     			<@ms.text label="自定义表单表名" name="formTableName" readonly="true" value="${(formEntity.formTableName)?default('')}"  width="240px;" placeholder="请输入自定义表单表名" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单表名长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>		
 			</@ms.form>
 		<#else>
 			<@ms.form  name="diyForm" isvalidation=true action="${managerPath}/mdiy/form/save.do">
-				<@ms.text label="自定义表单提示文字" name="formTipsName" value="${(formEntity.formTipsName)?default('')}"  width="240px;" placeholder="请输入自定义表单提示文字" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
-    			<@ms.text label="自定义表单表名" name="formTableName" value="${(formEntity.formTableName)?default('')}"  width="240px;" placeholder="请输入自定义表单表名" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单表名长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
+				<@ms.text label="自定义表单提示文字" name="formTipsName" value=""  width="240px;" placeholder="请输入自定义表单提示文字" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
+    			<@ms.text label="自定义表单表名" name="formTableName" value=""  width="240px;" placeholder="请输入自定义表单表名" validation={"required":"false","maxlength":"50","data-bv-stringlength-message":"自定义表单表名长度不能超过五十个字符长度!", "data-bv-notempty-message":"必填项目"}/>
     		</@ms.form>
 		</#if>
-		<#if formEntity?has_content>
+		<#if formEntity.formId?has_content>
 			<h4><strong>字段信息</strong></h4>
 			<!--新增按钮-->
 			<@ms.panelNav>
@@ -81,11 +81,11 @@
 		
 		//保存表单
 		$("#saveDiyForm").click(function(){
-				var URL="${managerPath}/mdiy/diyForm/form/"+$("input[name='diyFormTableName']").val()+"/checkTableNameExist.do"
+				var URL="${managerPath}/mdiy/form/checkTableNameExist.do?formTableName="+$("input[name='formTableName']").val();
 				$(this).request({url:URL,method:"post",func:function(obj) {
 					if(obj.result){
 				    	alert("表名已存在，请重新输入");
-				     	$("input[name='diyFormTableName']").val("");
+				     	$("input[name='formTableName']").val("");
 					} else {
 						var diyForm = $("#diyForm");
 						var thisHtml  = $(this).text();
@@ -102,7 +102,7 @@
 							     	if(msg){
 							     		<@ms.notify msg="自定义表单保存成功" />
 							     	}
-							     	location.href="${managerPath}/mdiy/diyForm/form/"+msg.resultMsg+"/edit.do";							     	
+							     	location.href="${managerPath}/mdiy/form/form.do?formId="+msg.resultMsg;							     	
 							   },error:function(){
 					   				$("#saveDiyForm").attr('disabled',false);
 					   			}
@@ -115,7 +115,7 @@
 		
 
 		
-		<#if formEntity?has_content>
+		<#if formEntity.formId?has_content>
 			// 用于判断编辑时用户是否改变了字段名称的值
 			var oldFielName =$("input[name='diyFormFieldFieldName']").val();					
 			//获取字段列表信息
@@ -164,22 +164,22 @@
 				$("input:radio[value='1']").attr("checked", true);
 				$("#hideFieldId").html("");
 				//加载相关数据
-				$("input[name='diyFormFieldFormId']").val("${(formEntity.formTipsName)?default('')}");
-				var url = "${managerPath}/mdiy/form/formField/"+${(formEntity.formTipsName)?default('')}+"/save.do";
+				$("input[name='diyFormFieldFormId']").val("${(formEntity.formId)?default('')}");
+				var url = "${managerPath}/mdiy/form/formField/"+${(formEntity.formId)?default('')}+"/save.do";
 				$("#saveOrUpdate").html("保存");
 				$("#fieldForm").attr("action",url);
 				$("#openModalTitle").text("新增字段");
 			});
 			//查询字段列表				
-			queryFieldList(${(formEntity.formTipsName)?default('')});
+			queryFieldList("${(formEntity.formId)?default('')}");
 			//点击保存开始字段的保存
 			$("body").delegate("#saveOrUpdate","click",function(){
 			
 				var diyFormFieldFieldName = $("#fieldForm input[name='diyFormFieldFieldName']").val();
 				var diyFormFieldFormId = $("input[name='diyFormFieldFormId']").val();
 				if($("#fieldForm").data('bootstrapValidator').validate().isValid()){
-					var URL="${managerPath}/mdiy/form/formField/"+diyFormFieldFieldName+"/checkFieldNameExist.do"
-					$(this).request({url:URL,method:"post",data:diyFormFieldFormId,func:function(msg) {
+					var URL="${managerPath}/mdiy/form/formField/"+diyFormFieldFieldName+"/checkFieldNameExist.do?diyFormFieldFormId="+diyFormFieldFormId
+					$(this).request({url:URL,method:"post",func:function(msg) {
 						if(msg && oldFielName!=diyFormFieldFieldName){
 				     		alert("字段名已存在，请再次输入");
 				     		$("input[name='diyFormFieldFieldName']").val("");
@@ -234,7 +234,7 @@
 				$("#fieldForm textarea").val("");
 				$("input:radio[value='1']").attr("checked", true);
 				//表单id
-				$("input[name='diyFormFieldFormId']").val("${(formEntity.formTipsName)?default('')}");
+				$("input[name='diyFormFieldFormId']").val("${(formEntity.formId)?default('')}");
 				//表单字段更新地址
 				var url = "${managerPath}/mdiy/form/formField/update.do";
 				$("#fieldForm").attr("action",url);
