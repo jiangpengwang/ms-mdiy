@@ -13,6 +13,7 @@
 <script>
 	var url = "${managerPath}/mdiy/form/save.do";
 	if($("input[name = 'formId']").val() > 0){
+		$("input[name=formTableName]").attr("readonly","true");
 		url = "${managerPath}/mdiy/form/update.do";
 		$(".btn-success").text("更新");
 	}
