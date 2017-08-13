@@ -31,9 +31,7 @@
 			<@ms.form isvalidation=true name="addEditForm"  action="" method="post"  >
 				<@ms.text id="pageTitle" name="pageTitle" label="标题" labelStyle="width:25%" width="250" title="标题" placeholder="请输入标题" value="" validation={"maxlength":"20","required":"true", "data-bv-notempty-message":"标题不能为空","data-bv-stringlength-message":"标题在20个字符以内!"}/>
 				<@ms.text name="pageKey"  label="访问路径" labelStyle="width:25%" width="250" title="访问路径" placeholder="请输入访问路径" value="" validation={"maxlength":"100","required":"true", "data-bv-notempty-message":"访问路径不能为空","data-bv-stringlength-message":"访问路径在100个字符以内!"}/>
-				<@ms.formRow label="选择模板" labelStyle="width:25%" width="300" >			    	
-				 	<select class="form-control template templateSelect" name="pagePath"></select>
-				</@ms.formRow>
+				<@ms.select id="template"  name="pagePath" label="选择模版" width="25%"/>	
 			</@ms.form>
 		</@ms.modalBody>
 		<@ms.modalButton>
@@ -55,16 +53,14 @@
 	var postUrl;
 	$(function(){
 		//加载选择模块列表
-		$(".templateSelect").request({url:base+"${baseManager}/template/queryTemplateFileForColumn.do",type:"json",method:"post",func:function(msg) {
-			if(msg.length != 0 && ($(".template").html() == "" || $(".template").html() == "")){
+		$("#template").request({url:base+"${baseManager}/template/queryTemplateFileForColumn.do",type:"json",method:"post",func:function(msg) {
+			if(msg.length != 0 && ($("select[name='pagePath']").val() == null)){
 	   			for(var i=0; i<msg.length; i++){
-		   			$(".templateSelect").append($("<option>").val(msg[i]).text(msg[i]));
+		   			$("#template").append($("<option>").val(msg[i]).text(msg[i]));
 		   		}
 	   		} else {
-	   			$(".templateSelect").append("<option>暂无文件</option>");
+	   			$("#template").append("<option>暂无文件</option>");
 	   		}
-	   		//使用select2插件
-			$(".templateSelect").select2({width: "220px"});
 		}});
 		$("#pageList").bootstrapTable({
 			url:"${managerPath}/mdiy/page/list.do",
@@ -76,7 +72,7 @@
 				        	field: 'pageTitle',
 				        	title: '自定义页面标题',
 				        	formatter:function(value,row,index) {
-				        		return "<a style='cursor:pointer' onclick='editPage("+row.pageId+")'>" + value + "</a>";
+				        		return "<a style='cursor:pointer;text-decoration:none;' onclick='editPage("+row.pageId+")'>" + value + "</a>";
 				        	}
 				    	},{
 				        	field: 'pagePath',
@@ -107,8 +103,8 @@
 				if(data!=null){
 					$("#pageTitle").val(data.pageTitle);
 					$("input[name='pageKey']").val(data.pageKey); 
-					$(".templateSelect").find("option[value='"+data.pagePath+"']").attr("selected",true);
-					$("#select2-chosen-2").text($(".templateSelect").find("option[value='"+data.pagePath+"']").text());
+					$("#template").find("option[value='"+data.pagePath+"']").attr("selected",true);
+					$("#addEditForm select[name='pagePath']").val($("#template").find("option[value='"+data.pagePath+"']").text());
 					$(".addEditModel").modal();
 					postUrl="${managerPath}/mdiy/page/update.do?pageId="+id,
 					$("#addEditBtn").text("更新");
