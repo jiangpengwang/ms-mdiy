@@ -2,6 +2,7 @@
 	<@ms.nav title="自定义表单表管理"></@ms.nav>
 	<@ms.searchForm name="searchForm" isvalidation=true>
 			<@ms.searchFormButton>
+				<@ms.text label="名称" name="formTipsName" value=""  width="240px;" placeholder="自定义表单提示文字" validation={"maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!"}/>
 				 <@ms.queryButton onclick="search()"/> 
 			</@ms.searchFormButton>			
 	</@ms.searchForm>
