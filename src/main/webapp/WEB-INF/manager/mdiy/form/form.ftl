@@ -164,14 +164,14 @@
 				$("input:radio[value='1']").attr("checked", true);
 				$("#hideFieldId").html("");
 				//加载相关数据
-				$("input[name='diyFormFieldFormId']").val("${formEntity.formId}");
-				var url = "${managerPath}/mdiy/form/formField/"+${formEntity.formId}+"/save.do";
+				$("input[name='diyFormFieldFormId']").val("${(formEntity.formTipsName)?default('')}");
+				var url = "${managerPath}/mdiy/form/formField/"+${(formEntity.formTipsName)?default('')}+"/save.do";
 				$("#saveOrUpdate").html("保存");
 				$("#fieldForm").attr("action",url);
 				$("#openModalTitle").text("新增字段");
 			});
 			//查询字段列表				
-			queryFieldList(${formEntity.formId});
+			queryFieldList(${(formEntity.formTipsName)?default('')});
 			//点击保存开始字段的保存
 			$("body").delegate("#saveOrUpdate","click",function(){
 			
@@ -234,7 +234,7 @@
 				$("#fieldForm textarea").val("");
 				$("input:radio[value='1']").attr("checked", true);
 				//表单id
-				$("input[name='diyFormFieldFormId']").val("${formEntity.formId}");
+				$("input[name='diyFormFieldFormId']").val("${(formEntity.formTipsName)?default('')}");
 				//表单字段更新地址
 				var url = "${managerPath}/mdiy/form/formField/update.do";
 				$("#fieldForm").attr("action",url);
