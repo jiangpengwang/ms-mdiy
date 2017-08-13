@@ -61,6 +61,8 @@
 	   		} else {
 	   			$("#template").append("<option>暂无文件</option>");
 	   		}
+	   		//使用select2插件
+	 		$("#template").select2({width: "220px"});
 		}});
 		$("#pageList").bootstrapTable({
 			url:"${managerPath}/mdiy/page/list.do",
@@ -103,8 +105,7 @@
 				if(data!=null){
 					$("#pageTitle").val(data.pageTitle);
 					$("input[name='pageKey']").val(data.pageKey); 
-					$("#template").find("option[value='"+data.pagePath+"']").attr("selected",true);
-					$("#addEditForm select[name='pagePath']").val($("#template").find("option[value='"+data.pagePath+"']").text());
+					$("#template").select2({width: "220px"}).val(data.pagePath).trigger("change");
 					$(".addEditModel").modal();
 					postUrl="${managerPath}/mdiy/page/update.do?pageId="+id,
 					$("#addEditBtn").text("更新");
