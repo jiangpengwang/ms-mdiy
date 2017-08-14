@@ -84,6 +84,7 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param fieldCmid
 	 * @return
 	 */
+	@Deprecated
 	public int queryCountByCmid(int fieldCmid);
 	
 	/**
@@ -95,6 +96,7 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param order 排序方式
 	 * @return 返回字段集合
 	 */
+	@Deprecated
 	public List<BaseEntity> queryByPage(int fieldCmid,PageUtil page,String orderBy,boolean order);
 	
 	/**
@@ -103,6 +105,7 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param fieldCmdId : 表单模型id
 	 * @return 记录个数
 	 */
+	@Deprecated
 	public int getCountFieldName(String fieldFieldName,int fieldCmdId);
 	
 	/**
@@ -110,6 +113,7 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param fieldFieldName 字段名
 	 * @return 字段实体
 	 */
+	@Deprecated
 	public ContentModelFieldEntity getEntityByFieldName(String fieldFieldName);
 	
 	/**
@@ -126,6 +130,7 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param diyFieldName 自定义字段
 	 * @return 返回ID集合
 	 */
+	@Deprecated
 	public List<Integer> queryListBySQL(String table,Map<String,String> diyFieldName);
 	
 	/**
@@ -141,11 +146,13 @@ public interface IContentModelFieldBiz extends IBaseBiz{
 	 * @param fieldIsSearch 是否支持搜索
 	 * @return 字段列表信息
 	 */
+	@Deprecated
 	public List<ContentModelFieldEntity> queryByIsSearch(int contentMdoelId,FieldSearchEnum fieldIsSearch);
 	
 	/**
 	 * 根据模型ID删除相应字段
 	 * @param fieldCmid 模型ID
 	 */
+	@Deprecated
 	public void deleteEntityByFieldCmid(int fieldCmid);
 }

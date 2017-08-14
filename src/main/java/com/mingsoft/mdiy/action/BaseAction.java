@@ -112,7 +112,11 @@ public abstract class BaseAction extends com.mingsoft.basic.action.BaseAction {
 		return FileUtil.readFile(path);
 	}
 	/**
-	 * 获取资源文件中的定义资源
+	 * 读取国际化资源文件
+	 * 
+	 * @param key
+	 *            键值
+	 * @return 返回获取到的字符串
 	 */
 	@Override
 	protected String getResString(String key) {

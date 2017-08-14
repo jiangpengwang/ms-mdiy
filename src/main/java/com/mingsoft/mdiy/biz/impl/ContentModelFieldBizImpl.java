@@ -86,6 +86,7 @@ public class ContentModelFieldBizImpl extends BasicBizImpl implements IContentMo
 	 * @param fieldCmid
 	 * @return
 	 */
+	@Deprecated
 	public int queryCountByCmid(int fieldCmid) {
 		return contentModelFieldDao.queryCountByCmid(fieldCmid);
 	}
@@ -105,6 +106,7 @@ public class ContentModelFieldBizImpl extends BasicBizImpl implements IContentMo
 	 *            排序方式
 	 * @return 返回字段集合
 	 */
+	@Deprecated
 	public List<BaseEntity> queryByPage(int fieldCmid, PageUtil page, String orderBy, boolean order) {
 		return contentModelFieldDao.queryByPage(fieldCmid, page.getPageNo(), page.getPageSize(), orderBy, order);
 	}
@@ -118,6 +120,7 @@ public class ContentModelFieldBizImpl extends BasicBizImpl implements IContentMo
 	 *            : 表单模型id
 	 * @return 记录个数
 	 */
+	@Deprecated
 	@Override
 	public int getCountFieldName(String fieldFieldName, int fieldCmdId) {
 		// TODO Auto-generated method stub
@@ -156,6 +159,7 @@ public class ContentModelFieldBizImpl extends BasicBizImpl implements IContentMo
 	 *            自定义字段
 	 * @return 返回ID集合
 	 */
+	@Deprecated
 	public List<Integer> queryListBySQL(String table, Map<String, String> diyFieldName) {
 
 		// 根据列名查找字段实体
@@ -220,12 +224,13 @@ public class ContentModelFieldBizImpl extends BasicBizImpl implements IContentMo
 	 * @param fieldCmid
 	 *            模型ID
 	 */
+	@Deprecated
 	@Override
 	public void deleteEntityByFieldCmid(int fieldCmid) {
 		// TODO Auto-generated method stub
 		this.contentModelFieldDao.deleteEntityByFieldCmid(fieldCmid);
 	}
-
+	@Deprecated
 	@Override
 	public List<ContentModelFieldEntity> queryByIsSearch(int contentMdoelId, FieldSearchEnum fieldIsSearch) {
 		// TODO Auto-generated method stub

@@ -82,6 +82,7 @@ public interface IContentModelFieldDao extends IBaseDao{
 	 * @param cmId 表单类型id
 	 * @return 字段列表
 	 */
+	@Deprecated
 	public List<BaseEntity> queryListByCmId(@Param("fieldCmId")int fieldCmId);
 	
 	/**
@@ -89,6 +90,7 @@ public interface IContentModelFieldDao extends IBaseDao{
 	 * @param fieldFieldName 字段名
 	 * @return 字段实体
 	 */
+	@Deprecated
 	public ContentModelFieldEntity getEntityByFieldName(String fieldFieldName);
 	
 	/**
@@ -105,6 +107,7 @@ public interface IContentModelFieldDao extends IBaseDao{
 	 * @param diyFieldName 自定义字段
 	 * @return 返回ID集合
 	 */
+	@Deprecated
 	public List<Map> queryListBySQL(@Param("table") String table, @Param("diyFieldName")Map<String,String> diyFieldName);
 	
 	
@@ -114,6 +117,7 @@ public interface IContentModelFieldDao extends IBaseDao{
 	 * @param where 指定的查询条件
 	 * @return 字段集合
 	 */
+	@Deprecated
 	public List<Map> queryListByListField(@Param("table") String table,@Param("where") String where);
 	
 	
@@ -130,11 +134,13 @@ public interface IContentModelFieldDao extends IBaseDao{
 	 * @param isSearch 是否搜索
 	 * @return 字段实体列表
 	 */
+	@Deprecated
 	public List<ContentModelFieldEntity> queryByIsSearch(@Param("contentModelId") Integer contentModelId,@Param("fieldIsSearch")Integer fieldIsSearch);
 	
 	/**
 	 * 根据模型ID删除相应字段
 	 * @param fieldCmid 模型ID
 	 */
+	@Deprecated
 	public void deleteEntityByFieldCmid(@Param("fieldCmid") int fieldCmid);
 }
