@@ -29,8 +29,8 @@
 	<@ms.modal id="addEditModel" title="添加模块">
 		<@ms.modalBody>
 			<@ms.form isvalidation=true name="addEditForm"  action="" method="post"  >
-				<@ms.text name="cmTableName"  label="表名" labelStyle="width:25%" width="250" title="表单名称" placeholder="表名只能为英文字符" value="" validation={"maxlength":"50","data-bv-regexp":"true","required":"true", "data-bv-regexp-regexp":"^[a-zA-Z]+$","data-bv-regexp-message":"表名只能为字符!","data-bv-notempty-message":"表单名称不能为空","data-bv-stringlength-message":"表单名称在50个字符以内!"}/>
 				<@ms.text name="cmTipsName" id="cmTipsName" label="名称" labelStyle="width:25%" width="250" title="表名提示文字" placeholder="请输入模型名称" value="" validation={"maxlength":"50","required":"true", "data-bv-notempty-message":"表名提示文字不能为空","data-bv-stringlength-message":"表名提示文字在50个字符以内!"}/>
+				<@ms.text name="cmTableName"  label="表名" labelStyle="width:25%" width="250" title="表单名称" placeholder="表名只能为英文字符" value="" validation={"maxlength":"50","data-bv-regexp":"true","required":"true", "data-bv-regexp-regexp":"^[a-zA-Z]+$","data-bv-regexp-message":"表名只能为字符!","data-bv-notempty-message":"表单名称不能为空","data-bv-stringlength-message":"表单名称在50个字符以内!"}/>
 			</@ms.form>
 		</@ms.modalBody>
 		<@ms.modalButton>
@@ -147,34 +147,34 @@
 	}
 	//保存或更新
 	$("#addEditBtn").on("click",function(){
-		var vobj = $("#addEditForm").data('bootstrapValidator').validate();
-		if(vobj.isValid()){
-			$("#addEditForm").attr("action",postUrl);
-			$("#addEditForm").postForm("#addEditForm",{func:function(msg){
-				if (msg.result) {
-		     		if($("#addEditBtn").text()=="保存"){
-		     			alert("保存成功");
-		     		}else{
-		     			alert("更新成功");
-		     		}
-		    		location.reload();
-		    	}else{
-		    		alert(msg);
-		    	}
-			}});
-		}
-	});
-	// 前端验证自定义模型的表名是否相同
-	$("input[name='cmTableName']").blur(function(){
-		var cmTableName= $(this).val();
+		// 验证自定义模型的表名是否相同
+		var cmTableName= $("input[name='cmTableName']").val();
 		if(cmTableName!=""){
 			var URL="${managerPath}/mdiy/contentModel/"+cmTableName+"/checkcmTableNameExist.do"
 			$(this).request({url:URL,method:"post",type:"json",func:function(msg) {
 				if(msg){
 				     alert("表名已存在，请重新输入");
-				     $("input[name='cmTableName']").val("");
-				} 
+				     //$("input[name='cmTableName']").val("");
+				} else{
+					var vobj = $("#addEditForm").data('bootstrapValidator').validate();
+					if(vobj.isValid()){
+						$("#addEditForm").attr("action",postUrl);
+						$("#addEditForm").postForm("#addEditForm",{func:function(msg){
+							if (msg.result) {
+					     		if($("#addEditBtn").text()=="保存"){
+					     			alert("保存成功");
+					     		}else{
+					     			alert("更新成功");
+					     		}
+					    		location.reload();
+					    	}else{
+					    		alert(msg);
+					    	}
+						}});
+					}
+				}
 			}});
 		}
+		
 	});
 </script>

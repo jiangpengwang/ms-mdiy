@@ -182,7 +182,7 @@
 					$(this).request({url:URL,method:"post",func:function(msg) {
 						if(msg && oldFielName!=diyFormFieldFieldName){
 				     		alert("字段名已存在，请再次输入");
-				     		$("input[name='diyFormFieldFieldName']").val("");
+				     		//$("input[name='diyFormFieldFieldName']").val("");
 				     	} else {
 					 			var fieldType = $("input[name='diyFormFieldType']:checked").val();
 								var flag = true;

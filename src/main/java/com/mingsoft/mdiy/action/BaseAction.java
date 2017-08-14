@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +111,19 @@ public abstract class BaseAction extends com.mingsoft.basic.action.BaseAction {
 		path += File.separator + fileName;
 		return FileUtil.readFile(path);
 	}
+	/**
+	 * 获取资源文件中的定义资源
+	 */
+	@Override
+	protected String getResString(String key) {
+		// TODO Auto-generated method stub
+		String str = "";
+		try {
+			str = super.getResString(key);
+		} catch (MissingResourceException e) {
+			str = com.mingsoft.mdiy.constant.Const.RESOURCES.getString(key);
+		}
 
-
+		return str;
+	}
 }
