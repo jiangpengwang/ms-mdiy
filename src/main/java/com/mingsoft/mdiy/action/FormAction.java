@@ -50,7 +50,7 @@ public class FormAction extends BaseAction{
 	/**
 	 * 自定义表前缀
 	 */
-	private static final String TABLE_NAME_PREFIX = "diy_";
+	private static final String TABLE_NAME_PREFIX = "mdiy_";
 	
 	/**
 	 * 表名分隔符

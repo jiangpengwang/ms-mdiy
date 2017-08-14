@@ -2,7 +2,7 @@
 	<@ms.nav title="自定义表单表管理"></@ms.nav>
 	<@ms.searchForm name="searchForm" isvalidation=true>
 			<@ms.searchFormButton>
-				<@ms.text label="名称" name="formTipsName" value=""  width="240px;" placeholder="自定义表单提示文字" validation={"maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!"}/>
+				<@ms.text label="名称" name="formTipsName" value=""  width="240px;" placeholder="请输入自定义表单名称" validation={"maxlength":"50","data-bv-stringlength-message":"自定义表单提示文字长度不能超过五十个字符长度!"}/>
 				 <@ms.queryButton onclick="search()"/> 
 			</@ms.searchFormButton>			
 	</@ms.searchForm>
@@ -68,11 +68,11 @@
 				        		return "/mdiy/diyForm/"+row.formUrl+"/queryData.do";
 				        	}
 				    	},{
-				        	title: '操作',
+				        	title: '提交记录',
 				        	align: 'center',
 				        	formatter:function(value,row,index) {
 				        		var url="${managerPath}/mdiy/form/querydata.do?formId="+row.formId+"&formTipsName="+row.formTipsName
-				        		return "<a href=" +url+ " target='_self'> 查看提交记录 </a>";
+				        		return "<a href=" +url+ " target='_self'> 查看 </a>";
 				        	}
 				    	}]
 	    })
