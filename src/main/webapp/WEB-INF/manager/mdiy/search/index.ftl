@@ -1,5 +1,19 @@
 <@ms.html5>
 	<@ms.nav title="自定义搜索表管理"></@ms.nav>
+	<style>
+		.select2-container .select2-container--default {  
+		 	height: 34px;  
+		} 
+		.select2-container .select2-selection--single{
+			font: inherit;
+			border: 1px solid #ccc;
+		    display: block;
+		    height: 34px;
+		    padding: 0px 3px;
+    		font-size: 14px;
+    		color: rgb(85, 85, 85);
+		}
+	</style>
 	<@ms.panel>
 		<div id="toolbar">
 			<@ms.panelNav>

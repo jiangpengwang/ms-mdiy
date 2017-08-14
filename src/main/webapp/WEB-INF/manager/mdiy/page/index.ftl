@@ -1,7 +1,21 @@
 <@ms.html5>
-	<@ms.nav title="自定义页面表管理"></@ms.nav>
+	<@ms.nav title="自定义页面管理"></@ms.nav>
+	<style>
+		.select2-container .select2-container--default {  
+		  	height: 34px;  
+		} 
+		.select2-container .select2-selection--single{
+			font: inherit;
+			border: 1px solid #ccc;
+		    display: block;
+		    height: 34px;
+		    padding: 0px 3px;
+    		font-size: 14px;
+    		color: rgb(85, 85, 85);
+		}
+	</style>
 	<@ms.searchForm name="searchForm" isvalidation=true>
-		<@ms.text label="自定义页面标题" name="pageTitle" value=""  width="240px;" placeholder="请输入自定义页面标题" validation={"required":"true","maxlength":"50","data-bv-stringlength-message":"自定义页面标题长度不能超过五十个字符长度!"}/>
+		<@ms.text label="标题" name="pageTitle" value=""  width="240px;" placeholder="请输入标题" validation={"required":"true","maxlength":"50","data-bv-stringlength-message":"自定义页面标题长度不能超过五十个字符长度!"}/>
 		<@ms.searchFormButton>
 			 <@ms.queryButton onclick="search()"/> 
 		</@ms.searchFormButton>			
@@ -72,13 +86,13 @@
 	    	columns: [{ checkbox: true},
 				    	{
 				        	field: 'pageTitle',
-				        	title: '自定义页面标题',
+				        	title: '标题',
 				        	formatter:function(value,row,index) {
 				        		return "<a style='cursor:pointer;text-decoration:none;' onclick='editPage("+row.pageId+")'>" + value + "</a>";
 				        	}
 				    	},{
 				        	field: 'pagePath',
-				        	title: '自定义页面绑定模板的路径'
+				        	title: '绑定模板的路径'
 				    	},{
 				        	field: 'pageKey',
 				        	title: '访问路径'
