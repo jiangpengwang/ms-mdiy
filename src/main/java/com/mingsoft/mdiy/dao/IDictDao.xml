@@ -107,7 +107,7 @@
 	</delete>
 	<!--查询全部-->	
 	<select id="queryAll" resultMap="resultMap">
-		select * from mdiy_dict order by dict_id desc
+		select * from mdiy_dict order by dict_sort,dict_type
 	</select>
 	<!--条件查询-->	
 	<select id="query" resultMap="resultMap">
@@ -123,7 +123,7 @@
 				<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
 				<if test="del != null"> and del=#{del} </if>				
 		</where>		
-		order by dict_id desc
+		order by dict_sort,dict_type
 	</select>
 	
 </mapper>

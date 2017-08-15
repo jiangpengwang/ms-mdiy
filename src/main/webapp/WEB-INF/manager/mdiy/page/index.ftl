@@ -15,7 +15,7 @@
 		}
 	</style>
 	<@ms.searchForm name="searchForm" isvalidation=true>
-		<@ms.text label="标题" name="pageTitle" value=""  width="240px;" placeholder="请输入标题" validation={"required":"true","maxlength":"50","data-bv-stringlength-message":"自定义页面标题长度不能超过五十个字符长度!"}/>
+		<@ms.text label="标题" name="pageTitle" value=""  width="240px;" placeholder="请输入标题"/>
 		<@ms.searchFormButton>
 			 <@ms.queryButton onclick="search()"/> 
 		</@ms.searchFormButton>			
