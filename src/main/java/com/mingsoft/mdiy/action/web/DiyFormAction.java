@@ -28,7 +28,7 @@ import com.mingsoft.util.StringUtil;
  * 历史修订：<br/>
  */
 @Controller("webDiyForm")
-@RequestMapping("/mdiy/diyForm")
+@RequestMapping(value={"/mdiy/diyForm","/mdiy/form"})
 public class DiyFormAction extends BaseAction{
 
 	/**
