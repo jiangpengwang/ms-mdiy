@@ -112,7 +112,7 @@ public class FormEntity extends BaseEntity {
 		return this.formAppId;
 	}
 	public String getFormUrl() {
-		formUrl=AESUtil.encrypt(this.formId+"", StringUtil.Md5(this.formAppId+"").substring(16));
+		formUrl=AESUtil.encrypt(this.formId+"", StringUtil.Md5(this.getAppId()+"").substring(16));
 		return formUrl;
 	}
 

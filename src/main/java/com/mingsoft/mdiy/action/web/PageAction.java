@@ -13,8 +13,8 @@ import com.mingsoft.basic.parser.BaseParser;
 import com.mingsoft.mdiy.action.BaseAction;
 
 @Controller("webDiyPath")
-@RequestMapping("/")
-public class DiyPageAction extends BaseAction {
+@RequestMapping(value={"/","/mdiy/page"})
+public class PageAction extends BaseAction {
 
 	@Autowired
 	private BaseParser parser;
