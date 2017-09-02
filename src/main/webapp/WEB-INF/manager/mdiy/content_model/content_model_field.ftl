@@ -71,13 +71,13 @@
 			<#break>
 			<#case "7">
 					<@ms.formRow label="${name}">
-							<@ms.uploadImg path="upload/article/${appId}/" inputName="${filedName}" size="30"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
+							<@ms.uploadImg path="article" inputName="${filedName}" size="30"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
 					</@ms.formRow>
 			<#break>
 			
 			<#case "8">
 				<@ms.formRow label="${name}">
-						<@ms.uploadFile path="upload/article/${appId}/"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
+						<@ms.uploadFile path="article"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
 				</@ms.formRow>
 				<script>
 				 function test(e){
