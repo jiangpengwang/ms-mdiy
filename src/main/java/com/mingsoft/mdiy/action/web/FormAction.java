@@ -28,8 +28,8 @@ import com.mingsoft.util.StringUtil;
  * 历史修订：<br/>
  */
 @Controller("webDiyForm")
-@RequestMapping("/mdiy/diyForm")
-public class DiyFormAction extends BaseAction{
+@RequestMapping(value={"/mdiy/diyForm","/mdiy/form"})
+public class FormAction extends BaseAction{
 
 	/**
 	 * 自定义表单业务处理层

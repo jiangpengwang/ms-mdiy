@@ -4,7 +4,7 @@
 	
 	<resultMap id="resultMap" type="com.mingsoft.mdiy.entity.DictEntity">
 		<id column="dict_id" property="dictId" /><!--编号 -->
-		<result column="dict_app_id" property="appId" /><!--应用编号 -->
+		<result column="app_id" property="appId" /><!--应用编号 -->
 		<result column="dict_value" property="dictValue" /><!--数据值 -->
 		<result column="dict_label" property="dictLabel" /><!--标签名 -->
 		<result column="dict_type" property="dictType" /><!--类型 -->
@@ -24,7 +24,7 @@
 		parameterType="com.mingsoft.mdiy.entity.DictEntity" >
 		insert into mdiy_dict
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="appId != null">dict_app_id,</if>
+			<if test="appId != null">app_id,</if>
 			<if test="dictValue != null and dictValue != ''">dict_value,</if>
 			<if test="dictLabel != null and dictLabel != ''">dict_label,</if>
 			<if test="dictType != null and dictType != ''">dict_type,</if>
@@ -78,7 +78,7 @@
 	<select id="getByEntity" resultMap="resultMap" parameterType="com.mingsoft.mdiy.entity.DictEntity">
 		select * from mdiy_dict 
 		<where>
-			<if test="appId != null"> and dict_app_id=#{appId} </if>				
+			<if test="appId != null"> and app_id=#{appId} </if>				
 			<if test="dictValue != null and dictValue != ''"> and dict_value=#{dictValue} </if>				
 			<if test="dictLabel != null and dictLabel != ''"> and dict_label=#{dictLabel} </if>				
 			<if test="dictType != null and dictType != ''"> and dict_type=#{dictType} </if>				
@@ -107,13 +107,13 @@
 	</delete>
 	<!--查询全部-->	
 	<select id="queryAll" resultMap="resultMap">
-		select * from mdiy_dict order by dict_id desc
+		select * from mdiy_dict order by dict_sort,dict_type
 	</select>
 	<!--条件查询-->	
 	<select id="query" resultMap="resultMap">
 		select * from mdiy_dict  
 		<where>
-				dict_app_id = #{appId}
+				app_id = #{appId}
 				<if test="dictValue != null and dictValue != ''"> and dict_value=#{dictValue} </if>				
 				<if test="dictLabel != null and dictLabel != ''"> and dict_label=#{dictLabel} </if>				
 				<if test="dictType != null and dictType != ''"> and dict_type=#{dictType} </if>				
@@ -123,7 +123,7 @@
 				<if test="dictRemarks != null and dictRemarks != ''"> and dict_remarks=#{dictRemarks} </if>				
 				<if test="del != null"> and del=#{del} </if>				
 		</where>		
-		order by dict_id desc
+		order by dict_sort,dict_type
 	</select>
 	
 </mapper>
