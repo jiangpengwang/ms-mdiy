@@ -40,7 +40,7 @@ public class MdiyUpgarde  extends BaseAction  {
 		}
 
 	   //获取当前模块版本号
-	    String version = this.getVersion("com/mingsoft/mdiy","20000000");
+	    String version = this.getVersion("com/mingsoft/cms","02000000");
 	    if(version == null) {
 	    	result.setResult(false);
 			result.setResultMsg("当前系统模块版本号异常！");
