@@ -1,4 +1,4 @@
-package com.mingsoft.mdiy.upgarade;
+package com.mingsoft.mdiy.upgarde;
 
 import java.io.IOException;
 import java.sql.Timestamp;
