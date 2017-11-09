@@ -29,11 +29,9 @@ import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 
 /**
- * 通用自定义表单
- * @author 王天培QQ:78750478
- * @version 
- * 版本号：100-000-000<br/>
- * 创建日期：2012-03-15<br/>
+ * 通用自定义字典
+ * @author 铭飞开发团队 <br/>
+ * 创建日期：2017年11月8日<br/>
  * 历史修订：<br/>
  */
 @Controller("webDictAction")
