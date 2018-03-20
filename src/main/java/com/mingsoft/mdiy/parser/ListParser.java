@@ -348,20 +348,13 @@ public abstract class ListParser extends IParser {
 			    	if(fieldEntity.getFieldType()==OPTION || fieldEntity.getFieldType()==RADIO || fieldEntity.getFieldType()==CHECKBOX){
 			    		String fieldDefault = fieldEntity.getFieldDefault();
 			    		if(!StringUtil.isBlank(fieldDefault)){
-			    			String[] filedNew = fieldDefault.split(",");
 				    		//判断是否为checkBox
 				    		if(fieldEntity.getFieldType()==CHECKBOX){
-				    			String[] checkBox = field.get(key).toString().split(",");
-				    			fieldValue = "";
-				    			for(int i= 0;i<checkBox.length;i++){
-				    				fieldValue+=filedNew[Integer.valueOf(checkBox[i].toString())-1];
-				    			}
+				    			//去除最后那个逗号
+				    			fieldValue = fieldValue.substring(0,fieldValue.length()-1);
 				    		}else{
-				    			if(Integer.valueOf(field.get(key).toString())-1<filedNew.length){
-				    				fieldValue = filedNew[Integer.valueOf(field.get(key).toString())-1];
-				    			}else{
-				    				fieldValue = filedNew[filedNew.length-1];
-				    			}
+				    			//拿到单选框的值
+				    			fieldValue = field.get(key).toString();
 				    		}
 			    		}
 			    	}
