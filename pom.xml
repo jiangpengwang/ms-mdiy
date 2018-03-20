@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>ms-mdiy</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>ms-mdiy tools Library</description>
@@ -48,7 +48,7 @@
 	<properties>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
+		<ms.basic.version>1.0.4-SNAPSHOT</ms.basic.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,7 +81,6 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
-					<compilerId>eclipse</compilerId>
 					<compilerArguments>
 						<verbose />
 						<bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</bootclasspath>
