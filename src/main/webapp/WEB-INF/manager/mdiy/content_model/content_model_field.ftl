@@ -107,6 +107,15 @@
 			<#break>
 			<#case "10">
 				<@ms.radio name="${filedName}" label="${name}" list=defaultValue?split(',') value="${value}"/>
+				<script>
+						var dselect= new Array();
+						dselect ="${defaultValue}".split(",");		
+						var checkValue="${value}";
+						if(checkValue == ''){
+							checkValue = dselect[0];
+						}
+						$(":radio[name='${filedName}'][value='" + checkValue + "']").prop("checked", "checked");
+				</script>
 			<#break>
 			<#case "11">
 				<@ms.checkbox name="${filedName}" label="${name}" list=defaultValue?split(',') valueList=value?split(",")/>
