@@ -20,8 +20,10 @@ import com.mingsoft.base.filter.DoubleValueFilter;
 import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
+import com.mingsoft.mdiy.biz.IFormBiz;
 import com.mingsoft.basic.constant.e.SessionConstEnum;
 import com.mingsoft.mdiy.entity.ContentModelEntity;
+import com.mingsoft.mdiy.entity.FormEntity;
 import com.mingsoft.util.StringUtil;
 
 import net.mingsoft.basic.bean.EUListBean;
@@ -51,7 +53,11 @@ public class ContentModelAction extends BaseAction{
 	 */
 	@Autowired
 	private IContentModelBiz contentModelBiz;
-	
+	/**
+	 * 注入自定义表单biz
+	 */
+	@Autowired
+	IFormBiz formBiz;
 	/**
 	 * 注入字段业务层
 	 */
@@ -235,7 +241,10 @@ public class ContentModelAction extends BaseAction{
 		// 判断表名是否重复
 		ContentModelEntity contentModel = new ContentModelEntity();
 		contentModel.setCmTableName(cmTableName);
-		if(contentModelBiz.getEntity(contentModel)!=null){
+		//判断表名是否与自定义表名重复
+		FormEntity formEntity=new FormEntity();
+		formEntity.setFormTableName(cmTableName);
+		if(contentModelBiz.getEntity(contentModel)!=null ||formBiz.getEntity(formEntity)!=null){
 			return true;
 		}else{
 			return false;

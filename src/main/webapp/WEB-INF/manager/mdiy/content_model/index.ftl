@@ -162,14 +162,14 @@
 						$("#addEditForm").postForm("#addEditForm",{func:function(msg){
 							if (msg.result) {
 					     		if($("#addEditBtn").text()=="保存"){
-					     			alert("保存成功");
+					     			<@ms.notify msg= "保存成功!" type= "success" />
 					     		}else{
-					     			alert("更新成功");
+					     			<@ms.notify msg= "更新成功!" type= "success" />
 					     		}
-					    		location.reload();
 					    	}else{
-					    		alert(msg);
+					    		<@ms.notify msg= "系统繁忙,请稍后重试!" type= "danger" />
 					    	}
+					    	location.reload();
 						}});
 					}
 				}
