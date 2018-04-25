@@ -177,6 +177,15 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 			this.outJson(response, null, false, getResString("err.length", this.getResString("search.type"), "1", "255"));
 			return;			
 		}
+		//验证搜索名称的值是否合法
+		if(!StringUtil.isBlank(search.getSearchName())){
+			this.outJson(response, null, false, getResString("err.empty", this.getResString("search.name")));
+			return;			
+		}
+		if(!StringUtil.checkLength(search.getSearchName()+"", 1, 255)){
+			this.outJson(response, null, false, getResString("err.length", this.getResString("search.name"), "1", "255"));
+			return;			
+		}
 		search.setAppId(BasicUtil.getAppId());
 		searchBiz.saveEntity(search);
 		this.outJson(response, JSONObject.toJSONString(search));
