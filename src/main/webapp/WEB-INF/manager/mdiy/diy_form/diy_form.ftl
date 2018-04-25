@@ -47,7 +47,7 @@
 	<@ms.modalBody height="500">
 		<@ms.form isvalidation=true name="fieldForm" action="">
 			<@ms.text title="名称" label="字段提示文字"  width="200" size="3"  value="" placeholder="请输入提示文字" name="diyFormFieldTipsName" validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符"} />
-			<@ms.text title="名称" label="字段名称"  width="200" size="3" value=""  placeholder="请输入字段名称" name="diyFormFieldFieldName"  validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z]+$',"data-bv-regexp-message":"字段名只能为字符!"}  />
+			<@ms.text title="名称" label="字段名称"  width="200" size="3" value=""  placeholder="请输入字段名称" name="diyFormFieldFieldName"  validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z]+$',"data-bv-regexp-message":"只能为英文字符!"}  />
 			<@ms.formRow label="数据类型"  width="300">
             	<div id="fieldTypeInfo" class="col-sm-10 ms-from-group-input ms-form-input">
 				</div>
