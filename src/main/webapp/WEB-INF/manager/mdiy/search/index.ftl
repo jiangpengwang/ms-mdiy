@@ -153,7 +153,7 @@
 				if(data.searchId > 0){
 					<@ms.notify msg= "保存或更新成功" type= "success" />
 				}else {
-					<@ms.notify msg= "保存或更新失败" type= "fail" />
+					<@ms.notify msg= "保存或更新失败" type= "danger" />
 				}
 				location.reload();
 			}
@@ -175,7 +175,7 @@
 				if(msg.result == true) {
 					<@ms.notify msg= "删除成功" type= "success" />
 				}else {
-					<@ms.notify msg= "删除失败" type= "fail" />
+					<@ms.notify msg= "删除失败" type= "danger" />
 				}
 				location.reload();
 			}

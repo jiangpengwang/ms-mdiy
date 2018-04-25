@@ -36,7 +36,7 @@
 					//判断用户输入的是否为数字
 					$("input[name='${filedName}']").blur(function(){
 						if((isNaN($(this).val()))){
-							alert("${name}"+"只能输入数字");
+							<@ms.notify msg= "${name}只能输入数字" type= "warning" />
 							$(this).val("");
 						}
 					});
@@ -54,7 +54,7 @@
 					//判断用户输入的是否为数字
 					$("input[name='${filedName}']").blur(function(){
 						if((isNaN($(this).val()))){
-							alert("${name}"+"只能输入数字");
+							<@ms.notify msg= "${name}只能输入数字" type= "warning" />
 							$(this).val("");
 						}
 					});
@@ -82,7 +82,7 @@
 				<script>
 				 function test(e){
             		isSuccess = true;
-					alert("文件上传成功 ");
+					<@ms.notify msg= "文件上传成功" type= "success" />
 	   			}
 	   			</script>
 	   			

@@ -38,7 +38,7 @@
 					location.href = "${managerPath}/mdiy/contentModel/index.do";
 				}
 				else{
-					<@ms.notify msg= "保存或更新失败！" type= "fail" />
+					<@ms.notify msg= "保存或更新失败！" type= "danger" />
 					location.href= "${managerPath}/mdiy/contentModel/index.do";
 				}
 			}

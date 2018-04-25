@@ -84,7 +84,7 @@ $(function(){
 			if(json.result==true){
 				<@ms.notify msg= "删除成功" type= "success" />
 			}else{
-				<@ms.notify msg= "删除失败" type= "fail" />
+				<@ms.notify msg= "删除失败" type= "danger" />
 			}
 			location.reload();
 		}});
