@@ -153,7 +153,7 @@
 			var URL="${managerPath}/mdiy/contentModel/"+cmTableName+"/checkcmTableNameExist.do"
 			$(this).request({url:URL,method:"post",type:"json",func:function(msg) {
 				if(msg){
-				     alert("表名已存在，请重新输入");
+				     <@ms.notify msg= "表名已存在，请重新输入" type= "warning" />
 				     //$("input[name='cmTableName']").val("");
 				} else{
 					var vobj = $("#addEditForm").data('bootstrapValidator').validate();
