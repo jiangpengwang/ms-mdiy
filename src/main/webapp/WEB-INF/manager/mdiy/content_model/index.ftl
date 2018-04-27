@@ -129,7 +129,7 @@
 				if(msg.result == true) {
 					<@ms.notify msg= "删除成功" type= "success" />
 				}else {
-					<@ms.notify msg= "删除失败" type= "fail" />
+					<@ms.notify msg= "删除失败" type= "danger" />
 				}
 				location.reload();
 			}
@@ -153,7 +153,7 @@
 			var URL="${managerPath}/mdiy/contentModel/"+cmTableName+"/checkcmTableNameExist.do"
 			$(this).request({url:URL,method:"post",type:"json",func:function(msg) {
 				if(msg){
-				     alert("表名已存在，请重新输入");
+				     <@ms.notify msg= "表名已存在，请重新输入" type= "warning" />
 				     //$("input[name='cmTableName']").val("");
 				} else{
 					var vobj = $("#addEditForm").data('bootstrapValidator').validate();
@@ -162,14 +162,17 @@
 						$("#addEditForm").postForm("#addEditForm",{func:function(msg){
 							if (msg.result) {
 					     		if($("#addEditBtn").text()=="保存"){
-					     			alert("保存成功");
+					     			<@ms.notify msg= "保存成功!" type= "success" />
 					     		}else{
-					     			alert("更新成功");
+					     			<@ms.notify msg= "更新成功!" type= "success" />
 					     		}
-					    		location.reload();
 					    	}else{
-					    		alert(msg);
+					    		$('.ms-notifications').offset({top:43}).notify({
+					            type:'danger',
+					            message: { text:msg.resultMsg }
+					            }).show();
 					    	}
+					    	location.reload();
 						}});
 					}
 				}

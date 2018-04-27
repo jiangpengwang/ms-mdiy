@@ -43,7 +43,7 @@
 	<@ms.modalBody height="500">
 		<@ms.form isvalidation=true name="fieldForm" action="">
 			<@ms.text title="名称" label="字段提示文字"  width="200" size="3"  value="" placeholder="请输入提示文字" name="diyFormFieldTipsName" validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符"} />
-			<@ms.text title="名称" label="字段名称"  width="200" size="3" value=""  placeholder="请输入字段名称" name="diyFormFieldFieldName"  validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z]+$',"data-bv-regexp-message":"字段名只能为字符!"}  />
+			<@ms.text title="名称" label="字段名称"  width="200" size="3" value=""  placeholder="请输入字段名称" name="diyFormFieldFieldName"  validation={"required":"true", "data-bv-notempty-message":"不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"100","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-100个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z]+$',"data-bv-regexp-message":"不能输入特殊字符!"}  />
 			<@ms.formRow label="数据类型"  width="300">
             	<div id="fieldTypeInfo" class="col-sm-10 ms-from-group-input ms-form-input">
 				</div>
@@ -67,11 +67,11 @@
 		$("#deleteButtonField").attr("disabled",true);
 		$(this).request({url:URL,type:"json",method:"post",func:function(msg) {
 			//回调处理方式
-			if(msg.result) {
+	    	if(msg.result) {
 		    	$(".closeModal").click();
-				alert("删除字段成功");
+				<@ms.notify msg= "删除字段成功!" type= "success" />
 	    	} else {
-				alert("删除字段失败");
+				<@ms.notify msg= "删除字段失败" type= "danger" />
 		    	$(".closeModal").click();
 	    	}
 	    	location.reload();
@@ -84,7 +84,7 @@
 				var URL="${managerPath}/mdiy/form/checkTableNameExist.do?formTableName="+$("input[name='formTableName']").val();
 				$(this).request({url:URL,method:"post",func:function(obj) {
 					if(obj.result){
-				    	alert("表名已存在，请重新输入");
+				    	<@ms.notify msg= "表名已存在，请重新输入" type= "warning" />
 				     	//$("input[name='formTableName']").val("");
 					} else {
 						var diyForm = $("#diyForm");
@@ -181,7 +181,7 @@
 					var URL="${managerPath}/mdiy/form/formField/"+diyFormFieldFieldName+"/checkFieldNameExist.do?diyFormFieldFormId="+diyFormFieldFormId
 					$(this).request({url:URL,method:"post",func:function(msg) {
 						if(msg && oldFielName!=diyFormFieldFieldName){
-				     		alert("字段名已存在，请再次输入");
+				     		<@ms.notify msg= "字段名已存在，请再次输入" type= "warning" />
 				     		//$("input[name='diyFormFieldFieldName']").val("");
 				     	} else {
 					 			var fieldType = $("input[name='diyFormFieldType']:checked").val();
@@ -191,7 +191,7 @@
 									if((isNaN($("textarea[name='diyFormFieldDefault']").val()))){
 										$($("textarea[name='diyFormFieldDefault']")).val("");
 										flag = false;
-										alert("字段类型为数字类型,默认值只能为数字")
+										<@ms.notify msg= "字段类型为数字类型,默认值只能为数字" type= "warning" />
 									}
 								}
 								var vobj = $("#fieldForm").data('bootstrapValidator').validate();

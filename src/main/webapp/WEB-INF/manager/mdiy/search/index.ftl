@@ -140,6 +140,12 @@
 	
 	//保存或更新
 	$("#saveOrUpdate").click(function(){
+	    $("#searchForm").data("bootstrapValidator").validate();
+			var isValid = $("#searchForm").data("bootstrapValidator").isValid();
+			if(!isValid) {
+				<@ms.notify msg= "数据提交失败，请检查数据格式！" type= "warning" />
+				return;
+		}
 		$(this).text("正在保存...");
 		$(this).attr("disabled","true");
 		var searchEntity = $('#searchForm').serialize();
@@ -153,7 +159,10 @@
 				if(data.searchId > 0){
 					<@ms.notify msg= "保存或更新成功" type= "success" />
 				}else {
-					<@ms.notify msg= "保存或更新失败" type= "fail" />
+					$('.ms-notifications').offset({top:43}).notify({
+					            type:'danger',
+					            message: { text:data.resultMsg }
+					            }).show();
 				}
 				location.reload();
 			}
@@ -175,7 +184,7 @@
 				if(msg.result == true) {
 					<@ms.notify msg= "删除成功" type= "success" />
 				}else {
-					<@ms.notify msg= "删除失败" type= "fail" />
+					<@ms.notify msg= "删除失败" type= "danger" />
 				}
 				location.reload();
 			}

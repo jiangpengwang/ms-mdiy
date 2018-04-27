@@ -36,7 +36,7 @@
 					//判断用户输入的是否为数字
 					$("input[name='${filedName}']").blur(function(){
 						if((isNaN($(this).val()))){
-							alert("${name}"+"只能输入数字");
+							<@ms.notify msg= "${name}只能输入数字" type= "warning" />
 							$(this).val("");
 						}
 					});
@@ -54,7 +54,7 @@
 					//判断用户输入的是否为数字
 					$("input[name='${filedName}']").blur(function(){
 						if((isNaN($(this).val()))){
-							alert("${name}"+"只能输入数字");
+							<@ms.notify msg= "${name}只能输入数字" type= "warning" />
 							$(this).val("");
 						}
 					});
@@ -71,19 +71,24 @@
 			<#break>
 			<#case "7">
 					<@ms.formRow label="${name}">
-							<@ms.uploadImg path="article" inputName="${filedName}" size="30"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
+							<@ms.uploadImg path="article" inputName="${filedName}" size="4"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
 					</@ms.formRow>
 			<#break>
 			
 			<#case "8">
-				<@ms.formRow label="${name}">
-						<@ms.uploadFile path="article"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
+				<@ms.text name="${filedName}" label="${name}" width="300px;" value="${value}" title="${filedName}" readonly="readonly" />
+				<@ms.formRow >
+						<@ms.uploadFile path="article"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件,文件类型支持格式：zip、rar、doc、xls、xlsx、ppt、pptx、docx、txt、pdf " filetype="*.zip;*.rar;*.doc;*.xls;*.xlsx;*.ppt;*.pptx;*.docx;*.txt;*.pdf" maxSize="5" callBack="setFile${filedName}" isRename="false"/>
 				</@ms.formRow>
+				
 				<script>
-				 function test(e){
-            		isSuccess = true;
-					alert("文件上传成功 ");
-	   			}
+				 function setFile${filedName}(file){
+			   	   	if(file < 0){   
+			   	   		}else{  
+				   		<@ms.notify msg="上传成功!" type= "success" />  
+			   	   		$("input[name='${filedName}']").val(file);    	   
+			   	   	}
+   				}
 	   			</script>
 	   			
 			<#break>
@@ -93,16 +98,15 @@
 						<select class="form-control" name="${filedName}"></select>
 				</@ms.formRow>
 				<script>
-						var dselect= new Array();
-						dselect ="${defaultValue}".split(",");		
-						for(var i = 0;i<dselect.length;i++){
+						var ${filedName}Select= new Array();
+						${filedName}Select ="${defaultValue}".split(",");		
+						for(var i = 0;i<${filedName}Select.length;i++){
 							var j = i+1;
-							if(dselect[i]!=""){
-								$("select[name='${filedName}']").append("<option selected value="+(i+1)+">"+dselect[i]+"</option>");
+							if(${filedName}Select[i]!=""){
+								$("select[name='${filedName}']").append("<option selected value="+(i+1)+">"+${filedName}Select[i]+"</option>");
 							}
 						}
-						var checkValue="${value}";
-						$("select[name='${filedName}']").find("option[value="+checkValue+"]").attr("selected",true);
+						$("select[name='${filedName}']").val("${value}");
 				</script>				
 			<#break>
 			<#case "10">

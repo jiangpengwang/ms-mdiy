@@ -198,14 +198,14 @@
 			$(this).request({url:URL,method:"post",type:"json",func:function(msg) {
 				if(msg != 0) {
 			    	$(".closeModal").click();
-					alert("删除字段成功");
+					<@ms.notify msg= "删除字段成功" type= "success" />
 		    		if($("tbody tr").length==0 && msg != 1){
 		    			location.href = base+"${baseManager}/cms/contentModel/add.do";
 					}else{
 						location.href = base+"${baseManager}/cms/contentModel/${contentModel.cmId?default(0)}/edit.do";
 					}
 		    	} else {
-					alert("删除字段失败");
+					<@ms.notify msg= "删除字段失败" type= "danger" />
 			    	$(".closeModal").click();
 		    	}
 			}});
@@ -235,9 +235,9 @@
 					$(".updateContentModel").attr("disabled",true);
 					$(this).request({url:URL,method:"post",type:"json",data:contentModel,func:function(msg) {
 						if(msg.result){
-							alert("更新成功");
+							<@ms.notify msg= "更新成功" type= "success" />
 						}else {
-							alert("更新失败");							
+							<@ms.notify msg= "更新失败" type= "danger" />							
 						}
 						$(".updateContentModel").text("更新模型");
 						$(".updateContentModel").attr("disabled",false);
@@ -277,7 +277,7 @@
 					var URL="${managerPath}/cms/field/"+fieldFieldName+"/checkFieldNameExist.do?fieldCmId="+fieldCmId;
 					$(this).request({url:URL,method:"post",type:"json",data:fieldCmId,func:function(msg) {
 						if(msg){
-				     		alert("字段名已存在，请再次输入");
+				     		<@ms.notify msg= "字段名已存在，请再次输入" type= "warning" />
 				     		$("input[name='fieldFieldName']").val("");
 				     	} 
 					}});
@@ -294,7 +294,7 @@
 					if((isNaN($("textarea[name='fieldDefault']").val()))){
 						$($("textarea[name='fieldDefault']")).val("");
 						flag = false;
-						alert("字段类型为数字类型,默认值只能为数字")
+						<@ms.notify msg= "字段类型为数字类型,默认值只能为数字" type= "warning" />
 					}
 				}
 				//获取按钮文字
@@ -314,10 +314,16 @@
 						success: function(msg){
 							var fieldCmid = $("input[name='fieldCmid']").val();
 							if(msg.result){
-								alert(btnText+"成功");
+								$('.ms-notifications').offset({top:43}).notify({
+					    			type:'success',
+					    			message: { text:btnText+"成功" }
+					 			}).show();	
 								location.href="${managerPath}/cms/contentModel/"+fieldCmid+"/edit.do";					
 							}else{
-								alert(msg.resultMsg);
+								$('.ms-notifications').offset({top:43}).notify({
+					    			type:'danger',
+					    			message: { text:msg.resultMsg }
+					 			}).show();
 								$("#saveOrUpdate").html(btnText);
 								$("#saveOrUpdate").attr('disabled',false);
 							}
@@ -368,10 +374,13 @@
 							if(msg.result){
 								$("input[name='cmTableName']").attr("readonly","readonly");
 								$("input[name='fieldCmid']").val(msg.resultMsg);
-								alert("保存成功");
+								<@ms.notify msg= "保存成功" type= "success" />
 								location.href="${managerPath}/cms/contentModel/"+msg.resultMsg+"/edit.do";
 							}else{
-								alert(msg.resultMsg);
+								$('.ms-notifications').offset({top:43}).notify({
+					    			type:'danger',
+					    			message: { text:msg.resultMsg }
+					 			}).show();	
 								$(".saveContentModel").html("保存模型");	
 							}
 							$(".saveContentModel").removeAttr("disabled");
@@ -392,7 +401,7 @@
 					var URL="${managerPath}/cms/contentModel/"+cmTableName+"/checkcmTableNameExist.do"
 					$(this).request({url:URL,method:"post",type:"json",func:function(msg) {
 						if(msg){
-						     alert("表名已存在，请重新输入");
+						     <@ms.notify msg= "表名已存在，请重新输入" type= "warning" />
 						     $("input[name='cmTableName']").val("");
 						} 
 					}});

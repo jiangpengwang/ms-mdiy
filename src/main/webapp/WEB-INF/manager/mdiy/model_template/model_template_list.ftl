@@ -129,7 +129,7 @@ $(function(){
 		$(this).text("删除中");
 		$(this).attr("disabled",true);
 		$("#rightDelete").request({url:actionUrl,type:"json",method:"post",func:function(data) {
-			alert("删除成功");
+			<@ms.notify msg= "删除成功!" type= "success" />
 			location.reload();
 		}});
 	});
@@ -142,9 +142,9 @@ $(function(){
 			$("#addEditForm").postForm("#addEditForm",{func:function(msg){
 				if (msg.result) {
 		     		if($("#addEditBtn").text()=="保存"){
-		     			alert("保存成功");
+		     			<@ms.notify msg= "保存成功!" type= "success" />
 		     		}else{
-		     			alert("更新成功");
+		     			<@ms.notify msg= "更新成功!" type= "success" />
 		     		}
 		    		location.reload();
 		    	}else{

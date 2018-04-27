@@ -154,7 +154,7 @@
 				if(msg.result == true) {
 					<@ms.notify msg= "删除成功" type= "success" />
 				}else {
-					<@ms.notify msg= "删除失败" type= "fail" />
+					<@ms.notify msg= "删除失败" type= "danger" />
 				}
 				location.reload();
 			}
@@ -178,12 +178,13 @@
 			$("#addEditForm").postForm("#addEditForm",{func:function(msg){
 		    	if(msg.result == true) {
 					if($("#addEditBtn").text()=="保存"){
-		     			alert("保存成功");
+		     			<@ms.notify msg= "保存成功" type= "success" />
 		     		}else{
-		     			alert("更新成功");
+		     			<@ms.notify msg= "更新成功" type= "success" />
 		     		}
+		     		location.reload();
 				}
-				location.reload();
+				
 			}});
 		}
 	});
