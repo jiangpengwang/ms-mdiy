@@ -71,7 +71,7 @@
 			<#break>
 			<#case "7">
 					<@ms.formRow label="${name}">
-							<@ms.uploadImg path="article" inputName="${filedName}" size="30"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
+							<@ms.uploadImg path="article" inputName="${filedName}" size="4"   msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
 					</@ms.formRow>
 			<#break>
 			
