@@ -176,7 +176,7 @@
 		if(vobj.isValid()){
 			$("#addEditForm").attr("action",postUrl);
 			$("#addEditForm").postForm("#addEditForm",{func:function(msg){
-		    	if(msg.result == true) {
+		    	if(msg.pageId > 0) {
 					if($("#addEditBtn").text()=="保存"){
 		     			<@ms.notify msg= "保存成功" type= "success" />
 		     		}else{
@@ -184,7 +184,6 @@
 		     		}
 		     		location.reload();
 				}
-				
 			}});
 		}
 	});
