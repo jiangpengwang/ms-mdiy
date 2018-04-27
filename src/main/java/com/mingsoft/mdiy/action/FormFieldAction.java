@@ -22,7 +22,7 @@ import com.mingsoft.util.StringUtil;
 
 @Controller("diyFormField")
 @RequestMapping("/${managerPath}/mdiy/form/formField")
-public class FormFieldAction extends com.mingsoft.basic.action.BaseAction {
+public class FormFieldAction extends com.mingsoft.mdiy.action.BaseAction {
 
 	/**
 	 * 默认的字段id
