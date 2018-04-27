@@ -49,9 +49,11 @@ public class FormAction extends BaseAction{
 			String temp =this.decryptByAES(request, idBase64);
 			//在进行自定义表单提交数据时是否需要提交验证码，默认是需要验证码
 			//如果isCode为空获取，isCode=true，则进行验证码的验证
-			if (!this.checkRandCode(request)) {
-				this.outJson(response, null,false);
-				return;
+			if(request.getParameter("rand_code") != null){
+			    if (!this.checkRandCode(request)) {
+				    this.outJson(response, null,false);
+				    return;
+			    }
 			}
 			//判断传入的加密数字是否能转换成整形
 			if(!StringUtil.isInteger(temp)){
