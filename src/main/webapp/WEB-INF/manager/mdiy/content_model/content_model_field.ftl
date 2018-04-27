@@ -98,16 +98,15 @@
 						<select class="form-control" name="${filedName}"></select>
 				</@ms.formRow>
 				<script>
-						var dselect= new Array();
-						dselect ="${defaultValue}".split(",");		
-						for(var i = 0;i<dselect.length;i++){
+						var ${filedName}Select= new Array();
+						${filedName}Select ="${defaultValue}".split(",");		
+						for(var i = 0;i<${filedName}Select.length;i++){
 							var j = i+1;
-							if(dselect[i]!=""){
-								$("select[name='${filedName}']").append("<option selected value="+(i+1)+">"+dselect[i]+"</option>");
+							if(${filedName}Select[i]!=""){
+								$("select[name='${filedName}']").append("<option selected value="+(i+1)+">"+${filedName}Select[i]+"</option>");
 							}
 						}
-						var checkValue="${value}";
-						$("select[name='${filedName}']").find("option[value="+checkValue+"]").attr("selected",true);
+						$("select[name='${filedName}']").val("${value}");
 				</script>				
 			<#break>
 			<#case "10">
