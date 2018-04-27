@@ -178,7 +178,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 			return;			
 		}
 		//验证搜索名称的值是否合法
-		if(!StringUtil.isBlank(search.getSearchName())){
+		if(StringUtil.isBlank(search.getSearchName())){
 			this.outJson(response, null, false, getResString("err.empty", this.getResString("search.name")));
 			return;			
 		}

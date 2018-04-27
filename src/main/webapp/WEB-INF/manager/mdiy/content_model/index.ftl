@@ -167,7 +167,10 @@
 					     			<@ms.notify msg= "更新成功!" type= "success" />
 					     		}
 					    	}else{
-					    		<@ms.notify msg= "系统繁忙,请稍后重试!" type= "danger" />
+					    		$('.ms-notifications').offset({top:43}).notify({
+					            type:'danger',
+					            message: { text:msg.resultMsg }
+					            }).show();
 					    	}
 					    	location.reload();
 						}});

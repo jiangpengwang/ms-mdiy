@@ -78,9 +78,9 @@
 				//回调处理方式
 				if(msg.result) {
 				    	$(".closeModal").click();
-						alert("删除成功");
+						<@ms.notify msg="删除成功" type= "success" />
 			    	} else {
-						alert("删除失败");
+						<@ms.notify msg= "删除失败！" type= "danger" />
 				    	$(".closeModal").click();
 			    	}
 			    	location.reload();
