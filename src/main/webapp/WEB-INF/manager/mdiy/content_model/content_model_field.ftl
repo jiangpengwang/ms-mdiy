@@ -76,14 +76,19 @@
 			<#break>
 			
 			<#case "8">
-				<@ms.formRow label="${name}">
-						<@ms.uploadFile path="article"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
+				<@ms.text name="${filedName}" label="${name}" width="300px;" value="${value}" title="${filedName}" readonly="readonly" />
+				<@ms.formRow >
+						<@ms.uploadFile path="article"  inputName="${filedName}" size="1"  msg="建议上传5M以下的文件,文件类型支持格式：zip、rar、doc、xls、xlsx、ppt、pptx、docx、txt、pdf " filetype="*.zip;*.rar;*.doc;*.xls;*.xlsx;*.ppt;*.pptx;*.docx;*.txt;*.pdf" maxSize="5" callBack="setFile${filedName}" isRename="false"/>
 				</@ms.formRow>
+				
 				<script>
-				 function test(e){
-            		isSuccess = true;
-					<@ms.notify msg= "文件上传成功" type= "success" />
-	   			}
+				 function setFile${filedName}(file){
+			   	   	if(file < 0){   
+			   	   		}else{  
+				   		<@ms.notify msg="上传成功!" type= "success" />  
+			   	   		$("input[name='${filedName}']").val(file);    	   
+			   	   	}
+   				}
 	   			</script>
 	   			
 			<#break>
