@@ -9,10 +9,10 @@
 	<@ms.panel>
 		<div id="toolbar">
 			<@ms.panelNav>
-				<@ms.buttonGroup>
-					<@ms.addButton id="addDictBtn"/>
-					<@ms.delButton id="delDictBtn"/>
-				</@ms.buttonGroup>
+				<@ms.panelNavBtnGroup>
+					<@shiro.hasPermission name="mdiy:dict:save"><@ms.panelNavBtnAdd title="" id="addDictBtn"/></@shiro.hasPermission> 
+					<@shiro.hasPermission name="mdiy:dict:del"><@ms.panelNavBtnDel title="" id="delDictBtn"/></@shiro.hasPermission> 
+				</@ms.panelNavBtnGroup>
 			</@ms.panelNav>
 		</div>
 		<table id="dictList" 
@@ -52,8 +52,13 @@
 				        	field: 'dictLabel',
 				        	title: '标签名',
 				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/dict/form.do?dictId="+row.dictId;
+				        		<@shiro.hasPermission name="mdiy:dict:update">	        
+						        	var url = "${managerPath}/mdiy/dict/form.do?dictId="+row.dictId;
 				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
+					    		</@shiro.hasPermission> 
+					    		<@shiro.lacksPermission name="mdiy:dict:update">
+					    			return value;
+					    		</@shiro.lacksPermission> 
 				        	}
 				    	},{
 				        	field: 'dictSort',

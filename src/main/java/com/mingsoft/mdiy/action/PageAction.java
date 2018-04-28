@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.ModelMap;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -153,6 +154,7 @@ public class PageAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
+	@RequiresPermissions("mdiy:page:save")
 	public void save(@ModelAttribute PageEntity page, HttpServletResponse response, HttpServletRequest request) {
 		page.setPageAppId(BasicUtil.getAppId());
 		//验证应用id的值是否合法			
@@ -208,6 +210,7 @@ public class PageAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+	@RequiresPermissions("mdiy:page:del")
 	public void delete(@RequestBody List<PageEntity> pages,HttpServletResponse response, HttpServletRequest request) {
 		int[] ids = new int[pages.size()];
 		for(int i = 0;i<pages.size();i++){
@@ -238,7 +241,8 @@ public class PageAction extends com.mingsoft.mdiy.action.BaseAction{
 	 * }</dd><br/>
 	 */
 	@RequestMapping("/update")
-	@ResponseBody	 
+	@ResponseBody	
+	@RequiresPermissions("mdiy:page:update")
 	public void update(@ModelAttribute PageEntity page, HttpServletResponse response,
 			HttpServletRequest request) {
 		//验证自定义页面绑定模板的路径的值是否合法			

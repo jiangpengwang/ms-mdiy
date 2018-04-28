@@ -10,8 +10,8 @@
 		<div id="toolbar">
 			<@ms.panelNav>
 				<@ms.buttonGroup>
-					<@ms.addButton id="addContentModelBtn"/>
-					<@ms.delButton id="delContentModelBtn"/>
+					<@shiro.hasPermission name="mdiy:content:save"><@ms.addButton id="addContentModelBtn"/></@shiro.hasPermission>
+					<@shiro.hasPermission name="mdiy:content:del"><@ms.delButton id="delContentModelBtn"/></@shiro.hasPermission>
 				</@ms.buttonGroup>
 			</@ms.panelNav>
 		</div>
@@ -61,14 +61,26 @@
 				        	field: 'cmTipsName',
 				        	title: '模型名称',
 				        	formatter:function(value,row,index) {
-				        		return "<a style='cursor:pointer;text-decoration:none;' onclick='editModel("+row.cmId+")'>" + value + "</a>";
+				        		<@shiro.hasPermission name="mdiy:content:update">	        
+						        	return "<a style='cursor:pointer;text-decoration:none;' onclick='editModel("+row.cmId+")'>" + value + "</a>";
+					    		</@shiro.hasPermission> 
+					    		<@shiro.lacksPermission name="mdiy:content:update">
+					    			return value;
+					    		</@shiro.lacksPermission> 
+				        		
 				        	}
 				    	},{
 				        	field: 'cmTableName',
 				        	title: '模型表名',
 				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/contentModel/contentModelField/"+row.cmId+"/list.do";
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
+				        		<@shiro.hasPermission name="mdiy:content:update">	        
+						        	var url = "${managerPath}/mdiy/contentModel/contentModelField/"+row.cmId+"/list.do";
+				        			return "<a href=" +url+ " target='_self'>" + value + "</a>";
+					    		</@shiro.hasPermission> 
+					    		<@shiro.lacksPermission name="mdiy:content:update">
+					    			return value;
+					    		</@shiro.lacksPermission> 
+				        		
 				        	}
 				    	}]
 	    })

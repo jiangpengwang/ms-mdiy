@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.ModelMap;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -194,6 +195,7 @@ public class DictAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@PostMapping("/save")
 	@ResponseBody
+	@RequiresPermissions("mdiy:dict:save")
 	public void save(@ModelAttribute DictEntity dict, HttpServletResponse response, HttpServletRequest request) {
 		dict.setAppId(BasicUtil.getAppId());
 		dictBiz.saveEntity(dict);
@@ -213,6 +215,7 @@ public class DictAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+	@RequiresPermissions("mdiy:dict:del")
 	public void delete(@RequestBody List<DictEntity> dicts,HttpServletResponse response, HttpServletRequest request) {
 		int[] ids = new int[dicts.size()];
 		for(int i = 0;i<dicts.size();i++){
@@ -259,7 +262,8 @@ public class DictAction extends com.mingsoft.mdiy.action.BaseAction{
 	 * }</dd><br/>
 	 */
 	@PostMapping("/update")
-	@ResponseBody	 
+	@ResponseBody
+	@RequiresPermissions("mdiy:dict:update")
 	public void update(@ModelAttribute DictEntity dict, HttpServletResponse response,
 			HttpServletRequest request) {
 		dictBiz.updateEntity(dict);

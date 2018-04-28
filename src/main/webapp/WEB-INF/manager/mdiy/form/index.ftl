@@ -10,8 +10,8 @@
 		<div id="toolbar">
 			<@ms.panelNav>
 				<@ms.buttonGroup>
-					<@ms.addButton id="addFormBtn"/>
-					<@ms.delButton id="delFormBtn"/>
+					<@shiro.hasPermission name="mdiy:form:save"><@ms.addButton id="addFormBtn"/></@shiro.hasPermission>
+					<@shiro.hasPermission name="mdiy:form:del"><@ms.delButton id="delFormBtn"/></@shiro.hasPermission>
 				</@ms.buttonGroup>
 			</@ms.panelNav>
 		</div>
@@ -46,14 +46,21 @@
 	    	columns: [{ checkbox: true},
 				    	{
 				        	field: 'formId',
+				        	align: 'center',
 				        	title: '编号'
 				        	
 				    	},{
 				        	field: 'formTipsName',
 				        	title: '名称',
 				        	formatter:function(value,row,index) {
-				        		var url = "${managerPath}/mdiy/form/form.do?formId="+row.formId;
-				        		return "<a href=" +url+ " target='_self'>" + value + "</a>";
+				        		<@shiro.hasPermission name="mdiy:form:update">	        
+						        	var url = "${managerPath}/mdiy/form/form.do?formId="+row.formId;
+				        			return "<a href=" +url+ " target='_self'>" + value + "</a>";
+					    		</@shiro.hasPermission> 
+					    		<@shiro.lacksPermission name="mdiy:form:update">
+					    			return value;
+					    		</@shiro.lacksPermission> 
+				        		
 				        	}
 				    	},{
 				        	field: 'formTipsName',
