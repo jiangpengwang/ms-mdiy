@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -152,6 +153,7 @@ public class ContentModelAction extends BaseAction{
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+	@RequiresPermissions("mdiy:content:del")
 	public void delete(@RequestBody List<ContentModelEntity> contentModels,HttpServletResponse response, HttpServletRequest request) {
 		for(int i = 0;i<contentModels.size();i++){
 			if(contentModels.size()>0){
@@ -173,6 +175,7 @@ public class ContentModelAction extends BaseAction{
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
+	@RequiresPermissions("mdiy:content:save")
 	public void save(@ModelAttribute ContentModelEntity contentModel,HttpServletRequest request, HttpServletResponse response){
 		contentModel.setAppId(BasicUtil.getAppId());
 		// 保存前判断数据是否合法
@@ -214,6 +217,7 @@ public class ContentModelAction extends BaseAction{
 	 */
 	@RequestMapping("/update")
 	@ResponseBody
+	@RequiresPermissions("mdiy:content:update")
 	public void update(@ModelAttribute ContentModelEntity contentModel,HttpServletRequest request, HttpServletResponse response){
 		// 保存前判断数据是否合法
 		if(!StringUtil.checkLength(contentModel.getCmTipsName(), 1,30)){

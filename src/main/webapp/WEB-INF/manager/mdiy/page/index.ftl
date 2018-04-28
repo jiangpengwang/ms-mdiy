@@ -24,8 +24,8 @@
 		<div id="toolbar">
 			<@ms.panelNav>
 				<@ms.buttonGroup>
-					<@ms.addButton id="addPageBtn"/>
-					<@ms.delButton id="delPageBtn"/>
+					<@shiro.hasPermission name="mdiy:page:save"><@ms.addButton id="addPageBtn"/></@shiro.hasPermission>
+					<@shiro.hasPermission name="mdiy:page:del"><@ms.delButton id="delPageBtn"/></@shiro.hasPermission>
 				</@ms.buttonGroup>
 			</@ms.panelNav>
 		</div>
@@ -88,7 +88,12 @@
 				        	field: 'pageTitle',
 				        	title: '标题',
 				        	formatter:function(value,row,index) {
-				        		return "<a style='cursor:pointer;text-decoration:none;' onclick='editPage("+row.pageId+")'>" + value + "</a>";
+				        		<@shiro.hasPermission name="mdiy:page:update">	        
+						        	return "<a style='cursor:pointer;text-decoration:none;' onclick='editPage("+row.pageId+")'>" + value + "</a>";
+					    		</@shiro.hasPermission> 
+					    		<@shiro.lacksPermission name="mdiy:page:update">
+					    			return value;
+					    		</@shiro.lacksPermission> 
 				        	}
 				    	},{
 				        	field: 'pagePath',

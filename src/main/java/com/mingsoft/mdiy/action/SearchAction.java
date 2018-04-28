@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -167,6 +169,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@PostMapping("/save")
 	@ResponseBody
+	@RequiresPermissions("mdiy:search:save")
 	public void save(@ModelAttribute SearchEntity search, HttpServletResponse response, HttpServletRequest request) {
 		//验证搜索类型的值是否合法			
 		if(StringUtil.isBlank(search.getSearchType())){
@@ -204,6 +207,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+	@RequiresPermissions("mdiy:search:del")
 	public void delete(@RequestBody List<SearchEntity> searchs,HttpServletResponse response, HttpServletRequest request) {
 		int[] ids = new int[searchs.size()];
 		for(int i = 0;i<searchs.size();i++){
@@ -233,6 +237,7 @@ public class SearchAction extends com.mingsoft.mdiy.action.BaseAction{
 	 */
 	@PostMapping("/update")
 	@ResponseBody	 
+	@RequiresPermissions("mdiy:search:update")
 	public void update(@ModelAttribute SearchEntity search, HttpServletResponse response,
 			HttpServletRequest request) {
 		//验证搜索类型的值是否合法			

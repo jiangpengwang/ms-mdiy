@@ -18,8 +18,8 @@
 		<div id="toolbar">
 			<@ms.panelNav>
 				<@ms.buttonGroup>
-					<@ms.addButton openModal="searchModal"/>
-					<@ms.delButton id="delSearchBtn"/>
+					<@shiro.hasPermission name="mdiy:search:save"><@ms.addButton openModal="searchModal"/></@shiro.hasPermission>
+					<@shiro.hasPermission name="mdiy:search:del"><@ms.delButton id="delSearchBtn"/></@shiro.hasPermission>
 				</@ms.buttonGroup>
 				<@ms.button id="setUp" value="高级设置"/>
 			</@ms.panelNav>
@@ -91,7 +91,12 @@
 		        	title: '搜索名称',
 		        	width:'20',
 		        	formatter:function(value,row,index) {
-		        		return "<a onclick='updateSearch("+row.searchId+")' style='cursor:pointer;text-decoration:none;' >" + value + "</a>";
+		        		<@shiro.hasPermission name="mdiy:search:update">	        
+						        	return "<a onclick='updateSearch("+row.searchId+")' style='cursor:pointer;text-decoration:none;' >" + value + "</a>";
+			    		</@shiro.hasPermission> 
+			    		<@shiro.lacksPermission name="mdiy:search:update">
+			    			return value;
+			    		</@shiro.lacksPermission> 
 		        	}
 		    	},{
 		        	field: 'searchTemplets',

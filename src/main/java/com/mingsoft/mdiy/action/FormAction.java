@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.ModelMap;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -219,6 +220,7 @@ public class FormAction extends BaseAction{
 	 * }</dd><br/>
 	 */
 	@RequestMapping("/save")
+	@RequiresPermissions("mdiy:form:save")
 	public void save(@ModelAttribute FormEntity form,HttpServletRequest request, HttpServletResponse response){
 		// 更新前判断数据是否合法
 		if(!StringUtil.checkLength(form.getFormTableName(), 1,20)){
@@ -288,6 +290,7 @@ public class FormAction extends BaseAction{
 	 * }</dd><br/>
 	 */
 	@RequestMapping("/update")
+	@RequiresPermissions("mdiy:form:update")
 	public void update(@ModelAttribute FormEntity form, HttpServletResponse response,HttpServletRequest request){
 		// 更新前判断数据是否合法
 		if(!StringUtil.checkLength(form.getFormTableName(), 1,20)){
@@ -376,6 +379,7 @@ public class FormAction extends BaseAction{
 	 */
 	@RequestMapping("/{diyFormId}/{id}/delete")
 	@ResponseBody
+	@RequiresPermissions("mdiy:form:del")
 	public void delete(@PathVariable("id") int id,@PathVariable("diyFormId") int diyFormId,HttpServletRequest request,HttpServletResponse response)  {
 		formBiz.deleteQueryDiyFormData(id, diyFormId);
 		this.outJson(response, null, true);
